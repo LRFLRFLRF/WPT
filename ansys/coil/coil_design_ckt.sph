@@ -1,0 +1,21 @@
+* 1;coil_design_ckt.ckt
+* Project: E:/Desktop/WPT/ansys/coil/coil_design.aedt
+* Design: coil_design_ckt
+
+*BeginParamDef
+*EndParamDef
+
+
+*begin toplevel circuit
+R30 net_5 net_8 2.192
+R29 net_4 net_2 2.192
+LA-Phase net_6 0 1 Winding
+LC-Phase net_2 0 1 Winding
+LB-Phase net_8 0 1 Winding
+V32 net_4 0 SIN (0 310 1000000 0 0 240 0) 
+V34 net_7 0 SIN (0 310 1000000 0 0 0 0) 
+V33 net_5 0 SIN (0 310 1000000 0 0 120 0) 
+R31 net_7 net_6 2.192
+
+*end toplevel circuit
+.end
