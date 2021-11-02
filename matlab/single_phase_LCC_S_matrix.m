@@ -2,7 +2,7 @@ function [RES] = single_phase_LCC_S_matrix()
           %%  基于L1/Lp的
 %%
 
-syms RE L1 Cpp Cps Lp w m Css Ls w0 wn r Q RL k real%创建实数符号变量
+syms R1 R2 RE L1 Cpp Cps Lp w m Css Ls w0 wn r Q RL k real%创建实数符号变量
 syms Ir Ip Is Uin zin Uo
 %% 元件阻抗
 %元件阻抗
@@ -44,7 +44,7 @@ Css_d = subs(Css_d, Ls, Ls_d);    %把Ls替换成Q表示
 
 
 %% 回路电流法
-z_m = [zL1+zCpp, -zCpp, 0; -zCpp, zCps+zLp+zCpp, -1i*w*m; 0, -1i*w*m, zCss+zLs+RL];
+z_m = [R1+zL1+zCpp, -zCpp, 0; -zCpp, zCps+zLp+zCpp, -1i*w*m; 0, -1i*w*m, zCss+zLs+RL+R2];
 i_m = [Ir; Ip; Is];
 u_m = [Uin; 0; 0];
 
