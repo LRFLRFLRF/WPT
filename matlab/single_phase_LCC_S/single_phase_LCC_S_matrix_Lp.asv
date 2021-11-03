@@ -1,4 +1,4 @@
-function [RES] = single_phase_LCC_S_matrix()
+function [RES] = single_phase_LCC_S_matrix_Lp()
           %%  基于L1/Lp的
 %%
 
@@ -16,18 +16,16 @@ zCss = 1/(1i*w*Css);
 %% 电路变量定义    自变量 w0, wn, r, Q, RL, k
 % 定义归一化频率  wn = w/w0
 w_d = wn*w0;
-% 定义Q值     Q = w*L1/RL;
-L1_d = Q*RL/(w);
-L1_d = subs(L1_d, w, w_d);     %把w替换成wn w0表示
 % 定义电感比  r = L1/Lp
-Lp_d = L1/r;
-Lp_d = subs(Lp_d, [w, L1], [w_d, L1_d]);     %把w替换成wn w0表示
+L1_d = Lp*r;
+L1_d = subs(L1_d, [w], [w_d]);     %把w替换成wn w0表示
 % 定义二次侧电感值Ls       Ls = Lp    也可修改成一个具体数值
 Ls_d = Lp_d;
 % 定义互感系数
 k_d = k;
 m_d = k*sqrt(Lp*Ls);
 m_d = subs(m_d, [k, Lp, Ls], [k_d, Lp_d, Ls_d]);
+
 
 %% 确立谐振条件
 %  Cpp与L1谐振             w0 = 1/sqrt(L1*Cpp);
@@ -67,7 +65,7 @@ Is_d = simplify(subs(Is_d, [m], [m_d]));
 Ir_d = i_m.Ir;
 Ir_d = simplify(subs(Ir_d, [L1, Lp, Ls, w], [L1_d, Lp_d, Ls_d, w_d]));
 Ir_d = simplify(subs(Ir_d, [Cpp, Cps, Css, w], [Cpp_d, Cps_d, Css_d,w_d]));
-Ir_d = simplify(subs(Ir_d, [m], [m_d]))
+Ir_d = simplify(subs(Ir_d, [m], [m_d]));
 
 % 输入电阻
 zin = Uin/Ir;
@@ -86,7 +84,7 @@ Po = simplify(subs(Po, [Is], [Is_d]));
 pretty(Po);
 
 %% 结果回调
-RES = struct('L1', {L1_d}, 'Lp', {Lp_d},'Ls', {Ls_d},'Cpp', {Cpp_d},'Cps', {Cps_d},'Css', {Css_d},'zin', {zin}, 'Gu', {Gu}, 'Po', {Po})
+RES = struct('L1', {L1_d}, 'Lp', {Lp_d},'Ls', {Ls_d},'Cpp', {Cpp_d},'Cps', {Cps_d},'Css', {Css_d},'zin', {zin}, 'Gu', {Gu}, 'Po', {Po});
 
 end
 

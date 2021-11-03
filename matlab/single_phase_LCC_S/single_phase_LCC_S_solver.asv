@@ -11,8 +11,8 @@ Q_d = 0.1;    % Q值
 RL_d = 50;   % 二次侧输出负载
 w0_d = 2*pi*100E+3;     % 固有谐振频率
 wn_d = 1;         % 实际工作频率与固有谐振频率比值
-k_d = 0.623;      %互感
-Lp_d = 17.67E-6;    %初级线圈电感量
+k_d = 0.65;      %互感
+Lp_d = 175E-6;    %初级线圈电感量
 R1_d = 0.5;     %一次侧导线电阻
 R2_d = 0.5;     %二次侧导线电阻
 
@@ -22,32 +22,32 @@ p_l = [Uin, r, Q, RL, w0, wn, k, Lp, R1, R2];
 newp_l = [Uin_d, r_d, Q_d, RL_d, w0_d, wn_d, k_d, Lp_d, R1_d, R2_d];
 
 %% 求解电路  Q为输入变量    仅含w0, wn, r, Q, RL, k
-%res = single_phase_LCC_S_matrix_Q();
+res = single_phase_LCC_S_matrix_Q();
 
 %% 求解电路  Lp为输入变量    仅含w0, wn, r, Lp, RL, k
-res = single_phase_LCC_S_matrix_Lp();
+%res = single_phase_LCC_S_matrix_Lp();
 
 %% 带入设定变量
 L1 =res.L1
-L1 = vpa(simplify(subs(res.L1, p_l, newp_l)), 4)
+L1 = vpa(simplify(subs(res.L1, par.Par, par.newPar)), 4)
 Lp =res.Lp
-Lp = vpa(simplify(subs(res.Lp, p_l, newp_l)), 4)
+Lp = vpa(simplify(subs(res.Lp, par.Par, par.newPar)), 4)
 Ls = res.Ls
-Ls = vpa(simplify(subs(res.Ls, p_l, newp_l)), 4)
+Ls = vpa(simplify(subs(res.Ls, par.Par, par.newPar)), 4)
 Cpp = res.Cpp
-Cpp = vpa(simplify(subs(res.Cpp, p_l, newp_l)), 4)
+Cpp = vpa(simplify(subs(res.Cpp, par.Par, par.newPar)), 4)
 Cps = res.Cps
-Cps = vpa(simplify(subs(res.Cps, p_l, newp_l)), 4)
+Cps = vpa(simplify(subs(res.Cps, par.Par, par.newPar)), 4)
 Css = res.Css
-Css = vpa(simplify(subs(res.Css, p_l, newp_l)), 4)
+Css = vpa(simplify(subs(res.Css, par.Par, par.newPar)), 4)
 zin = res.zin
-zin = vpa(simplify(subs(res.zin, p_l, newp_l)), 4)
+zin = vpa(simplify(subs(res.zin, par.Par, par.newPar)), 4)
 Gu = res.Gu
 Gu = simplify(subs(res.Gu, [R1, R2], [0, 0]))   % 忽略R1 R2影响  以简化表达式
-Gu = vpa(simplify(subs(res.Gu, p_l, newp_l)), 4)
+Gu = vpa(simplify(subs(res.Gu, par.Par, par.newPar)), 4)
 Po = res.Po
 Po = simplify(subs(res.Po, [R1, R2], [0, 0]))   % 忽略R1 R2影响  以简化表达式
-Po = vpa(simplify(subs(res.Po, p_l, newp_l)), 4)
+Po = vpa(simplify(subs(res.Po, par.Par, par.newPar)), 4)
 
 %% 输入阻抗 zin 幅值 - 频率 随频率 wn 变换绘图   （Q变化）
 func = abs(res.zin);
