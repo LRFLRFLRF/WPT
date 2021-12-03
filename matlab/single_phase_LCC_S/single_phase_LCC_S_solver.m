@@ -13,8 +13,8 @@ w0_d = 2*pi*100E+3;     % 固有谐振频率
 wn_d = 1;         % 实际工作频率与固有谐振频率比值
 k_d = 0.623;      %互感
 Lp_d = 17.67E-6;    %初级线圈电感量
-R1_d = 0.5;     %一次侧导线电阻
-R2_d = 0.5;     %二次侧导线电阻
+R1_d = 0;     %一次侧导线电阻
+R2_d = 0;     %二次侧导线电阻
 
 % 变量名列表
 p_l = [Uin, r, Q, RL, w0, wn, k, Lp, R1, R2];
@@ -48,6 +48,10 @@ Gu = vpa(simplify(subs(res.Gu, p_l, newp_l)), 4)
 Po = res.Po
 Po = simplify(subs(res.Po, [R1, R2], [0, 0]))   % 忽略R1 R2影响  以简化表达式
 Po = vpa(simplify(subs(res.Po, p_l, newp_l)), 4)
+
+%% 输入阻抗 zin 幅值 - 频率 随频率 k 变换绘图   （Q变化）
+func = abs(res.zin);
+single_phase_LCC_S_parmamer_plot(func, Q, [0.2, 0.4], k, [0.1, 1], 100, p_l, newp_l);   
 
 %% 输入阻抗 zin 幅值 - 频率 随频率 wn 变换绘图   （Q变化）
 func = abs(res.zin);

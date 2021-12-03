@@ -2,8 +2,11 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/ansys/Omnidirection/COIL.aedtresults" />
+      <excludeFolder url="file://$MODULE_DIR$/ansys/Omnidirection/coil1.aedtresults" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/coil/coil_design.aedt.batchinfo" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/coil/coil_design.aedtresults" />
+      <excludeFolder url="file://$MODULE_DIR$/ansys/coil_fast/coil_new.aedtresults" />
       <excludeFolder url="file://$MODULE_DIR$/开题" />
       <excludeFolder url="file://$MODULE_DIR$/文献" />
       <excludeFolder url="file://$MODULE_DIR$/设计手册" />
