@@ -28,16 +28,16 @@ B_sum = simplify(subs(B_sum, t, t1));
 
 %%  计算互感磁通
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-rec = [s-d-L1, h, s-d, h; s+d, h, s+d+L1, h; s-L2/2, h, s+L2/2, h;];   %接收线圈的3个部分的位置
-
+%rec = [s-d-L1, h, s-d, h; s+d, h, s+d+L1, h; s-L2/2, h, s+L2/2, h;];   %接收线圈的3个部分的位置
+rec = [s-L2/2, h, s+L2/2, h;];
 Fi = int(B_sum, X);
 
 [r,c] = size(rec);
 F = [];
 for i = 1:r
-    t = [X, Y];
-    t1 = [rec(i, 3), h_d];
-    t2 = [rec(i, 1), h_d];
+    t = [X];
+    t1 = [rec(i, 3)];
+    t2 = [rec(i, 1)];
     F = [F;simplify(subs(Fi, t, t1) - subs(Fi, t, t2));];
 end
 
@@ -106,21 +106,21 @@ F = vpa(simplify(sum(F)),4)
 %% 发射线圈平移时互感磁通计算
 
 % 发射线圈参数值设置
-m_d = 7;
-n_d = 40;
+m_d = 9;
+n_d = 34;
 u0_d= 4*pi*10^-7;
 F = vpa(simplify(subs(F, [m, n, u0], [m_d, n_d, u0_d])), 4);
 
 % 接收线圈参数值设置
 L1_d = 10;
-L2_d = 70;
+L2_d = 60;
 h_d = 15;
 d_d = 6;
 
 %%作图
 figure();
 x_lim = [0, 30];
-resol = 20;
+resol = 40;
 resolution = (x_lim(2)-x_lim(1))/resol;
 x_list = x_lim(1):resolution:x_lim(2);
 y_list = [];
@@ -131,8 +131,7 @@ for j=x_list
     y_list = [y_list, subs(F, t, t1)];
 end
 plot(x_list, y_list);
-max(max(a))
-%ylim([0 *1.1]);
+%ylim([0 3E-7]);
 
 
 
