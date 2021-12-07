@@ -11,12 +11,17 @@ send = [a1, 0.5; a2, 0.5; a3, 0.5; a4, 0.5;];
 I = [i0; -1*i0; i0; -1*i0;];
 
 %%沿x轴复制一组发射线圈
-% send_copy = send;   %一组四根导线的坐标
-% send_copy(:,1) = send_copy(:,1)+d+2*n;    %第二组导线坐标 
-% send = [send; send_copy;]; 
-% I = [I; I;];
+send_copy = send;   %一组四根导线的坐标
+send_copy(:,1) = send_copy(:,1)+d+2*n;    %第二组导线坐标 
+send = [send; send_copy;]; 
 
+send_copy(:,1) = send_copy(:,1)+d+2*n;    %第三组导线坐标
+send = [send; send_copy;]; 
 
+send_copy(:,1) = send_copy(:,1)+d+2*n;    %第四组导线坐标
+send = [send; send_copy;]; 
+
+I = [I; I;I;I;];
 
 [r,c] = size(send);
 B = [];
@@ -24,19 +29,16 @@ for j = 1:r
     %%每次循环计算一根导体
     
     %%原始导体对发射铁氧体的B场计算
-    [bi, I_j, I_f] = single_point_solver(u0, u0*ur, 0.5, send(j, 1), send(j, 2), I(j, 1));
+    [bi, I_j] = single_point_solver(u0, u0*ur, 0.5, send(j, 1), send(j, 2), I(j, 1));
     B = [B; bi];
     
     %原始导体对接受铁氧体的B场计算
-    bi = single_point_solver(u0, u0*ur, 0.5-15, send(j, 1), send(j, 2), I(j, 1)); 
+    bi = single_point_solver(u0, u0*ur, 0.5-15, send(j, 1), send(j, 2), I(j, 1));   %电流为原始导体的电流
     B = [B; bi];
     %镜像导体对接受铁氧体的B场计算
     sendj = send;
     sendj(:,2) = sendj(:,2)-2*0.5;
-    bi = single_point_solver(u0, u0*ur, -0.5-15, sendj(j, 1), sendj(j, 2), I_j);
-    B = [B; bi];
-    %附加导体对接受铁氧体的B场计算
-    bi = single_point_solver(u0, u0*ur, 0.5-15, send(j, 1), send(j, 2), I_f);
+    bi = single_point_solver(u0, u0*ur, -0.5-15, sendj(j, 1), sendj(j, 2), I_j);    %电流为对发射铁氧体的镜相电流
     B = [B; bi];
 end
 B_sum = sum(B); 
@@ -80,14 +82,14 @@ u0_d= 4*pi*10^-7;
 ur_d = 1000;
 F_temp = vpa(simplify(subs(F, [m, n, u0, ur], [m_d, n_d, u0_d, ur_d])), 4);
 % 接收线圈参数值设置
-L2_d = 60;
+L2_d = 30;
 h_d = 15;
 d_d = 10;
 
 %%作图
 figure();
-x_lim = [0, 68];
-resol = 80;
+x_lim = [-34, 300];
+resol = 100;
 resolution = (x_lim(2)-x_lim(1))/resol;
 x_list = x_lim(1):resolution:x_lim(2);
 y_list = [];
@@ -95,7 +97,7 @@ for j=x_list
     s_d = j;
     t = [s, L2, d, Y, h];
     t1 = [s_d, L2_d, d_d, h_d, h_d];
-    y_list = [y_list, subs(F_temp, t, t1)/2];
+    y_list = [y_list, subs(F_temp, t, t1)];
 end
 plot(x_list, y_list);
 %ylim([0 2.6E-6]);
