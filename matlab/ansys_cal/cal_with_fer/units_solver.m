@@ -36,7 +36,7 @@ end
 single_B = simplify(sum(B))    %single_B ： 单组发射线圈的B场计算公式
 
 %% 不同多组发射线圈按不同位置放置
-par_number = 8; %要放置的组数
+par_number = 4; %要放置的组数
 
 B = [];
 for i = 1:par_number

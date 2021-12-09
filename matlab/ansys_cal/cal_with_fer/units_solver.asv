@@ -1,10 +1,9 @@
-
-function units_solver
+clc;
 
 %坐标XY   磁导率u0 相对磁导率ur  接收线圈距x轴距离h 
 syms X Y u0 ur h
 syms i0
-syms ps_x ps_y s rr rs   %第一组发射线圈中心位置坐标  xy    
+syms ps_x ps_y s rr rs offset   %第一组发射线圈中心位置坐标  xy    
 
 zu_width = 20;
 
@@ -37,12 +36,12 @@ end
 single_B = simplify(sum(B))    %single_B ： 单组发射线圈的B场计算公式
 
 %% 不同多组发射线圈按不同位置放置
-par_number = 2; %要放置的组数
+par_number = 4; %要放置的组数
 
 B = [];
 for i = 1:par_number
     %%根据单组的B场公式，循环计算多组的B
-    ps_x_d = i*zu_width - zu_width/2;  % 每组线圈的中心坐标
+    ps_x_d = i*zu_width - zu_width/2 + offset;  % 每组线圈的中心坐标
     t = [ps_x];
     t1 = [ps_x_d];
     B_temp = subs(single_B, t, t1);

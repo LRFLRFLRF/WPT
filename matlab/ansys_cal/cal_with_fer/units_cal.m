@@ -7,26 +7,26 @@
 offset_d = 0;    %发射线圈位置没有偏移
 ps_y_d = 0.5;
 u0_d= 4*pi*10^-7;    % 真空磁导率
-ur_d = 1;         %铁氧体相对磁导率
+ur_d = 1000;         %铁氧体相对磁导率
 rs_d = 9;         %发射线圈半径
 i0_d= 1;     
 F_temp1 = vpa(simplify(subs(F, [offset, ps_y, u0, ur, rs, i0], [offset_d, ps_y_d, u0_d, ur_d, rs_d, i0_d])), 4);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%第二相线圈
 %发射线圈参数值设置
-offset_d = 0;    %发射线圈位置没有偏移  
+offset_d = 0;    %发射线圈位置与A相对齐
 ps_y_d = 0.5;
 u0_d= 4*pi*10^-7;    % 真空磁导率
-ur_d = 1;         %铁氧体相对磁导率
+ur_d = 1000;         %铁氧体相对磁导率
 rs_d = 1;         %发射线圈半径
 i0_d= -1;     
 F_temp2 = vpa(simplify(subs(F, [offset, ps_y, u0, ur, rs, i0], [offset_d, ps_y_d, u0_d, ur_d, rs_d, i0_d])), 4);
-
+%F_temp2 = 0;
 F_temp = F_temp1 + F_temp2;  %两相总体磁通
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 接收线圈参数值设置
-rr_d = 5;
-h_d = 15;
+rr_d = 2;
+h_d = 10;
 F_temp = vpa(simplify(subs(F_temp, [rr, h, Y], [rr_d, h_d, h_d])), 4);
 
 
