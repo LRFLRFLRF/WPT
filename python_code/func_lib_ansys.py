@@ -14,6 +14,22 @@ class Maxwell:
         self.BoundaryoModule = self.oDesign.GetModule("BoundarySetup")
         self.AnalysisoModule = self.oDesign.GetModule("AnalysisSetup")
         self.ParameteroModule = self.oDesign.GetModule("MaxwellParameterSetup")
+        self.OptiParaoModule = self.oDesign.GetModule("Optimetrics")
+        self.ReportoModule = self.oDesign.GetModule("ReportSetup")
+
+    def AnalyzeAll_maxwell(self):
+        self.oDesign.AnalyzeAll()
+
+    def CreateReport_maxwell(self, sweep_var, XC, YC, plot_name):
+        self.ReportoModule.CreateReport("L "+plot_name, "Magnetostatic", "Rectangular Plot", "Setup1 : LastAdaptive", [],
+                             [
+                                 sweep_var+":="		, ["All"]
+                             ],
+                             [
+                                 "X Component:="		, XC,
+                                 "Y Component:="		, ["Matrix1.L(rec1,Group1)"]
+                             ], [])
+
 
     def rename_maxwell(self, odd_name, new_name):
         self.oEditor.ChangeProperty(
@@ -51,12 +67,12 @@ class Maxwell:
             name_str = ''
             for j in range(len(group_list[i])):
                 name_str = name_str + group_list[i][j]
-                if j != len(group_list[i])-1:
+                if j != len(group_list[i]) - 1:
                     name_str = name_str + ","
 
             Group.append(["NAME:MatrixGroup",
                           "GroupName:=",
-                          "Group"+str(i+1),
+                          "Group" + str(i + 1),
                           "NumberOfBranches:=",
                           "1",
                           "Sources:=",
@@ -73,6 +89,45 @@ class Maxwell:
                 ]
             ])
 
+    def OptiParametricSetup_maxwell(self, sweep_list, sweep_set):
+        sweep = []
+        sweep.append("NAME:Sweeps")
+        for i in range(len(sweep_list)):
+            sweep.append(["NAME:SweepDefinition",
+                          "Variable:=",
+                          sweep_list[i],
+                          "Data:=",
+                          "LIN " + str(sweep_set[i][0]) + ' ' + str(sweep_set[i][1]) + ' ' + str(sweep_set[i][2]),
+                          "OffsetF1:=",
+                          False,
+                          "Synchronize:=",
+                          0])
+
+        self.OptiParaoModule.InsertSetup("OptiParametric",
+                                         [
+                                             "NAME:ParametricSetup1",
+                                             "IsEnabled:=", True,
+                                             [
+                                                 "NAME:ProdOptiSetupDataV2",
+                                                 "SaveFields:=", False,
+                                                 "CopyMesh:=", False,
+                                                 "SolveWithCopiedMeshOnly:=", True
+                                             ],
+                                             [
+                                                 "NAME:StartingPoint"
+                                             ],
+                                             "Sim. Setups:=", ["Setup1"],
+                                             [
+                                                 sweep
+                                             ],
+                                             [
+                                                 "NAME:Sweep Operations"
+                                             ],
+                                             [
+                                                 "NAME:Goals"
+                                             ]
+                                         ])
+
     def assignCurrent_maxwell(self, ob_name, I_set, direction):
         self.BoundaryoModule.AssignCurrent(
             [
@@ -83,7 +138,7 @@ class Maxwell:
                 "Point out of terminal:=", direction
             ])
 
-    def InsertSetup_maxwell(self):
+    def AnalysisSetup_maxwell(self):
         self.AnalysisoModule.InsertSetup("Magnetostatic",
                                          [
                                              "NAME:Setup1",
@@ -105,7 +160,11 @@ class Maxwell:
                                              ]
                                          ])
 
-    def createBox_maxwell(self, XP, YP, ZP, XS, YS, ZS, name):
+    def createBox_maxwell(self, XP, YP, ZP, XS, YS, ZS, name, mater):
+        if mater == 'vacuum':
+            Transparency = 1
+        else:
+            Transparency = 0
         self.oEditor.CreateBox(
             [
                 "NAME:BoxParameters",
@@ -121,10 +180,10 @@ class Maxwell:
                 "Name:=", name,
                 "Flags:=", "",
                 "Color:=", "(143 175 143)",
-                "Transparency:=", 0,
+                "Transparency:=", Transparency,
                 "PartCoordinateSystem:=", "Global",
                 "UDMId:=", "",
-                "MaterialValue:=", "\"copper\"",
+                "MaterialValue:=", "\"" + mater + "\"",
                 "SurfaceMaterialValue:=", "\"\"",
                 "SolveInside:=", True,
                 "IsMaterialEditable:=", True,
@@ -164,6 +223,20 @@ class Maxwell:
             ],
             [
                 "CreateGroupsForNewObjects:=", False
+            ])
+
+    def Move_maxwell(self, TX, TY, TZ, ob):
+        self.oEditor.Move(
+            [
+                "NAME:Selections",
+                "Selections:="	, ob,
+                "NewPartsModelFlag:="	, "Model"
+            ],
+            [
+                "NAME:TranslateParameters",
+                "TranslateVectorX:="	, TX,
+                "TranslateVectorY:="	, TY,
+                "TranslateVectorZ:="	, TZ
             ])
 
     def section_maxwell(self, ob):

@@ -100,6 +100,22 @@ maxwell.oDesign.ChangeProperty(
         ]
     ])
 
+
+################################################################
+################################创建vacuum
+# 选定坐标系
+maxwell.SetWCS_maxwell("Global")
+
+# 创建vacuum
+maxwell.createBox_maxwell(str(-20) + " cm",
+                          str(-20) + " cm",
+                          str(-20) + " cm",
+                          str(150) + " cm",
+                          str(150) + " cm",
+                          str(150) + " cm",
+                          'vacuum',
+                          'vacuum')
+
 ################################################################
 ################################创建send1线圈 以及加载面
 # 选定坐标系
@@ -112,7 +128,8 @@ maxwell.createBox_maxwell(str(zu_width / 2 - rs - 0.25) + " cm",
                           str(2 * rs + 0.25 * 2) + " cm",
                           str(2 * rs + 0.25 * 2) + " cm",
                           "0.5mm",
-                          send[0])
+                          send[0],
+                          'copper')
 
 # 创建sand1线圈的内圈立方体  send1_cut
 maxwell.createBox_maxwell(str(zu_width / 2 - rs + 0.25) + " cm",
@@ -121,7 +138,8 @@ maxwell.createBox_maxwell(str(zu_width / 2 - rs + 0.25) + " cm",
                           str(2 * rs - 0.25 * 2) + " cm",
                           str(2 * rs - 0.25 * 2) + " cm",
                           "0.5mm",
-                          send[0] + "_cut")
+                          send[0] + "_cut",
+                          'copper')
 
 # 用subtract剪切两个立方体   得到send1线圈
 maxwell.Subtract_maxwell(send[0],
@@ -158,7 +176,8 @@ maxwell.createBox_maxwell(str(zu_width / 2 - rr - 0.25) + " cm",
                           str(2 * rr + 2 * 0.25) + " cm",
                           str(2 * rr + 2 * 0.25) + " cm",
                           "0.5mm",
-                          rec[0])
+                          rec[0],
+                          'copper')
 
 # 创建rec1线圈的内圈立方体  rec1_cut
 maxwell.createBox_maxwell(str(zu_width / 2 - rr + 0.25) + " cm",
@@ -167,7 +186,8 @@ maxwell.createBox_maxwell(str(zu_width / 2 - rr + 0.25) + " cm",
                           str(2 * rr - 2 * 0.25) + " cm",
                           str(2 * rr - 2 * 0.25) + " cm",
                           "0.5mm",
-                          rec[0] + "_cut")
+                          rec[0] + "_cut",
+                          'copper')
 
 # 用subtract剪切两个立方体   得到rec1线圈
 maxwell.Subtract_maxwell(rec[0], rec[0] + "_cut")
@@ -184,6 +204,12 @@ maxwell.Delete_maxwell(rec[0] + "_Section1_Separate1")
 # 给剩下的加载面改名
 maxwell.rename_maxwell(rec[0] + "_Section1",
                        rec_p[0])
+
+# 添加rec移动参数
+maxwell.Move_maxwell(str(0) + " cm",
+                     'mo' + " cm",
+                     str(0) + " cm",
+                     'rec1')
 
 ################################################################
 ########################### 沿Y轴复制send1线圈和加载面
@@ -213,7 +239,7 @@ maxwell.assignCurrent_maxwell(rec_p[0], I_rec, True)
 
 ################################################################
 ###########################加setup设置
-maxwell.InsertSetup_maxwell()
+maxwell.AnalysisSetup_maxwell()
 
 ################################################################
 ###########################加parameters  matrix
@@ -223,5 +249,17 @@ NumberOfTurns_list = [1, 1, 1, 1, 1]
 maxwell.AssignMatrix_maxwell(ob_list,
                              NumberOfTurns_list,
                              [send_p])
+
+################################################################
+###########################加optimetrics 指定扫描设置
+maxwell.OptiParametricSetup_maxwell(['mo', ],
+                                    [[0, Dup_num_y*zu_width, round(Dup_num_y*zu_width/15, 2)], ])
+
+
+################################################################
+###########################启动仿真
+maxwell.AnalyzeAll_maxwell()
+
+
 
 
