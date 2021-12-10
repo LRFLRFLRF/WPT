@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/python_code" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/Omnidirection/COIL.aedtresults" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/Omnidirection/coil1.aedtresults" />
+      <excludeFolder url="file://$MODULE_DIR$/ansys/Omnidirection/coil_array.aedtresults" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/coil/coil_design.aedt.batchinfo" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/coil/coil_design.aedtresults" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/coil_fast/coil_new.aedtresults" />

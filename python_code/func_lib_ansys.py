@@ -7,6 +7,18 @@ class Maxwell:
         oDesktop = oAnsoftApp.getAppDesktop()
         oDesktop.RestoreWindow()
         oProject = oDesktop.SetActiveProject("coil_array")
+
+        #获取工程内设计 列表
+        flag = 0
+        name_list = oProject.GetTopDesignList()
+        for i in name_list:
+            if i == 'test':
+                flag = 1
+
+        if flag == 1:
+            oProject.DeleteDesign("test")
+            oProject.Save()
+
         oProject.InsertDesign("Maxwell 3D", "test", "Magnetostatic", "")
         self.oDesign = oProject.SetActiveDesign("test")
         self.oEditor = self.oDesign.SetActiveEditor("3D Modeler")
@@ -20,15 +32,18 @@ class Maxwell:
     def AnalyzeAll_maxwell(self):
         self.oDesign.AnalyzeAll()
 
-    def CreateReport_maxwell(self, sweep_var, XC, YC, plot_name):
-        self.ReportoModule.CreateReport("L "+plot_name, "Magnetostatic", "Rectangular Plot", "Setup1 : LastAdaptive", [],
+    def CreateReport_maxwell(self, type, sweep_var, XC, YC, plot_name):
+        self.ReportoModule.CreateReport(plot_name, "Magnetostatic", type, "Setup1 : LastAdaptive", [],
                              [
                                  sweep_var+":="		, ["All"]
                              ],
                              [
                                  "X Component:="		, XC,
-                                 "Y Component:="		, ["Matrix1.L(rec1,Group1)"]
+                                 "Y Component:="		, [YC]
                              ], [])
+
+    def ExportToFile_maxwell(self, plot_name, dir):
+        self.ReportoModule.ExportToFile(plot_name, dir)
 
 
     def rename_maxwell(self, odd_name, new_name):
@@ -297,4 +312,40 @@ class Maxwell:
                 "NAME:SetWCS Parameter",
                 "Working Coordinate System:=", wcs,
                 "RegionDepCSOk:=", False
+            ])
+
+    def ChangeProperty_maxwell(self, tab_type, ob, oprate):
+        oprate_commend = []
+        oprate_commend.append("NAME:"+oprate[0])
+        # 创建工程变量
+        if oprate[0] == 'NewProps' and ob == 'LocalVariables':
+            for i in oprate[1]:
+                oprate_commend.append(["NAME:"+i[0],
+                                "PropType:=",
+                                "VariableProp",
+                                "UserDef:=",
+                                True,
+                                "Value:=",
+                                i[1]])
+
+        # 修改工程变量
+        if oprate[0] == 'ChangedProps' and ob == 'LocalVariables':
+            for i in oprate[1]:
+                oprate_commend.append(["NAME:"+i[0],
+                                       i[1],
+                                       i[2]])
+
+        self.oDesign.ChangeProperty(
+            [
+                "NAME:AllTabs",
+                [
+                    "NAME:"+tab_type,
+                    [
+                        "NAME:PropServers",
+                        ob
+                    ],
+                    [
+                        oprate_commend
+                    ]
+                ]
             ])

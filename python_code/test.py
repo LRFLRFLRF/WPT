@@ -26,6 +26,7 @@ Dup_num_y = 4  # 沿y方向复制的线圈数量
 I_send = 1
 I_rec = 0
 
+
 maxwell.oDesign.ChangeProperty(
     [
         "NAME:AllTabs",
@@ -99,7 +100,6 @@ maxwell.oDesign.ChangeProperty(
             ]
         ]
     ])
-
 
 ################################################################
 ################################创建vacuum
@@ -209,7 +209,7 @@ maxwell.rename_maxwell(rec[0] + "_Section1",
 maxwell.Move_maxwell(str(0) + " cm",
                      'mo' + " cm",
                      str(0) + " cm",
-                     'rec1')
+                     'rec1, rec1_p')
 
 ################################################################
 ########################### 沿Y轴复制send1线圈和加载面
@@ -253,13 +253,26 @@ maxwell.AssignMatrix_maxwell(ob_list,
 ################################################################
 ###########################加optimetrics 指定扫描设置
 maxwell.OptiParametricSetup_maxwell(['mo', ],
-                                    [[0, Dup_num_y*zu_width, round(Dup_num_y*zu_width/15, 2)], ])
+                                    [[0, Dup_num_y * zu_width, round(Dup_num_y * zu_width / 1, 2)], ])
 
+
+################################################################
+###########################results设置
+# 创建plot
+plot_name = 'L table 1'
+csv_save_path = "E:/Desktop/WPT/python_code/data/"
+
+maxwell.CreateReport_maxwell("Data Table",
+                             'mo',
+                             'mo',
+                             "Matrix1.L(rec1_p,Group1)",
+                             plot_name)
 
 ################################################################
 ###########################启动仿真
 maxwell.AnalyzeAll_maxwell()
 
-
-
+# 导出plot结果至csv
+maxwell.ExportToFile_maxwell(plot_name,
+                             csv_save_path + plot_name + '.csv')
 
