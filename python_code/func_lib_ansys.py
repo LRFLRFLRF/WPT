@@ -38,13 +38,12 @@ class Maxwell:
                                             sweep_var + ":=", ["All"]
                                         ],
                                         [
-                                            "X Component:="	, XC,
-                                 "Y Component:="		, [YC]
-                             ], [])
+                                            "X Component:=", XC,
+                                            "Y Component:=", [YC]
+                                        ], [])
 
     def ExportToFile_maxwell(self, plot_name, dir):
         self.ReportoModule.ExportToFile(plot_name, dir)
-
 
     def rename_maxwell(self, odd_name, new_name):
         self.oEditor.ChangeProperty(
@@ -147,10 +146,10 @@ class Maxwell:
         self.OptiParaoModule.EditSetup("ParametricSetup1",
                                        [
                                            "NAME:ParametricSetup1",
-                                           "IsEnabled:="	, True,
+                                           "IsEnabled:=", True,
                                            [
                                                "NAME:ProdOptiSetupDataV2",
-                                               "SaveFields:="		, False,
+                                               "SaveFields:="	, False,
                                                "CopyMesh:="		, False,
                                                "SolveWithCopiedMeshOnly:=", True
                                            ],
@@ -379,3 +378,91 @@ class Maxwell:
     # 删除plot
     def DeleteReports_maxwell(self, plot_name):
         self.ReportoModule.DeleteReports(plot_name)
+
+
+    def Duplicate_coil(self, zu_width, Dup_num_y, Dup_num_x, coil, coil_p):
+        ########################### 沿Y轴复制线圈和加载面
+        # 选定坐标系
+        self.SetWCS_maxwell("Global")
+
+        # 沿Y轴复制
+        self.DuplicateAlongLine_maxwell("0mm",
+                                           str(zu_width) + "cm",
+                                           "0mm",
+                                           str(Dup_num_y),
+                                           coil[0] + "," + coil_p[0])
+
+        # 修改沿y轴复制的线圈和负载面的名字
+        for i in range(Dup_num_y - 1):
+            self.rename_maxwell(coil[0] + "_" + str(i + 1), coil[i + 1])
+            self.rename_maxwell(coil_p[0] + "_" + str(i + 1), coil_p[i + 1])
+
+        # 沿x轴复制
+        ob = ''
+        for i in range(Dup_num_y):
+            ob = ob + coil[i] + ',' + coil_p[i] + ','  # 选中一排线圈和加载面进行x方向复制
+
+        self.DuplicateAlongLine_maxwell(str(zu_width) + "cm",
+                                           "0mm",
+                                           "0mm",
+                                           str(Dup_num_x),
+                                           ob)
+
+        # 修改沿x轴复制的线圈和负载面的名字
+        for j in range(Dup_num_y):
+            temp = coil[j]
+            temp1 = coil_p[j]
+            for i in range(Dup_num_x - 1):
+                self.rename_maxwell(temp + "_" + str(i + 1), coil[Dup_num_y * (i + 1) + j])
+                self.rename_maxwell(temp1 + "_" + str(i + 1), coil_p[Dup_num_y * (i + 1) + j])
+
+    def creat_coil_array(self, coil, coil_p, wire_r, coil_r, p_x, p_y, p_z, RelativeCS_name):
+        ################################创建初始线圈 以及加载面
+        # 选定坐标系
+        self.SetWCS_maxwell("Global")
+
+        # 建立相对坐标系  用于相交线圈 找到电流加载界面
+        self.CreateRelativeCS_maxwell(str(p_x) + " cm",
+                                      str(p_y) + " cm",
+                                      "0mm",
+                                      RelativeCS_name)
+
+        # 选定坐标系
+        self.SetWCS_maxwell(RelativeCS_name)
+
+        # 创建线圈的外圈立方体
+        self.createBox_maxwell(str(- coil_r - wire_r) + " cm",
+                               str(- coil_r - wire_r) + " cm",
+                               str(p_z) + " cm",
+                               str(2 * coil_r + wire_r * 2) + " cm",
+                               str(2 * coil_r + wire_r * 2) + " cm",
+                               str(2 * wire_r) + " cm",
+                               coil[0],
+                               'copper')
+
+        # 创建线圈的内圈立方体  _cut
+        self.createBox_maxwell(str(- coil_r + wire_r) + " cm",
+                               str(- coil_r + wire_r) + " cm",
+                               str(p_z) + " cm",
+                               str(2 * coil_r - wire_r * 2) + " cm",
+                               str(2 * coil_r - wire_r * 2) + " cm",
+                               str(2 * wire_r) + " cm",
+                               coil[0] + "_cut",
+                               'copper')
+
+        # 用subtract剪切两个立方体   得到线圈
+        self.Subtract_maxwell(coil[0],
+                              coil[0] + "_cut")
+
+        # 用RelativeCS与线圈section  找到电流加载界面
+        self.section_maxwell(coil[0])
+
+        # SeparateBody 并只保留一个电流加载面  并修改面名为coil_p
+        self.SeparateBody_maxwell(coil[0] + "_Section1")
+
+        # 删除一个SeparateBody后多出来的面
+        self.Delete_maxwell(coil[0] + "_Section1_Separate1")
+
+        # 给剩下的加载面改名
+        self.rename_maxwell(coil[0] + "_Section1",
+                            coil_p[0])
