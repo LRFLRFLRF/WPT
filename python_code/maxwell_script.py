@@ -11,7 +11,8 @@ fer_thick = 0.5  # 铁氧体厚度
 rs = 10
 ra = 5
 rr = 5
-mo = 0
+mo_x = 0
+mo_y = 0
 zu_width = 30
 h = 5
 ps_z = 0  # 发射线圈底部z坐标高度
@@ -61,12 +62,13 @@ def build_design(maxwell):
                                    oprate=["NewProps",
                                            [['rs', str(rs)],
                                             ['zu_width', str(zu_width)],
-                                            ['mo', str(mo)],
+                                            ['mo_x', str(mo_x)],
+                                            ['mo_y', str(mo_y)],
                                             ['rr', str(rr)],
                                             ['h', str(h)],
                                             ['ps_z', str(ps_z)]]])
 
-    # 只sweep 变量mo
+    # 只sweep 变量mo_x mo_y
     maxwell.ChangeProperty_maxwell(tab_type="LocalVariableTab",
                                    ob="LocalVariables",
                                    oprate=['ChangedProps',
@@ -235,8 +237,8 @@ def build_design(maxwell):
                            rec_p[0])
 
     # 添加rec移动参数
-    maxwell.Move_maxwell(str(0) + " cm",
-                         'mo' + " cm",
+    maxwell.Move_maxwell('mo_x' + " cm",
+                         'mo_y' + " cm",
                          str(0) + " cm",
                          'rec1, rec1_p')
 
@@ -356,12 +358,16 @@ def build_design(maxwell):
                                  [send_p])
 
     ###########################加optimetrics 指定扫描设置
-    maxwell.OptiParametricSetup_maxwell(['mo', ],
-                                        [[0, Dup_num_y * zu_width, round(Dup_num_y * zu_width / 1, 2)], ])
+    # 创建一个setup
+    maxwell.OptiParametricSetup_maxwell()
+
+    # 添加sweep参数
+    maxwell.EditSetup_maxwell(['mo_y', 'mo_x'],
+                              [[0, Dup_num_y * zu_width, round(Dup_num_y * zu_width / 1, 2)],
+                               [0, Dup_num_x * zu_width, round(Dup_num_x * zu_width / 1, 2)]])
 
 
 rs_lim = [0.25 + 0.01, 10 - 0.25]
-
 
 def iter_cal(maxwell):
     rs_sweep_list = np.arange(rs_lim[0], rs_lim[1], 0.5)
@@ -374,7 +380,7 @@ def iter_cal(maxwell):
 
         ################################################################
         ###########################启动仿真
-        maxwell.AnalyzeAll_maxwell()
+        #maxwell.AnalyzeAll_maxwell()
 
         ###########################results设置
         # 创建plot
@@ -398,7 +404,7 @@ def main():
     # 创建项目
     maxwell = Maxwell()
     build_design(maxwell)
-    # iter_cal(maxwell)
+    iter_cal(maxwell)
 
 
 if __name__ == "__main__":

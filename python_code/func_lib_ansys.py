@@ -104,20 +104,7 @@ class Maxwell:
                 ]
             ])
 
-    def OptiParametricSetup_maxwell(self, sweep_list, sweep_set):
-        sweep = []
-        sweep.append("NAME:Sweeps")
-        for i in range(len(sweep_list)):
-            sweep.append(["NAME:SweepDefinition",
-                          "Variable:=",
-                          sweep_list[i],
-                          "Data:=",
-                          "LIN " + str(sweep_set[i][0]) + ' ' + str(sweep_set[i][1]) + ' ' + str(sweep_set[i][2]),
-                          "OffsetF1:=",
-                          False,
-                          "Synchronize:=",
-                          0])
-
+    def OptiParametricSetup_maxwell(self):
         self.OptiParaoModule.InsertSetup("OptiParametric",
                                          [
                                              "NAME:ParametricSetup1",
@@ -133,7 +120,7 @@ class Maxwell:
                                              ],
                                              "Sim. Setups:=", ["Setup1"],
                                              [
-                                                 sweep
+                                                 "NAME:Sweeps"
                                              ],
                                              [
                                                  "NAME:Sweep Operations"
@@ -142,6 +129,45 @@ class Maxwell:
                                                  "NAME:Goals"
                                              ]
                                          ])
+
+    def EditSetup_maxwell(self, sweep_list, sweep_set):
+        sweep = []
+        sweep.append("NAME:Sweeps")
+        for i in range(len(sweep_list)):
+            sweep.append(["NAME:SweepDefinition",
+                          "Variable:=",
+                          sweep_list[i],
+                          "Data:=",
+                          "LIN " + str(sweep_set[i][0]) + ' ' + str(sweep_set[i][1]) + ' ' + str(sweep_set[i][2]),
+                          "OffsetF1:=",
+                          False,
+                          "Synchronize:=",
+                          0])
+
+        self.OptiParaoModule.EditSetup("ParametricSetup1",
+                                       [
+                                           "NAME:ParametricSetup1",
+                                           "IsEnabled:="	, True,
+                                           [
+                                               "NAME:ProdOptiSetupDataV2",
+                                               "SaveFields:="		, False,
+                                               "CopyMesh:="		, False,
+                                               "SolveWithCopiedMeshOnly:=", True
+                                           ],
+                                           [
+                                               "NAME:StartingPoint"
+                                           ],
+                                           "Sim. Setups:="		, ["Setup1"],
+                                           [
+                                               sweep
+                                           ],
+                                           [
+                                               "NAME:Sweep Operations"
+                                           ],
+                                           [
+                                               "NAME:Goals"
+                                           ]
+                                       ])
 
     def assignCurrent_maxwell(self, ob_name, I_set, direction):
         self.BoundaryoModule.AssignCurrent(
