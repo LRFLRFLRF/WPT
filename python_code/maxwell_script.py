@@ -1,19 +1,9 @@
 from func_lib_ansys import Maxwell
 import numpy as np
 
-# 线圈命名列表
-send = ['send11', 'send12', 'send13', 'send14']
-rec = ['rec1']
-aux = ['aux11', 'aux12', 'aux13']
-
-# 电流加载界面命名列表
-send_p = ['send11_p', 'send12_p', 'send13_p', 'send14_p']
-rec_p = ['rec1_p']
-aux_p = ['aux11_p', 'aux12_p', 'aux13_p']
-
 # 创建工程变量
-send_wire_r = 0.25   # 发射线圈导线半径
-rec_wire_r = 0.25   # 接收线圈导线半径
+send_wire_r = 0.25  # 发射线圈导线半径
+rec_wire_r = 0.25  # 接收线圈导线半径
 
 fer_coil_d = 0.25  # 铁氧体板与线圈间距
 fer_thick = 0.5  # 铁氧体厚度
@@ -24,7 +14,7 @@ rr = 5
 mo = 0
 zu_width = 30
 h = 5
-ps_z = 0   # 发射线圈底部z坐标高度
+ps_z = 0  # 发射线圈底部z坐标高度
 pa_z = send_wire_r * 2 + 0.1  # 附加线圈底部z坐标高度
 
 # 相对坐标系参数
@@ -33,10 +23,27 @@ RelativeCS1_y = zu_width / 2
 RelativeCS2_x = zu_width
 RelativeCS2_y = zu_width
 
-
 # 线圈阵列参数
-Dup_num_y = 4  # 沿y方向复制的线圈数量
-Dup_num_x = 4  # 沿x方向复制的线圈数量
+Dup_num_y = 3  # 沿y方向复制的线圈数量
+Dup_num_x = 3  # 沿x方向复制的线圈数量
+
+# 线圈命名列表 及 电流加载界面命名列表
+send = []
+send_p = []
+for i in range(Dup_num_x):
+    for j in range(Dup_num_y):
+        send.append('send' + str(i + 1) + str(j + 1))
+        send_p.append('send' + str(i + 1) + str(j + 1) + '_p')
+
+rec = ['rec1']
+rec_p = ['rec1_p']
+
+aux = []
+aux_p = []
+for i in range(Dup_num_x - 1):
+    for j in range(Dup_num_y - 1):
+        aux.append('aux' + str(i + 1) + str(j + 1))
+        aux_p.append('aux' + str(i + 1) + str(j + 1) + '_p')
 
 # 电流加载参数
 I_send = 1
@@ -186,7 +193,6 @@ def build_design(maxwell):
     maxwell.rename_maxwell(aux[0] + "_Section1",
                            aux_p[0])
 
-
     ################################################################
     ################################创建rec线圈 以及加载面
     # 选定坐标系
@@ -246,31 +252,63 @@ def build_design(maxwell):
                                        str(Dup_num_y),
                                        send[0] + "," + send_p[0])
 
-    # 修改复制的线圈的名字
+    # 修改沿y轴复制的线圈和负载面的名字
     for i in range(Dup_num_y - 1):
         maxwell.rename_maxwell(send[0] + "_" + str(i + 1), send[i + 1])
-
-    # 修改复制的负载面的名字
-    for i in range(Dup_num_y - 1):
         maxwell.rename_maxwell(send_p[0] + "_" + str(i + 1), send_p[i + 1])
+
+    # 沿x轴复制
+    ob = ''
+    for i in range(Dup_num_y):
+        ob = ob + send[i] + ',' + send_p[i] + ','  # 选中一排线圈和加载面进行x方向复制
+
+    maxwell.DuplicateAlongLine_maxwell(str(zu_width) + "cm",
+                                       "0mm",
+                                       "0mm",
+                                       str(Dup_num_x),
+                                       ob)
+
+    # 修改沿x轴复制的线圈和负载面的名字
+    for j in range(Dup_num_y):
+        temp = send[j]
+        temp1 = send_p[j]
+        for i in range(Dup_num_x - 1):
+            maxwell.rename_maxwell(temp + "_" + str(i + 1), send[Dup_num_y * (i + 1) + j])
+            maxwell.rename_maxwell(temp1 + "_" + str(i + 1), send_p[Dup_num_y * (i + 1) + j])
 
     ########################### 沿Y轴复制aux线圈和加载面
     # 选定坐标系
     maxwell.SetWCS_maxwell("RelativeCS2")
+
     # 沿Y轴复制
     maxwell.DuplicateAlongLine_maxwell("0mm",
                                        str(zu_width) + "cm",
                                        "0mm",
-                                       str(Dup_num_y-1),
+                                       str(Dup_num_y - 1),
                                        aux[0] + "," + aux_p[0])
 
-    # 修改复制的线圈的名字
+    # 修改复制的线圈和负载面的名字
     for i in range(Dup_num_y - 1 - 1):
         maxwell.rename_maxwell(aux[0] + "_" + str(i + 1), aux[i + 1])
-
-    # 修改复制的负载面的名字
-    for i in range(Dup_num_y -1 - 1):
         maxwell.rename_maxwell(aux_p[0] + "_" + str(i + 1), aux_p[i + 1])
+
+    # 沿x轴复制
+    ob = ''
+    for i in range(Dup_num_y - 1):
+        ob = ob + aux[i] + ',' + aux_p[i] + ','  # 选中一排线圈和加载面进行x方向复制
+    maxwell.DuplicateAlongLine_maxwell(str(zu_width) + "cm",
+                                       "0mm",
+                                       "0mm",
+                                       str(Dup_num_x - 1),
+                                       ob)
+
+    # 修改沿x轴复制的线圈和负载面的名字
+    for j in range(Dup_num_y - 1):
+        temp = aux[j]
+        temp1 = aux_p[j]
+        for i in range(Dup_num_x - 1 - 1):
+            maxwell.rename_maxwell(temp + "_" + str(i + 1), aux[(Dup_num_y - 1) * (i + 1) + j])
+            maxwell.rename_maxwell(temp1 + "_" + str(i + 1), aux_p[(Dup_num_y - 1) * (i + 1) + j])
 
     ################################################################
     ###########################创建铁氧体板
@@ -281,7 +319,7 @@ def build_design(maxwell):
     maxwell.createBox_maxwell(str(0) + " cm",
                               str(0) + " cm",
                               str(-fer_coil_d) + " cm",
-                              str(zu_width + 2 * fer_coil_d) + " cm",
+                              str(zu_width * Dup_num_x + 2 * fer_coil_d) + " cm",
                               str(zu_width * Dup_num_y + 2 * fer_coil_d) + " cm",
                               str(-fer_thick) + " cm",
                               'send_fer',
@@ -300,7 +338,7 @@ def build_design(maxwell):
     ################################################################
     ###########################加负载电流
     # 发射线圈加载
-    for i in range(Dup_num_y):
+    for i in range(Dup_num_y*Dup_num_x):
         maxwell.assignCurrent_maxwell(send_p[i], I_send, True)
 
     # 接收线圈加载
@@ -311,7 +349,7 @@ def build_design(maxwell):
 
     ###########################加parameters  matrix
     ob_list = rec_p + send_p
-    NumberOfTurns_list = [1, 1, 1, 1, 1]
+    NumberOfTurns_list = [1] * (len(send) + len(rec))
 
     maxwell.AssignMatrix_maxwell(ob_list,
                                  NumberOfTurns_list,
@@ -360,7 +398,7 @@ def main():
     # 创建项目
     maxwell = Maxwell()
     build_design(maxwell)
-    #iter_cal(maxwell)
+    # iter_cal(maxwell)
 
 
 if __name__ == "__main__":
