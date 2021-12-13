@@ -8,7 +8,7 @@ class Maxwell:
         oDesktop.RestoreWindow()
         oProject = oDesktop.SetActiveProject("coil_array")
 
-        #获取工程内设计 列表
+        # 获取工程内设计 列表
         flag = 0
         name_list = oProject.GetTopDesignList()
         for i in name_list:
@@ -34,11 +34,11 @@ class Maxwell:
 
     def CreateReport_maxwell(self, type, sweep_var, XC, YC, plot_name):
         self.ReportoModule.CreateReport(plot_name, "Magnetostatic", type, "Setup1 : LastAdaptive", [],
-                             [
-                                 sweep_var+":="		, ["All"]
-                             ],
-                             [
-                                 "X Component:="		, XC,
+                                        [
+                                            sweep_var + ":=", ["All"]
+                                        ],
+                                        [
+                                            "X Component:="	, XC,
                                  "Y Component:="		, [YC]
                              ], [])
 
@@ -316,22 +316,22 @@ class Maxwell:
 
     def ChangeProperty_maxwell(self, tab_type, ob, oprate):
         oprate_commend = []
-        oprate_commend.append("NAME:"+oprate[0])
+        oprate_commend.append("NAME: " +oprate[0])
         # 创建工程变量
         if oprate[0] == 'NewProps' and ob == 'LocalVariables':
             for i in oprate[1]:
-                oprate_commend.append(["NAME:"+i[0],
-                                "PropType:=",
-                                "VariableProp",
-                                "UserDef:=",
-                                True,
-                                "Value:=",
-                                i[1]])
+                oprate_commend.append(["NAME: " + i[0],
+                                       "PropType:=",
+                                       "VariableProp",
+                                       "UserDef:=",
+                                       True,
+                                       "Value:=",
+                                       i[1]])
 
         # 修改工程变量
         if oprate[0] == 'ChangedProps' and ob == 'LocalVariables':
             for i in oprate[1]:
-                oprate_commend.append(["NAME:"+i[0],
+                oprate_commend.append(["NAME: " + i[0],
                                        i[1],
                                        i[2]])
 
@@ -339,7 +339,7 @@ class Maxwell:
             [
                 "NAME:AllTabs",
                 [
-                    "NAME:"+tab_type,
+                    "NAME: " + tab_type,
                     [
                         "NAME:PropServers",
                         ob
@@ -349,3 +349,7 @@ class Maxwell:
                     ]
                 ]
             ])
+
+    # 删除plot
+    def DeleteReports_maxwell(self, plot_name):
+        self.ReportoModule.DeleteReports(plot_name)

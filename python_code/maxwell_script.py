@@ -1,28 +1,42 @@
-
 from func_lib_ansys import Maxwell
 import numpy as np
 
 # 线圈命名列表
 send = ['send11', 'send12', 'send13', 'send14']
 rec = ['rec1']
+aux = ['aux11', 'aux12', 'aux13']
+
 # 电流加载界面命名列表
 send_p = ['send11_p', 'send12_p', 'send13_p', 'send14_p']
 rec_p = ['rec1_p']
+aux_p = ['aux11_p', 'aux12_p', 'aux13_p']
 
 # 创建工程变量
-rs = 9
-rs1 = 2
-rr = 2
+send_wire_r = 0.25   # 发射线圈导线半径
+rec_wire_r = 0.25   # 接收线圈导线半径
+
+fer_coil_d = 0.25  # 铁氧体板与线圈间距
+fer_thick = 0.5  # 铁氧体厚度
+
+rs = 10
+ra = 5
+rr = 5
 mo = 0
-zu_width = 20
-h = 10
-ps_z = 0
+zu_width = 30
+h = 5
+ps_z = 0   # 发射线圈底部z坐标高度
+pa_z = send_wire_r * 2 + 0.1  # 附加线圈底部z坐标高度
 
 # 相对坐标系参数
+RelativeCS1_x = zu_width / 2
 RelativeCS1_y = zu_width / 2
+RelativeCS2_x = zu_width
+RelativeCS2_y = zu_width
+
 
 # 线圈阵列参数
 Dup_num_y = 4  # 沿y方向复制的线圈数量
+Dup_num_x = 4  # 沿x方向复制的线圈数量
 
 # 电流加载参数
 I_send = 1
@@ -30,6 +44,7 @@ I_rec = 0
 
 # 结果保存路径参数
 csv_save_path = "E:/Desktop/WPT/python_code/data/"
+
 
 def build_design(maxwell):
     ################################################################
@@ -54,7 +69,6 @@ def build_design(maxwell):
                                             ['h', "Sweep:=", False],
                                             ['ps_z', "Sweep:=", False]]])
 
-
     ################################################################
     ################################创建vacuum
     # 选定坐标系
@@ -75,35 +89,38 @@ def build_design(maxwell):
     # 选定坐标系
     maxwell.SetWCS_maxwell("Global")
 
+    # 建立相对坐标系1  用于相交send1线圈 找到电流加载界面
+    maxwell.CreateRelativeCS_maxwell(str(RelativeCS1_x) + " cm",
+                                     str(RelativeCS1_y) + " cm",
+                                     "0mm",
+                                     "RelativeCS1")
+
+    # 选定坐标系
+    maxwell.SetWCS_maxwell("RelativeCS1")
+
     # 创建sand1线圈的外圈立方体   send1
-    maxwell.createBox_maxwell(str(zu_width / 2 - rs - 0.25) + " cm",
-                              str(zu_width / 2 - rs - 0.25) + " cm",
+    maxwell.createBox_maxwell(str(- rs - send_wire_r) + " cm",
+                              str(- rs - send_wire_r) + " cm",
                               str(ps_z) + " cm",
-                              str(2 * rs + 0.25 * 2) + " cm",
-                              str(2 * rs + 0.25 * 2) + " cm",
-                              "0.5mm",
+                              str(2 * rs + send_wire_r * 2) + " cm",
+                              str(2 * rs + send_wire_r * 2) + " cm",
+                              str(2 * send_wire_r) + " cm",
                               send[0],
                               'copper')
 
     # 创建sand1线圈的内圈立方体  send1_cut
-    maxwell.createBox_maxwell(str(zu_width / 2 - rs + 0.25) + " cm",
-                              str(zu_width / 2 - rs + 0.25) + " cm",
+    maxwell.createBox_maxwell(str(- rs + send_wire_r) + " cm",
+                              str(- rs + send_wire_r) + " cm",
                               str(ps_z) + " cm",
-                              str(2 * rs - 0.25 * 2) + " cm",
-                              str(2 * rs - 0.25 * 2) + " cm",
-                              "0.5mm",
+                              str(2 * rs - send_wire_r * 2) + " cm",
+                              str(2 * rs - send_wire_r * 2) + " cm",
+                              str(2 * send_wire_r) + " cm",
                               send[0] + "_cut",
                               'copper')
 
     # 用subtract剪切两个立方体   得到send1线圈
     maxwell.Subtract_maxwell(send[0],
                              send[0] + "_cut")
-
-    # 建立相对坐标系1  用于相交send1线圈 找到电流加载界面
-    maxwell.CreateRelativeCS_maxwell("0mm",
-                                     str(RelativeCS1_y) + " cm",
-                                     "0mm",
-                                     "RelativeCS1")
 
     # 用RelativeCS1与send1线圈section  找到电流加载界面
     maxwell.section_maxwell(send[0])
@@ -119,27 +136,79 @@ def build_design(maxwell):
                            send_p[0])
 
     ################################################################
+    ################################创建aux线圈 以及加载面
+    # 选定坐标系
+    maxwell.SetWCS_maxwell("Global")
+
+    # 建立相对坐标系2  用于相交aux线圈 找到电流加载界面
+    maxwell.CreateRelativeCS_maxwell(str(RelativeCS2_x) + " cm",
+                                     str(RelativeCS2_y) + " cm",
+                                     "0mm",
+                                     "RelativeCS2")
+
+    # 选定坐标系
+    maxwell.SetWCS_maxwell("RelativeCS2")
+
+    # 创建aux线圈的外圈立方体   aux
+    maxwell.createBox_maxwell(str(- ra - send_wire_r) + " cm",
+                              str(- ra - send_wire_r) + " cm",
+                              str(pa_z) + " cm",
+                              str(2 * ra + send_wire_r * 2) + " cm",
+                              str(2 * ra + send_wire_r * 2) + " cm",
+                              str(2 * send_wire_r) + " cm",
+                              aux[0],
+                              'copper')
+
+    # 创建aux线圈的内圈立方体  aux_cut
+    maxwell.createBox_maxwell(str(- ra + send_wire_r) + " cm",
+                              str(- ra + send_wire_r) + " cm",
+                              str(pa_z) + " cm",
+                              str(2 * ra - send_wire_r * 2) + " cm",
+                              str(2 * ra - send_wire_r * 2) + " cm",
+                              str(2 * send_wire_r) + " cm",
+                              aux[0] + "_cut",
+                              'copper')
+
+    # 用subtract剪切两个立方体   得到aux线圈
+    maxwell.Subtract_maxwell(aux[0],
+                             aux[0] + "_cut")
+
+    # 用RelativeCS2与aux线圈section  找到电流加载界面
+    maxwell.section_maxwell(aux[0])
+
+    # SeparateBody 并只保留一个电流加载面  并修改面名为aux_p
+    maxwell.SeparateBody_maxwell(aux[0] + "_Section1")
+
+    # 删除一个SeparateBody后多出来的面
+    maxwell.Delete_maxwell(aux[0] + "_Section1_Separate1")
+
+    # 给剩下的加载面改名
+    maxwell.rename_maxwell(aux[0] + "_Section1",
+                           aux_p[0])
+
+
+    ################################################################
     ################################创建rec线圈 以及加载面
     # 选定坐标系
     maxwell.SetWCS_maxwell("Global")
 
     # 创建rec线圈的外圈立方体   rec1
-    maxwell.createBox_maxwell(str(zu_width / 2 - rr - 0.25) + " cm",
-                              str(-rr - 0.25) + " cm",
+    maxwell.createBox_maxwell(str(zu_width / 2 - rr - rec_wire_r) + " cm",
+                              str(-rr - rec_wire_r) + " cm",
                               str(h) + " cm",
-                              str(2 * rr + 2 * 0.25) + " cm",
-                              str(2 * rr + 2 * 0.25) + " cm",
-                              "0.5mm",
+                              str(2 * rr + 2 * rec_wire_r) + " cm",
+                              str(2 * rr + 2 * rec_wire_r) + " cm",
+                              str(2 * rec_wire_r) + " cm",
                               rec[0],
                               'copper')
 
     # 创建rec1线圈的内圈立方体  rec1_cut
-    maxwell.createBox_maxwell(str(zu_width / 2 - rr + 0.25) + " cm",
-                              str(-rr + 0.25) + " cm",
+    maxwell.createBox_maxwell(str(zu_width / 2 - rr + rec_wire_r) + " cm",
+                              str(-rr + rec_wire_r) + " cm",
                               str(h) + " cm",
-                              str(2 * rr - 2 * 0.25) + " cm",
-                              str(2 * rr - 2 * 0.25) + " cm",
-                              "0.5mm",
+                              str(2 * rr - 2 * rec_wire_r) + " cm",
+                              str(2 * rr - 2 * rec_wire_r) + " cm",
+                              str(2 * rec_wire_r) + " cm",
                               rec[0] + "_cut",
                               'copper')
 
@@ -167,6 +236,9 @@ def build_design(maxwell):
 
     ################################################################
     ########################### 沿Y轴复制send1线圈和加载面
+    # 选定坐标系
+    maxwell.SetWCS_maxwell("Global")
+
     # 沿Y轴复制
     maxwell.DuplicateAlongLine_maxwell("0mm",
                                        str(zu_width) + "cm",
@@ -181,6 +253,49 @@ def build_design(maxwell):
     # 修改复制的负载面的名字
     for i in range(Dup_num_y - 1):
         maxwell.rename_maxwell(send_p[0] + "_" + str(i + 1), send_p[i + 1])
+
+    ########################### 沿Y轴复制aux线圈和加载面
+    # 选定坐标系
+    maxwell.SetWCS_maxwell("RelativeCS2")
+    # 沿Y轴复制
+    maxwell.DuplicateAlongLine_maxwell("0mm",
+                                       str(zu_width) + "cm",
+                                       "0mm",
+                                       str(Dup_num_y-1),
+                                       aux[0] + "," + aux_p[0])
+
+    # 修改复制的线圈的名字
+    for i in range(Dup_num_y - 1 - 1):
+        maxwell.rename_maxwell(aux[0] + "_" + str(i + 1), aux[i + 1])
+
+    # 修改复制的负载面的名字
+    for i in range(Dup_num_y -1 - 1):
+        maxwell.rename_maxwell(aux_p[0] + "_" + str(i + 1), aux_p[i + 1])
+
+    ################################################################
+    ###########################创建铁氧体板
+    # 选定坐标系
+    maxwell.SetWCS_maxwell("Global")
+
+    # 创建send铁氧体
+    maxwell.createBox_maxwell(str(0) + " cm",
+                              str(0) + " cm",
+                              str(-fer_coil_d) + " cm",
+                              str(zu_width + 2 * fer_coil_d) + " cm",
+                              str(zu_width * Dup_num_y + 2 * fer_coil_d) + " cm",
+                              str(-fer_thick) + " cm",
+                              'send_fer',
+                              'ferrite')
+
+    # 创建rec铁氧体
+    maxwell.createBox_maxwell(str(zu_width / 2 - rr - 2 * fer_coil_d) + " cm",
+                              str(-rr - 2 * fer_coil_d) + " cm",
+                              str(h + 2 * rec_wire_r + fer_coil_d) + " cm",
+                              str(2 * rr + 2 * rec_wire_r + 2 * fer_coil_d) + " cm",
+                              str(2 * rr + 2 * rec_wire_r + 2 * fer_coil_d) + " cm",
+                              str(fer_thick) + " cm",
+                              'rec_fer',
+                              'ferrite')
 
     ################################################################
     ###########################加负载电流
@@ -207,8 +322,9 @@ def build_design(maxwell):
                                         [[0, Dup_num_y * zu_width, round(Dup_num_y * zu_width / 1, 2)], ])
 
 
+rs_lim = [0.25 + 0.01, 10 - 0.25]
 
-rs_lim = [0.25 + 0.01, 10-0.25]
+
 def iter_cal(maxwell):
     rs_sweep_list = np.arange(rs_lim[0], rs_lim[1], 0.5)
     for i in rs_sweep_list:
@@ -224,7 +340,7 @@ def iter_cal(maxwell):
 
         ###########################results设置
         # 创建plot
-        plot_name = 'table_mo_'+str(i)
+        plot_name = 'table_mo_' + str(i)
 
         maxwell.CreateReport_maxwell("Data Table",
                                      'mo',
@@ -236,14 +352,16 @@ def iter_cal(maxwell):
         maxwell.ExportToFile_maxwell(plot_name,
                                      csv_save_path + plot_name + '.csv')
 
+        # 删除plot
+        maxwell.DeleteReports_maxwell(plot_name)
+
+
 def main():
     # 创建项目
     maxwell = Maxwell()
     build_design(maxwell)
-    iter_cal(maxwell)
+    #iter_cal(maxwell)
+
 
 if __name__ == "__main__":
     main()
-
-
-
