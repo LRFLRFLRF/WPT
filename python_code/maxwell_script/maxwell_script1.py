@@ -34,6 +34,7 @@ def build_model_param(maxwell):
     Rcs_send_x = zu_width / 2
     Rcs_send_y = zu_width / 2
     Rcs_send_z = 0  # 发射线圈底部z坐标高度
+    Rcs_send_name = 'RelativeCS_send'
 
     # 辅助线圈参数
     a_wire_r = 0.25
@@ -41,11 +42,13 @@ def build_model_param(maxwell):
     Rcs_aux_x = zu_width
     Rcs_aux_y = zu_width
     Rcs_aux_z = a_wire_r * 2 + 0.1  # 附加线圈底部z坐标高度
+    Rcs_aux_name = 'RelativeCS_aux'
 
     # 接收线圈参数
     rec_wire_r = 0.25  # 接收线圈导线半径
     h = 5
     rr = 5
+    Rcs_rec_name = 'RelativeCS_rec'
 
     # 线圈阵列参数
     Dup_num_y = 3  # 沿y方向复制的线圈数量
@@ -62,12 +65,15 @@ def build_model_param(maxwell):
                                 Rcs_send_x,
                                 Rcs_send_y,
                                 Rcs_send_z,
+                                Rcs_send_name,
                                 a_wire_r,
                                 Rcs_aux_x,
                                 Rcs_aux_y,
                                 Rcs_aux_z,
+                                Rcs_aux_name,
                                 rec_wire_r,
                                 h,
+                                Rcs_rec_name,
                                 zu_width,
                                 Dup_num_y,
                                 Dup_num_x,
@@ -183,7 +189,7 @@ def build_model(maxwell):
                                  maxwell.Rcs_send_x,
                                  maxwell.Rcs_send_y,
                                  maxwell.Rcs_send_z,
-                                 'RelativeCS_send',
+                                 maxwell.Rcs_send_name,
                                  maxwell.zu_width,
                                  maxwell.Dup_num_y,
                                  maxwell.Dup_num_x)
@@ -211,7 +217,7 @@ def build_model(maxwell):
                                  maxwell.Rcs_aux_x,
                                  maxwell.Rcs_aux_y,
                                  maxwell.Rcs_aux_z,
-                                 'RelativeCS_aux',
+                                 maxwell.Rcs_aux_name,
                                  maxwell.zu_width,
                                  maxwell.Dup_num_y - 1,
                                  maxwell.Dup_num_x - 1)
@@ -226,7 +232,7 @@ def build_model(maxwell):
                                  0,
                                  0,
                                  maxwell.h,
-                                 'RelativeCS_rec',
+                                 maxwell.Rcs_rec_name,
                                  maxwell.zu_width,
                                  1,
                                  1)

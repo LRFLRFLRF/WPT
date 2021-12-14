@@ -8,7 +8,6 @@ class Maxwell:
             self.coil_p = coil_p
             self.coil_r = coil_r
 
-
     def __init__(self, ):
         oAnsoftApp = client.Dispatch("Ansoft.ElectronicsDesktop")
         oDesktop = oAnsoftApp.getAppDesktop()
@@ -45,14 +44,17 @@ class Maxwell:
         self.Rcs_send_x = 0
         self.Rcs_send_y = 0
         self.Rcs_send_z = 0
+        self.Rcs_send_name = ''
 
         self.a_wire_r = 0
         self.Rcs_aux_x = 0
         self.Rcs_aux_y = 0
         self.Rcs_aux_z = 0
+        self.Rcs_aux_name = ''
 
         self.rec_wire_r = 0
         self.h = 0
+        self.Rcs_rec_name = ''
 
         self.zu_width = 0
         self.Dup_num_y = 0
@@ -64,9 +66,9 @@ class Maxwell:
         return self.coil_type(coil, coil_p, coil_r)
 
     def create_design_parma(self, send_N, aux_N, rec_N,
-                            send_wire_r, Rcs_send_x, Rcs_send_y, Rcs_send_z,
-                            a_wire_r, Rcs_aux_x, Rcs_aux_y, Rcs_aux_z,
-                            rec_wire_r, h,
+                            send_wire_r, Rcs_send_x, Rcs_send_y, Rcs_send_z, Rcs_send_name,
+                            a_wire_r, Rcs_aux_x, Rcs_aux_y, Rcs_aux_z, Rcs_aux_name,
+                            rec_wire_r, h, Rcs_rec_name,
                             zu_width, Dup_num_y, Dup_num_x, fer_coil_d, fer_thick):
         self.send_N = send_N
         self.aux_N = aux_N
@@ -76,14 +78,17 @@ class Maxwell:
         self.Rcs_send_x = Rcs_send_x
         self.Rcs_send_y = Rcs_send_y
         self.Rcs_send_z = Rcs_send_z
+        self.Rcs_send_name = Rcs_send_name
 
         self.a_wire_r = a_wire_r
         self.Rcs_aux_x = Rcs_aux_x
         self.Rcs_aux_y = Rcs_aux_y
         self.Rcs_aux_z = Rcs_aux_z
+        self.Rcs_aux_name = Rcs_aux_name
 
         self.rec_wire_r = rec_wire_r
         self.h = h
+        self.Rcs_rec_name = Rcs_rec_name
 
         self.zu_width = zu_width
         self.Dup_num_y = Dup_num_y
@@ -486,10 +491,18 @@ class Maxwell:
         self.SetWCS_maxwell("Global")
 
         # 建立相对坐标系  用于相交线圈 找到电流加载界面
-        self.CreateRelativeCS_maxwell(str(p_x) + " cm",
-                                      str(p_y) + " cm",
-                                      "0mm",
-                                      RelativeCS_name)
+        # 判断坐标系是否建立过
+        csNames = self.oEditor.GetCoordinateSystems()
+        flag = 0
+        for i in csNames:
+            if i == RelativeCS_name:
+                flag = 1
+
+        if flag == 0:
+            self.CreateRelativeCS_maxwell(str(p_x) + " cm",
+                                          str(p_y) + " cm",
+                                          "0mm",
+                                          RelativeCS_name)
 
         # 选定坐标系
         self.SetWCS_maxwell(RelativeCS_name)
