@@ -2,6 +2,16 @@ from win32com import client
 
 
 class Maxwell:
+    class Struct(object):
+        def __init__(self, coil, coil_p, coil_r, wire_r, px, py, pz):
+            self.coil = coil
+            self.coil_p = coil_p
+            self.coil_r = coil_r
+            self.wire_r = wire_r
+            self.px = px
+            self.py = py
+            self.pz = pz
+
     def __init__(self, ):
         oAnsoftApp = client.Dispatch("Ansoft.ElectronicsDesktop")
         oDesktop = oAnsoftApp.getAppDesktop()
@@ -28,6 +38,9 @@ class Maxwell:
         self.ParameteroModule = self.oDesign.GetModule("MaxwellParameterSetup")
         self.OptiParaoModule = self.oDesign.GetModule("Optimetrics")
         self.ReportoModule = self.oDesign.GetModule("ReportSetup")
+
+    def make_struct(self, coil, coil_p, coil_r, wire_r, px, py, pz):
+        return self.Struct(coil, coil_p, coil_r, wire_r, px, py, pz)
 
     def AnalyzeAll_maxwell(self):
         self.oDesign.AnalyzeAll()

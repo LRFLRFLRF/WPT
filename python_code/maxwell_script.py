@@ -2,6 +2,8 @@ from func_lib_ansys import Maxwell
 import numpy as np
 
 # 创建工程变量
+N = 2  # 发射线圈匝数
+
 send_wire_r = 0.25  # 发射线圈导线半径
 rec_wire_r = 0.25  # 接收线圈导线半径
 
@@ -55,6 +57,18 @@ sweep_step_len = 2  # 步长
 
 # 结果保存路径参数
 csv_save_path = "E:/Desktop/WPT/python_code/data/"
+
+send_coil = []
+
+
+def build_model_param(maxwell):
+    send_coil.append(maxwell.make_struct(send,
+                                         send_p,
+                                         rs,
+                                         send_wire_r,
+                                         RelativeCS1_x,
+                                         RelativeCS1_y,
+                                         ps_z))
 
 
 def build_model(maxwell):
@@ -118,7 +132,6 @@ def build_model(maxwell):
                              pa_z,
                              'RelativeCS_aux')
 
-
     ################################################################
     ################################创建rec线圈 以及加载面
     maxwell.creat_coil_array(rec,
@@ -177,7 +190,7 @@ def build_model(maxwell):
                               'ferrite')
 
 
-def build_param(maxwell):
+def build_ansys_param(maxwell):
     ################################################################
     ###########################加负载电流
     # 发射线圈加载
@@ -210,7 +223,6 @@ def build_param(maxwell):
 
 rs_lim = [send_wire_r + 0.01, zu_width / 2 - send_wire_r - 0.01]
 ra_lim = [send_wire_r + 0.01, zu_width / 2 - send_wire_r - 0.01]
-
 
 def iter_cal(maxwell):
     rs_sweep_list = np.arange(rs_lim[0], rs_lim[1], 0.5)
@@ -247,10 +259,12 @@ def iter_cal(maxwell):
 def main():
     # 创建项目
     maxwell = Maxwell()
+    # 创建线圈结构参数
+    build_model_param(maxwell)
     # 创建几何模型
     build_model(maxwell)
     # 设置仿真参数
-    build_param(maxwell)
+    build_ansys_param(maxwell)
     # 线圈优化仿真
     iter_cal(maxwell)
 
