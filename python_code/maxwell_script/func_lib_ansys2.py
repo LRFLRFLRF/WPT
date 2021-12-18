@@ -37,7 +37,17 @@ class Maxwell:
         self.ReportoModule = self.oDesign.GetModule("ReportSetup")
 
         ################################################################
+        self.send_coil = []
+        self.aux_coil = []
+        self.rec_coil = []
+
+        self.sweep_step_len = 0  # 扫描步长
+
+        self.I_send = 0
+        self.I_rec = 0
+
         # 模型设计参数
+        self.tw = 0
         self.send_N = 0
         self.aux_N = 0
         self.rec_N = 0
@@ -55,9 +65,12 @@ class Maxwell:
         self.Rcs_aux_z = 0
         self.Rcs_aux_name = ''
 
+        self.rr = 0
         self.rec_wire_r = 0
         self.h = 0
         self.Rcs_rec_name = ''
+        self.mo_x = 0
+        self.mo_y = 0
 
         # 阵列宽度  沿y方向阵列数量   沿x方向阵列数量  铁氧体距线圈距离  铁氧体厚度
         self.zu_width = 0
@@ -77,41 +90,9 @@ class Maxwell:
     def create_coil_type(self, coil, coil_p, coil_r):
         return self.coil_type(coil, coil_p, coil_r)
 
-    def create_design_parma(self, send_N, aux_N, rec_N,
-                            send_wire_r, Rcs_send_x, Rcs_send_y, Rcs_send_z, Rcs_send_name,
-                            a_wire_r, Rcs_aux_x, Rcs_aux_y, Rcs_aux_z, Rcs_aux_name,
-                            rec_wire_r, h, Rcs_rec_name,
-                            zu_width, Dup_num_y, Dup_num_x, fer_coil_d, fer_thick):
-        self.send_N = send_N
-        self.aux_N = aux_N
-        self.rec_N = rec_N
-
-        self.send_wire_r = send_wire_r
-        self.Rcs_send_x = Rcs_send_x
-        self.Rcs_send_y = Rcs_send_y
-        self.Rcs_send_z = Rcs_send_z
-        self.Rcs_send_name = Rcs_send_name
-
-        self.a_wire_r = a_wire_r
-        self.Rcs_aux_x = Rcs_aux_x
-        self.Rcs_aux_y = Rcs_aux_y
-        self.Rcs_aux_z = Rcs_aux_z
-        self.Rcs_aux_name = Rcs_aux_name
-
-        self.rec_wire_r = rec_wire_r
-        self.h = h
-        self.Rcs_rec_name = Rcs_rec_name
-
-        self.zu_width = zu_width
-        self.Dup_num_y = Dup_num_y
-        self.Dup_num_x = Dup_num_x
-        self.fer_coil_d = fer_coil_d
-        self.fer_thick = fer_thick
-
     def create_iter_param(self, send_n_lim, aux_n_lim):
         self.send_n_lim = send_n_lim
         self.aux_n_lim = aux_n_lim
-
 
     def AnalyzeAll_maxwell(self):
         self.oDesign.AnalyzeAll()
