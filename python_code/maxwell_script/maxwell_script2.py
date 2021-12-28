@@ -10,7 +10,7 @@ def iter_param(maxwell):
     # 加载设计的全局变量
     maxwell.zu_width = 30
     maxwell.rec_N = 1  # 接收线圈匝数
-    maxwell.aux_N = 0
+    maxwell.aux_N = 1
 
     maxwell.tw = 0.27  # 匝间距
 
@@ -29,9 +29,9 @@ def iter_param(maxwell):
 
     # 辅助线圈参数
     maxwell.a_wire_r = 0.25 / 2
-    maxwell.Rcs_aux_x = maxwell.zu_width
-    maxwell.Rcs_aux_y = maxwell.zu_width
-    maxwell.Rcs_aux_z = maxwell.a_wire_r * 2 + 0.1  # 附加线圈底部z坐标高度
+    maxwell.Rcs_aux_x = maxwell.zu_width / 2
+    maxwell.Rcs_aux_y = maxwell.zu_width / 2
+    maxwell.Rcs_aux_z = 0  # maxwell.a_wire_r * 2 + 0.1  # 附加线圈底部z坐标高度
     maxwell.Rcs_aux_name = 'RelativeCS_aux'
 
     # 接收线圈参数     这些参数应该固定
@@ -43,8 +43,8 @@ def iter_param(maxwell):
     maxwell.mo_y = maxwell.zu_width/2
 
     # 线圈阵列参数
-    maxwell.Dup_num_y = 3  # 沿y方向复制的线圈数量
-    maxwell.Dup_num_x = 3  # 沿x方向复制的线圈数量
+    maxwell.Dup_num_y = 2  # 沿y方向复制的线圈数量
+    maxwell.Dup_num_x = 2  # 沿x方向复制的线圈数量
     # 铁氧体参数
     maxwell.fer_coil_d = 0.25  # 铁氧体板与线圈间距
     maxwell.fer_thick = 0.5  # 铁氧体厚度
@@ -59,6 +59,7 @@ def iter_param(maxwell):
     # 发射线圈半径
     rs_lim = [5, maxwell.zu_width / 2 - 5, 5]
     rs_sweep_list = np.arange(rs_lim[0], rs_lim[1], rs_lim[2])
+    rs_sweep_list = [9]
     # 辅助线圈半径
     ra_lim = [5, maxwell.zu_width / 2 - 5, 5]
     ra_sweep_list = np.arange(ra_lim[0], ra_lim[1], ra_lim[2])
@@ -72,7 +73,7 @@ def iter_param(maxwell):
                 rs_list_temp.append(r - i * maxwell.tw)
 
             # 加载当前迭代下的maxwell模型参数
-            build_model_param(maxwell, rs_list_temp, [0], [maxwell.rr])
+            build_model_param(maxwell, rs_list_temp, [3], [maxwell.rr])
             # 根据加载的参数创建对应几何模型
             build_model(maxwell)
             # 设置maxwell仿真参数
