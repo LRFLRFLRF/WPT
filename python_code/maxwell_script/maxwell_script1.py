@@ -381,7 +381,7 @@ def main():
     # 设置仿真参数
     ansys_setup(maxwell)
     # 线圈优化仿真
-    iter_cal(maxwell)
+    #iter_cal(maxwell)
 
 
 if __name__ == "__main__":

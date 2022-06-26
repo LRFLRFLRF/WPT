@@ -81,7 +81,7 @@ def iter_param(maxwell):
             # 启动本次仿真
             #maxwell.AnalyzeAll_maxwell()
             # 结果处理
-            handle_result(maxwell)
+            #handle_result(maxwell)
 
 
 
