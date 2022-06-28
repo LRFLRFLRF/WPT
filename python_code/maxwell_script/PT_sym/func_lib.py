@@ -35,26 +35,28 @@ class Maxwell:
         self.ParameteroModule = self.oDesign.GetModule("MaxwellParameterSetup")
         self.OptiParaoModule = self.oDesign.GetModule("Optimetrics")
         self.ReportoModule = self.oDesign.GetModule("ReportSetup")
-
+        self.outputoModule = self.oDesign.GetModule("OutputVariable")
         ################################################################
         # 线圈对象存储列表
         self.send_coil = []
         self.aux_coil = []
         self.rec_coil = []
 
-        self.sweep_step_len = 0  # 扫描步长
-
         self.I_send = 0
         self.I_rec = 0
 
         # 模型设计参数 匝数 匝间距
-        self.tw = 0
+        self.mindis = 0.01  # 模型导线间最小间距  防止几何碰撞
+        self.send_tw = 0
         self.send_N = 0
         self.aux_N = 0
         self.rec_N = 0
-        
+
         # 线圈阵列间距
         self.dupli_dis = 0
+
+        # 阵列最大长宽
+        self.array_max_width = 0
 
         # 发射线圈导线半径 第一个线圈中心的坐标位置  坐标系名称
         self.send_maxR = 0
@@ -83,7 +85,13 @@ class Maxwell:
         self.Dup_num_x = 0
         self.fer_coil_d = 0
         self.fer_thick = 0
+        self.fer_overlong = 0
 
+        # Sweep参数
+        self.sweep_steps_xy = 0  # xy方向扫描点数
+        self.sweep_steps_z = 0  #z方向扫描点数
+        self.sweep_lim_xy = [0, 0]  # xy方向上扫描范围
+        self.sweep_lim_z = [0, 0]
 
     def create_coil_type(self, coil, coil_p, coil_r):
         return self.coil_type(coil, coil_p, coil_r)
@@ -95,14 +103,18 @@ class Maxwell:
     def AnalyzeAll_maxwell(self):
         self.oDesign.AnalyzeAll()
 
-    def CreateReport_maxwell(self, type, sweep_var, XC, YC, plot_name):
+    def CreateReport_maxwell(self, type, sweep_var, contain, plot_name):
+        sweep_list = []
+        for i in sweep_var:
+            sweep_list.append(i+':=')
+            sweep_list.append(["All"])
+        
         self.ReportoModule.CreateReport(plot_name, "Magnetostatic", type, "Setup1 : LastAdaptive", [],
+                                        sweep_list,
                                         [
-                                            sweep_var + ":=", ["All"]
-                                        ],
-                                        [
-                                            "X Component:=", XC,
-                                            "Y Component:=", [YC]
+                                            "X Component:=", sweep_var[0],
+                                            "Y Component:=", sweep_var[1],
+                                            "Z Component:="	, [contain]
                                         ], [])
 
     def ExportToFile_maxwell(self, plot_name, dir):
@@ -438,11 +450,14 @@ class Maxwell:
                 ]
             ])
 
+    def CreateoutputVar(self, name, forumla):
+        self.outputoModule.CreateOutputVariable(name, forumla, "Setup1 : LastAdaptive", "Magnetostatic", [])
+
     # 删除plot
     def DeleteReports_maxwell(self, plot_name):
         self.ReportoModule.DeleteReports(plot_name)
 
-    #复制线圈
+    # 复制线圈
     def Duplicate_coil(self, dupli_dis, Dup_num_y, Dup_num_x, coil, coil_p):
         ########################### 沿Y轴复制线圈和加载面
         if Dup_num_y != 1:
@@ -466,7 +481,7 @@ class Maxwell:
             ob = ''
             for i in range(Dup_num_y):
                 ob = ob + coil[i] + ',' + coil_p[i] + ','  # 选中一排线圈和加载面进行x方向复制
-
+            ob = ob[:-1]  # 去掉最后一个逗号
             self.DuplicateAlongLine_maxwell(str(dupli_dis) + "cm",
                                             "0mm",
                                             "0mm",
@@ -481,8 +496,7 @@ class Maxwell:
                     self.rename_maxwell(temp + "_" + str(i + 1), coil[Dup_num_y * (i + 1) + j])
                     self.rename_maxwell(temp1 + "_" + str(i + 1), coil_p[Dup_num_y * (i + 1) + j])
 
-
-    #创建线圈阵列
+    # 创建线圈阵列
     def creat_coil_array(self, coil, coil_p, wire_r, coil_r, p_x, p_y, p_z, RelativeCS_name, dupli_dis, Dup_num_y,
                          Dup_num_x):
         ################################创建初始线圈 以及加载面
@@ -550,10 +564,8 @@ class Maxwell:
                             coil,
                             coil_p)
 
-
-    def cal_r_list(self, N, maxR):
+    def cal_r_list(self, N, maxR, tw, wire_r):
         r_list = []
         for i in range(N):
-            r_list.append(maxR - i * self.tw)
+            r_list.append(maxR - i * (tw + 2 * wire_r))
         return r_list
-        

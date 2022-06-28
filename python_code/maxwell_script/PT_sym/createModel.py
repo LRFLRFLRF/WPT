@@ -74,13 +74,13 @@ def build_model_param(maxwell, rs_list, ra_list, rr_list):
                                             ['mo_y', str(maxwell.mo_y)],
                                             ['mo_z', str(maxwell.mo_z)]]])
 
-    # 只sweep 变量mo_x mo_y
-    # maxwell.ChangeProperty_maxwell(tab_type="LocalVariableTab",
-    #                                ob="LocalVariables",
-    #                                oprate=['ChangedProps',
-    #                                        [['send_maxR', "Sweep:=", False],
-    #                                         ['h', "Sweep:=", False]]])
-    # 
+    # 只sweep 变量mo_x mo_z
+    maxwell.ChangeProperty_maxwell(tab_type="LocalVariableTab",
+                                   ob="LocalVariables",
+                                   oprate=['ChangedProps',
+                                           [['mo_x', "Sweep:=", False]
+                                            ]])
+
     # maxwell.ChangeProperty_maxwell(tab_type="LocalVariableTab",
     #                                ob="LocalVariables",
     #                                oprate=['ChangedProps',
@@ -121,7 +121,7 @@ def build_model(maxwell):
         # 发射线圈各单元错开一定位置，保证重叠时不会碰撞
         for n in range(maxwell.Dup_num_x * maxwell.Dup_num_y):
             ob = maxwell.send_coil[i].coil[n] + ',' + maxwell.send_coil[i].coil_p[n]
-            maxwell.Move_maxwell(str(0)+ " cm", str(0)+ " cm", str(n*(maxwell.send_wire_r*2+0.01))+ " cm", ob)
+            maxwell.Move_maxwell(str(0)+ " cm", str(0)+ " cm", str(n*(maxwell.send_wire_r*2+maxwell.mindis)) + " cm", ob)
 
 
         
@@ -129,16 +129,15 @@ def build_model(maxwell):
     # 选定坐标系
     maxwell.SetWCS_maxwell("Global")
 
-    # 创建send铁氧体
-    max_width = maxwell.send_maxR*2 + maxwell.dupli_dis * (maxwell.Dup_num_y-1) + 2 * maxwell.fer_coil_d  #计算阵列最大宽度和长度
-    maxwell.createBox_maxwell(str(0) + " cm",
-                              str(0) + " cm",
-                              str(-maxwell.fer_coil_d) + " cm",
-                              str(max_width) + " cm",
-                              str(max_width) + " cm",
-                              str(-maxwell.fer_thick) + " cm",
-                              'send_fer',
-                              'ferrite')
+    # # 创建send铁氧体
+    # maxwell.createBox_maxwell(str(-maxwell.fer_overlong) + " cm",
+    #                           str(-maxwell.fer_overlong) + " cm",
+    #                           str(-maxwell.fer_coil_d) + " cm",
+    #                           str(maxwell.array_max_width+2*maxwell.fer_overlong) + " cm",
+    #                           str(maxwell.array_max_width+2*maxwell.fer_overlong) + " cm",
+    #                           str(-maxwell.fer_thick) + " cm",
+    #                           'send_fer',
+    #                           'ferrite')
 
     ################################################################
     ################################创建aux线圈 以及加载面 并且阵列
@@ -154,6 +153,12 @@ def build_model(maxwell):
                                  maxwell.dupli_dis,
                                  maxwell.Dup_num_y,
                                  maxwell.Dup_num_x)
+        
+        # 辅助线圈各单元错开一定位置，保证重叠时不会碰撞
+        for n in range(maxwell.Dup_num_x * maxwell.Dup_num_y):
+            ob = maxwell.aux_coil[i].coil[n] + ',' + maxwell.aux_coil[i].coil_p[n]
+            maxwell.Move_maxwell(str(0) + " cm", str(0) + " cm",
+                                 str(n * (maxwell.a_wire_r * 2 + maxwell.mindis)) + " cm", ob)
 
     ################################################################
     ################################创建rec线圈 铁氧体 以及加载面
@@ -173,27 +178,28 @@ def build_model(maxwell):
     # 选定坐标系
     maxwell.SetWCS_maxwell("Global")
 
-    # 创建rec铁氧体
-    rr_list = []
-    for i in range(len(maxwell.rec_coil)):
-        rr_list.append(maxwell.rec_coil[i].coil_r)
-    rr_max = maxwell.rec_maxR
-    maxwell.createBox_maxwell(str(- rr_max - 2 * maxwell.fer_coil_d) + " cm",
-                              str(- rr_max - 2 * maxwell.fer_coil_d) + " cm",
-                              str(2 * maxwell.rec_wire_r + maxwell.fer_coil_d) + " cm",
-                              str(2 * rr_max + 2 * maxwell.rec_wire_r + 2 * maxwell.fer_coil_d) + " cm",
-                              str(2 * rr_max + 2 * maxwell.rec_wire_r + 2 * maxwell.fer_coil_d) + " cm",
-                              str(maxwell.fer_thick) + " cm",
-                              'rec_fer',
-                              'ferrite')
+    # # 创建rec铁氧体
+    # rr_list = []
+    # for i in range(len(maxwell.rec_coil)):
+    #     rr_list.append(maxwell.rec_coil[i].coil_r)
+    # rr_max = maxwell.rec_maxR
+    # maxwell.createBox_maxwell(str(- rr_max - maxwell.fer_overlong) + " cm",
+    #                           str(- rr_max - maxwell.fer_overlong) + " cm",
+    #                           str(maxwell.mo_y + maxwell.fer_coil_d + maxwell.rec_wire_r) + " cm",
+    #                           str(2 * rr_max +  2 * maxwell.fer_overlong) + " cm",
+    #                           str(2 * rr_max + 2 * maxwell.fer_overlong) + " cm",
+    #                           str(maxwell.fer_thick) + " cm",
+    #                           'rec_fer',
+    #                           'ferrite')
 
     # 添加rec线圈和铁氧体移动参数
     rr_name_list = ''
     for i in range(len(maxwell.rec_coil)):
         for j in maxwell.rec_coil[i].coil:
-            rr_name_list = rr_name_list + j + ', '
+            rr_name_list = rr_name_list + j + ','
+        
         for j in maxwell.rec_coil[i].coil_p:
-            rr_name_list = rr_name_list + j + ', '
+            rr_name_list = rr_name_list + j + ','
     rr_name_list = rr_name_list + 'rec_fer'
     maxwell.Move_maxwell('mo_x' + " cm",
                          'mo_y' + " cm",
@@ -250,31 +256,68 @@ def ansys_setup(maxwell):
                                  [gr1_list, gr2_list])
 
 
+
+def ansys_sweep(maxwell):
     ###########################加optimetrics 指定扫描设置
     # 创建一个setup
     maxwell.OptiParametricSetup_maxwell()
-
     # 添加sweep参数
-    maxwell.EditSetup_maxwell(['mo_y', 'mo_x'],
-                              [[0, maxwell.Dup_num_y * maxwell.send_maxR,
-                                round(maxwell.Dup_num_y * maxwell.send_maxR / maxwell.sweep_step_len, 2)],
-                               [0, maxwell.Dup_num_x * maxwell.send_maxR,
-                                round(maxwell.Dup_num_x * maxwell.send_maxR / maxwell.sweep_step_len, 2)]])
+    maxwell.sweep_steps_xy = 3  # mo的扫描步长
+    maxwell.sweep_lim_xy = [0, maxwell.array_max_width/2]
+    
+    maxwell.sweep_steps_z = 3
+    maxwell.sweep_lim_z = [2, 10]
+
+
+    # xy两方向对称  因此只扫y和z方向即可  x对准单元中心   并令mo_z初始值为table内第一个值  避免ansys多计算一个点浪费时间
+    maxwell.ChangeProperty_maxwell(tab_type="LocalVariableTab",
+                                   ob="LocalVariables",
+                                   oprate=['ChangedProps',
+                                           [['mo_x', "Value:=", str(maxwell.send_maxR)],
+                                            ['mo_z', "Value:=", str(maxwell.sweep_lim_z[0])]
+                                            ]])
+
+
+
+    maxwell.EditSetup_maxwell(['mo_y', 'mo_z'],
+                              [[str(maxwell.sweep_lim_xy[0]), str(maxwell.sweep_lim_xy[1]),
+                                str((maxwell.sweep_lim_xy[1]-maxwell.sweep_lim_xy[0])/maxwell.sweep_steps_xy)],
+                               [str(maxwell.sweep_lim_z[0]), str(maxwell.sweep_lim_z[1]),
+                                str((maxwell.sweep_lim_z[1] - maxwell.sweep_lim_z[0]) / maxwell.sweep_steps_z)]])
+
+    # 增加输出变量：计算发射阵列和接收线圈的耦合系数
+    formula = "Matrix1.L(Group1,Group2)/sqrt(Matrix1.L(Group1,Group1)*Matrix1.L(Group2,Group2))"
+    maxwell.CreateoutputVar('coup', formula)
+
 
 def handle_result(maxwell):
     ###########################results设置
-    # 创建plot
-    plot_name = 'table_mo_' + str(i)
-
-    maxwell.CreateReport_maxwell("Data Table",
-                                 'mo',
-                                 'mo',
-                                 "Matrix1.L(rec1_p,Group1)",
+    csv_save_path = 'D:\\works\\WPT\\python_code\\data\\'
+    # 绘制收发线圈间耦合系数 并导出至csv
+    plot_name = 'coup_'
+    sweep_list = ['mo_y', 'mo_z']
+    contain = ['coup']
+    maxwell.CreateReport_maxwell("Rectangular Contour Plot",
+                                 sweep_list,
+                                 contain,
                                  plot_name)
 
-    # 导出plot结果至csv
     maxwell.ExportToFile_maxwell(plot_name,
                                  csv_save_path + plot_name + '.csv')
 
-    # 删除plot
-    maxwell.DeleteReports_maxwell(plot_name)
+    #maxwell.DeleteReports_maxwell(plot_name)
+
+    # 绘制收发线圈自感量互感量 并导出至csv
+    plot_name = 'L_'
+    sweep_list = ['mo_y', 'mo_z']
+    contain = ["Matrix1.L(Group1,Group1)", "Matrix1.L(Group1,Group2)", "Matrix1.L(Group2,Group2)"]
+    maxwell.CreateReport_maxwell("Rectangular Contour Plot",
+                                 sweep_list,
+                                 contain,
+                                 plot_name)
+
+    maxwell.ExportToFile_maxwell(plot_name,
+                                 csv_save_path + plot_name + '.csv')
+
+    # maxwell.DeleteReports_maxwell(plot_name)
+
