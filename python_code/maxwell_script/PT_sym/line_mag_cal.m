@@ -42,6 +42,7 @@ elseif type == 'y'
     B = simplify(subs(B, {x}, {t}));
     res = vpa(B);
 end
+end
 
 
 
