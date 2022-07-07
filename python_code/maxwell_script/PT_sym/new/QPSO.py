@@ -100,13 +100,13 @@ class QPSO(object):
             #             'send_N': particle_loc[i][2],
             #             'aux_N': particle_loc[i][3],
             #             'aux_maxR': particle_loc[i][4]}
-            paralist = {'send_maxR': 15*100,
-                        'send_tw': 0.27*100,
+            paralist = {'send_maxR': 15,
+                        'send_tw': 0.27,
                         'overlay': 0,
                         'send_N': 1,
                         'aux_N': 1,
-                        'aux_maxR': 5*100,
-                        'rec_maxR': 4*100,
+                        'aux_maxR': 5,
+                        'rec_maxR': 5,
                         'array_num_y': 1}
 
             # 匝数进行取整优化 匝数必须为整数

@@ -2,18 +2,18 @@
 function [B] = array_fi_cal1()  % sweeplist 扫描参数  paralist 线圈参数   sweeplist, paralist
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%下面是一些测试参数  正常时注释掉
 sweeplist.start_p = 0;
-sweeplist.end_p = 30;
+sweeplist.end_p = 30/100;
 sweeplist.steps = 6;
-sweeplist.fixed_x = 15;
-sweeplist.fixed_z = 5;
+sweeplist.fixed_x = 15/100;
+sweeplist.fixed_z = 5/100;
 
-paralist.send_maxR = 15;
-paralist.send_tw = 0.27;
+paralist.send_maxR = 15/100;
+paralist.send_tw = 0.27/100;
 paralist.overlay = 0;
 paralist.send_N = 1;
 paralist.aux_N = 1;
-paralist.aux_maxR = 5;
-paralist.rec_maxR = 4;
+paralist.aux_maxR = 5/100;
+paralist.rec_maxR = 5/100;
 paralist.array_num_y = 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

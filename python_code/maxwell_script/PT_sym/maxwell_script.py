@@ -49,8 +49,8 @@ def loadpara(maxwell, paralist):
     maxwell.rec_wire_r = 0.25 / 2  # 接收线圈导线半径
     maxwell.mo_x = 0  # 设定模型初始显示位置
     maxwell.mo_y = 0
-    maxwell.mo_z = 5*100
-    maxwell.rec_maxR = 8*100 / 2  # 接收线圈半径
+    maxwell.mo_z = 5
+    maxwell.rec_maxR = 10 / 2  # 接收线圈半径
     maxwell.Rcs_rec_name = 'RelativeCS_rec'
 
     # 线圈阵列参数
