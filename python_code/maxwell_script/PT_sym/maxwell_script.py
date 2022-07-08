@@ -25,7 +25,7 @@ def loadpara(maxwell, paralist):
     maxwell.send_N = int(paralist['send_N'])
 
     maxwell.send_maxR = paralist['send_maxR']
-    maxwell.send_wire_r = 0.25 / 2  # 发射线圈导线半径
+    maxwell.send_wire_r = 0.05 / 2  # 发射线圈导线半径
     maxwell.Rcs_send_x = maxwell.send_maxR
     maxwell.Rcs_send_y = maxwell.send_maxR
     maxwell.Rcs_send_z = 0  # 发射线圈底部z坐标高度
@@ -46,11 +46,11 @@ def loadpara(maxwell, paralist):
 
     # 接收线圈参数
     maxwell.rec_N = 1
-    maxwell.rec_wire_r = 0.25 / 2  # 接收线圈导线半径
+    maxwell.rec_wire_r = 0.05 / 2  # 接收线圈导线半径
     maxwell.mo_x = 0  # 设定模型初始显示位置
     maxwell.mo_y = 0
     maxwell.mo_z = 5
-    maxwell.rec_maxR = 10 / 2  # 接收线圈半径
+    maxwell.rec_maxR = 30 / 2  # 接收线圈半径
     maxwell.Rcs_rec_name = 'RelativeCS_rec'
 
     # 线圈阵列参数

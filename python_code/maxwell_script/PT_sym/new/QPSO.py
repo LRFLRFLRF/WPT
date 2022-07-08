@@ -100,19 +100,19 @@ class QPSO(object):
             #             'send_N': particle_loc[i][2],
             #             'aux_N': particle_loc[i][3],
             #             'aux_maxR': particle_loc[i][4]}
-            paralist = {'send_maxR': 15,
-                        'send_tw': 0.27,
-                        'overlay': 0,
-                        'send_N': 1,
-                        'aux_N': 1,
-                        'aux_maxR': 5,
-                        'rec_maxR': 5,
-                        'array_num_y': 1}
-
-            # 匝数进行取整优化 匝数必须为整数
-            paralist['send_N'] = round(paralist['send_N'], 0)
-            paralist['aux_N'] = round(paralist['aux_N'], 0)
-            run(paralist)
+            # paralist = {'send_maxR': 15,
+            #             'send_tw': 0.27,
+            #             'overlay': 0,
+            #             'send_N': 1,
+            #             'aux_N': 1,
+            #             'aux_maxR': 5,
+            #             'rec_maxR': 15,
+            #             'array_num_y': 1}
+            #
+            # # 匝数进行取整优化 匝数必须为整数
+            # paralist['send_N'] = round(paralist['send_N'], 0)
+            # paralist['aux_N'] = round(paralist['aux_N'], 0)
+            # run(paralist)
 
 
             """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -120,32 +120,28 @@ class QPSO(object):
             采用matlab  理论计算方法计算阵列不同位置B值
             '''
             # # 设定粒子参数
-            paralist = {'send_maxR': 15,
+            paralist = {'send_maxR': 15/100,
                         'send_tw': particle_loc[i][0],
+                        'aux_tw': 0.27/100,
                         'overlay': particle_loc[i][1],
                         'send_N': particle_loc[i][2],
                         'aux_N': particle_loc[i][3],
-                        'aux_maxR': particle_loc[i][4]}
+                        'aux_maxR': particle_loc[i][4],
+                        'rec_maxR': 5/100,
+                        'array_num_y': 2,
+                        }
             # 匝数进行取整优化 匝数必须为整数
             paralist['send_N'] = round(paralist['send_N'], 0)
             paralist['aux_N'] = round(paralist['aux_N'], 0)
 
-
-            paralist = {'send_maxR': 15,
-                        'send_tw': 0.27,
-                        'overlay': 0,
-                        'send_N': 1,
-                        'aux_N': 1,
-                        'aux_maxR': 5,
-                        'rec_maxR': 4,
-                        'array_num_y': 2}
-
-            sweeplist = {'start_p': 0,
-                         'end_p': 20,
-                         'steps': 4,
-                         'fixed_x': 15,
-                         'fixed_z': 5}
-            res = eng.array_fi_cal1(sweeplist, paralist)
+            sweeplist = {'start_p': 0/100,
+                         'end_p': (paralist['send_maxR']*4-paralist['overlay'])/2,    #扫描范围是阵列的一半
+                         'steps': 10,
+                         'fixed_x': paralist['send_maxR'],   #x方向 对准阵列单元
+                         'start_z': 5/100,
+                         'end_z': 15/100,
+                         'steps_z': 3}
+            res = eng.func_cal1(sweeplist, paralist)
             print(res)
 
 
