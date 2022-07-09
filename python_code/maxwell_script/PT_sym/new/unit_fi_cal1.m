@@ -12,7 +12,7 @@ send_maxR = paralist.send_maxR;
 
 % 计算发射线圈
 send_fi_M = 0;
-for i=1:send_N
+parfor i=1:send_N
     % 计算每匝产生的互感磁通量和
     a = send_maxR-(i-1)*send_tw;  %根据发射线圈最大半径和匝间距计算每匝的具体半径大小
     L = [a, -a];
@@ -22,7 +22,7 @@ end
 
 % 计算辅助线圈
 aux_fi_M = 0;
-for i=1:aux_N
+parfor i=1:aux_N
     % 计算每匝产生的互感磁通量和
     a = aux_maxR-(i-1)*aux_tw;  %根据发射线圈最大半径和匝间距计算每匝的具体半径大小
     L = [a, -a];

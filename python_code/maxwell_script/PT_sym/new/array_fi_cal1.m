@@ -11,16 +11,21 @@ dupli_dis = paralist.send_maxR*2-paralist.overlay;
 P_list_temp = P_list;
 Fi_list = [];
 
+
+
 % 计算由阵列引起的P点磁场强度
 for i = 1:paralist.array_num_y
-       
+    disp(['unit_num:',num2str(i)]);
+    
     % 将P点坐标从阵列线圈的坐标系转换至单元阵列的独立坐标系
     P_list_temp(:,1) = P_list(:,1)-paralist.send_maxR;  %x方向
-    P_list_temp(:,2) = P_list(:,2)-(i-1)*dupli_dis-paralist.send_maxR;   %y方向
+    P_list_temp(:,2) = P_list(:,2)-(double(i)-1)*dupli_dis-paralist.send_maxR;   %y方向
     
     [r,c] = size(P_list_temp);    % 读取行r、列c
     temp = [];
-    for j = 1:r
+
+    parfor j = 1:r        
+        disp(['plane +1']);
         % plane_R待计算平面的半径  
         plane_R = P_list(j,4);
         

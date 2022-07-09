@@ -119,38 +119,64 @@ class QPSO(object):
             '''
             采用matlab  理论计算方法计算阵列不同位置B值
             '''
+
             # # 设定粒子参数
-            paralist = {'send_maxR': 15/100,
+            paralist = {'send_maxR': 15,
                         'send_tw': particle_loc[i][0],
-                        'aux_tw': 0.27/100,
+                        'aux_tw': 0.27,
                         'overlay': particle_loc[i][1],
                         'send_N': particle_loc[i][2],
                         'aux_N': particle_loc[i][3],
                         'aux_maxR': particle_loc[i][4],
-                        'rec_maxR': 5/100,
+                        'rec_maxR': 5,
                         'array_num_y': 2,
                         }
             # 匝数进行取整优化 匝数必须为整数
             paralist['send_N'] = round(paralist['send_N'], 0)
             paralist['aux_N'] = round(paralist['aux_N'], 0)
 
-            sweeplist = {'start_p': 0/100,
+            sweeplist = {'start_p': paralist['rec_maxR'],
                          'end_p': (paralist['send_maxR']*4-paralist['overlay'])/2,    #扫描范围是阵列的一半
                          'steps': 10,
                          'fixed_x': paralist['send_maxR'],   #x方向 对准阵列单元
-                         'start_z': 5/100,
-                         'end_z': 15/100,
+                         'start_z': 2,
+                         'end_z': 15,
                          'steps_z': 3}
-            res = eng.func_cal1(sweeplist, paralist)
-            print(res)
 
 
+
+            # 将数据类型改成matlab类型
+            paralist = {'send_maxR': matlab.double([paralist['send_maxR']]),
+                        'send_tw': matlab.double([paralist['send_tw']]),
+                        'aux_tw': matlab.double([paralist['aux_tw']]),
+                        'overlay': matlab.double([paralist['overlay']]),
+                        'send_N': matlab.double([int(paralist['send_N'])]),
+                        'aux_N': matlab.double([int(paralist['send_N'])]),
+                        'aux_maxR': matlab.double([paralist['aux_N']]),
+                        'rec_maxR': matlab.double([paralist['rec_maxR']]),
+                        'array_num_y': 2,
+                        }
+
+            sweeplist = {'start_p': matlab.double([sweeplist['start_p']]),
+                         'end_p': matlab.double([sweeplist['end_p']]),    #扫描范围是阵列的一半
+                         'steps': matlab.double([sweeplist['steps']]),
+                         'fixed_x': matlab.double([sweeplist['fixed_x']]),   #x方向 对准阵列单元
+                         'start_z': matlab.double([sweeplist['start_z']]),
+                         'end_z': matlab.double([sweeplist['end_z']]),
+                         'steps_z': matlab.double([sweeplist['steps_z']])}
+
+            res = eng.func_cal1(sweeplist, paralist, nargout=2)
+
+            Var = res[0]
+            Mean = res[1]
+
+            fitness_value.append(Var)
 
 
 
             #rbf_svm = svm.SVC(kernel='rbf', C=particle_loc[i][0], gamma=particle_loc[i][1])
             #cv_scores = cross_validation.cross_val_score(rbf_svm, trainX, trainY, cv=3, scoring='accuracy')
-            fitness_value.append(cv_scores.mean())
+            #fitness_value.append(cv_scores.mean())
 
         ### 2. 当前粒子群最优适应度函数值和对应的参数
         current_fitness = 0.0
@@ -299,7 +325,7 @@ if __name__ == '__main__':
     particle_dim = 5
     iter_num = 10
     alpha = 0.6
-    max_value = [3, 5, 7, 5, 5]
+    max_value = [3, 5, 7, 5, 6]
     min_value = [0.001, 0, 1, 1, 1]
     print('----------------3.PSO_RBF_SVM-----------------')
     qpso = QPSO(particle_num, particle_dim, alpha, iter_num, max_value, min_value)

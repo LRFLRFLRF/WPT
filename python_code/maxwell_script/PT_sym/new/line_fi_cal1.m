@@ -45,6 +45,10 @@ end
 S_x = S{1};  % 接收线圈x方向的范围边界
 S_y = S{2};
 
+% intx = int(Bz, S_x(2), S_x(1));
+% inty = int(intx, S_y(2), S_y(1));
+% fi = vpa(inty);
+
 % 采用数值积分方法进行z轴方向磁通量计算
 fi = quad2d(matlabFunction(Bz), S_x(2), S_x(1), S_y(2), S_y(1));
 fi = vpa(fi);
