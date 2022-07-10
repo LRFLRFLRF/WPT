@@ -90,30 +90,6 @@ class QPSO(object):
 
         ### 1.适应度函数为RBF_SVM的3_fold交叉校验平均值
         for i in range(self.particle_num):
-            '''
-            采用ansys仿真方法  运行maxwell仿真程序  run
-            '''
-            # # 设定粒子参数
-            # paralist = {'send_maxR': 15,
-            #             'send_tw': particle_loc[i][0],
-            #             'overlay': particle_loc[i][1],
-            #             'send_N': particle_loc[i][2],
-            #             'aux_N': particle_loc[i][3],
-            #             'aux_maxR': particle_loc[i][4]}
-            # paralist = {'send_maxR': 15,
-            #             'send_tw': 0.27,
-            #             'overlay': 0,
-            #             'send_N': 1,
-            #             'aux_N': 1,
-            #             'aux_maxR': 5,
-            #             'rec_maxR': 15,
-            #             'array_num_y': 1}
-            #
-            # # 匝数进行取整优化 匝数必须为整数
-            # paralist['send_N'] = round(paralist['send_N'], 0)
-            # paralist['aux_N'] = round(paralist['aux_N'], 0)
-            # run(paralist)
-
 
             """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
             '''
@@ -135,6 +111,18 @@ class QPSO(object):
             paralist['send_N'] = round(paralist['send_N'], 0)
             paralist['aux_N'] = round(paralist['aux_N'], 0)
 
+            # paralist = {'send_maxR': 15,
+            #             'send_tw': 1.38,
+            #             'aux_tw': 0.27,
+            #             'overlay': 1.71,
+            #             'send_N': 4,
+            #             'aux_N': 4,
+            #             'aux_maxR': 3,
+            #             'rec_maxR': 5,
+            #             'array_num_y': 2,
+            #             }
+
+
             sweeplist = {'start_p': paralist['rec_maxR'],
                          'end_p': (paralist['send_maxR']*4-paralist['overlay'])/2,    #扫描范围是阵列的一半
                          'steps': 10,
@@ -143,9 +131,17 @@ class QPSO(object):
                          'end_z': 15,
                          'steps_z': 3}
 
+            # 计算辅助线圈的最小半径  防止线圈中心绕不下
+            min_aux_r = paralist['aux_tw']*(paralist['aux_N']-1)
+            if min_aux_r >= paralist['aux_maxR']:
+                paralist['aux_maxR'] = min_aux_r + paralist['aux_tw']
+            # 计算发射线圈的最小半径  防止线圈中心绕不下
+            min_send_r = paralist['send_tw'] * (paralist['send_N'] - 1)
+            if min_send_r >= paralist['send_maxR']:
+                paralist['send_N'] = paralist['send_N'] - int((min_send_r - paralist['send_maxR'])/paralist['send_tw']) -1
 
 
-            # 将数据类型改成matlab类型
+            ################################################################## 将数据类型改成matlab类型
             paralist = {'send_maxR': matlab.double([paralist['send_maxR']]),
                         'send_tw': matlab.double([paralist['send_tw']]),
                         'aux_tw': matlab.double([paralist['aux_tw']]),
@@ -170,7 +166,9 @@ class QPSO(object):
             Var = res[0]
             Mean = res[1]
 
-            fitness_value.append(Var)
+
+            # 储存每个粒子的评价值
+            fitness_value.append([Var, Mean])
 
 
 
@@ -288,7 +286,7 @@ class QPSO(object):
         ### 2.3 fitness_value
         fitness_value = []
         for i in range(self.particle_num):
-            fitness_value.append(0.0)
+            fitness_value.append(1.0)
 
         ## 3、迭代
         for i in range(self.iter_num):
@@ -296,9 +294,9 @@ class QPSO(object):
             current_fitness_value, current_best_fitness, current_best_parameter = self.fitness(particle_loc, eng)
             ### 3.2 求当前的gbest_parameter、pbest_parameters和best_fitness
             for j in range(self.particle_num):
-                if current_fitness_value[j] > fitness_value[j]:
+                if current_fitness_value[j] < fitness_value[j]:
                     pbest_parameters[j] = particle_loc[j]
-            if current_best_fitness > best_fitness:
+            if current_best_fitness < best_fitness:
                 best_fitness = current_best_fitness
                 gbest_parameter = current_best_parameter
 
@@ -308,6 +306,8 @@ class QPSO(object):
             fitness_value = current_fitness_value
             ### 3.4 更新粒子群
             particle_loc = self.updata(particle_loc, gbest_parameter, pbest_parameters)
+
+
         ## 4.结果展示
         results.sort()
         self.plot(results)
@@ -326,7 +326,7 @@ if __name__ == '__main__':
     iter_num = 10
     alpha = 0.6
     max_value = [3, 5, 7, 5, 6]
-    min_value = [0.001, 0, 1, 1, 1]
+    min_value = [0.25, 0, 1, 1, 1]
     print('----------------3.PSO_RBF_SVM-----------------')
     qpso = QPSO(particle_num, particle_dim, alpha, iter_num, max_value, min_value)
     qpso.main(eng)
