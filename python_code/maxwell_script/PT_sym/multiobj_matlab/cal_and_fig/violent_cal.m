@@ -1,0 +1,136 @@
+%% 本文件计算变匝间距或变宽度比时，单元线圈的互感特性曲线
+clear;
+
+%% 单元内特性仿真
+% 同宽度比  变匝间距
+rd = 0.4;
+%tw = [0.25, 0.5, 0.75, 1];
+tw = 0.25:0.05:0.5;
+res = [];
+for t = tw
+    sendN = round(15*rd/t);
+    [a, b, c, d] = single_unit_plot(t, 0, sendN, 15, 1);
+    res = [res; a, b, c(1,round(length(c)/2))];
+end
+save(['D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\history_record\fix rd',num2str(rd),'change tw.mat'],'res')
+
+%%绘制中心位置互感的图
+fig = figure('color','w');
+title('中心位置互感量uH')
+x = tw;
+plot(x,mc(1,:)','-r.');
+hold on; 
+plot(x,mc(2,:)','-g.');
+hold on;
+plot(x,mc(3,:)','-b.');
+hold on;
+plot(x,mc(4,:)','-c.');
+
+% legend 放在右下角
+legend(['dis=',num2str(2)], ...
+    ['dis=',num2str(4)],...
+    ['dis=',num2str(6)],...
+    ['dis=',num2str(8)],...
+    'Location', 'southeast');
+xlabel(['rd=',num2str(rd),';  同宽度比,变匝间距'],'fontsize',10);
+set(gca, 'XGrid', 'on');% 显示网格
+set(gca, 'YGrid', 'on');% 显示网格
+frame = getframe(fig); % 获取frame
+img = frame2im(frame); % 将frame变换成imwrite函数可以识别的格式
+path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\cal_quasi_area\';
+imwrite(img,[path,'同宽度比,变匝间距  中心位置互感; rd=',num2str(rd),'.png']); % 保存到工作目录下
+
+%%绘制中准均匀区域的图
+fig = figure('color','w');
+title('中心位置互感量uH')
+x = tw;
+plot(x,qua_area(1,:)','-r.');
+hold on;
+plot(x,qua_area(2,:)','-g.');
+hold on;
+plot(x,qua_area(3,:)','-b.');
+hold on;
+plot(x,qua_area(4,:)','-c.');
+
+% legend 放在右下角
+legend(['dis=',num2str(2)], ...
+    ['dis=',num2str(4)],...
+    ['dis=',num2str(6)],...
+    ['dis=',num2str(8)],...
+    'Location', 'southeast');
+xlabel(['rd=',num2str(rd),';  同宽度比,变匝间距'],'fontsize',10);
+set(gca, 'XGrid', 'on');% 显示网格
+set(gca, 'YGrid', 'on');% 显示网格
+frame = getframe(fig); % 获取frame
+img = frame2im(frame); % 将frame变换成imwrite函数可以识别的格式
+path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\cal_quasi_area\';
+imwrite(img,[path,'同宽度比,变匝间距  准均匀宽度比; rd=',num2str(rd),'.png']); % 保存到工作目录下
+
+
+%%
+% 同匝间距  变宽度比
+tw = 0.5;
+%rd = [0.1, 0.3, 0.5, 0.7];
+rd = 0.1:0.06:0.7;
+mc = [];
+qua_area = [];
+for r = rd
+    sendN = round(15*r/tw);
+    overlay = 15*r;
+    [a, b] = single_unit_plot(tw, overlay, sendN, r);
+    mc = [mc, a];
+    qua_area = [qua_area, b];
+end
+
+%%绘制中心位置互感的图
+fig = figure('color','w');
+title('中心位置互感量uH')
+x = rd;
+plot(x,mc(1,:)','-r.');
+hold on;
+plot(x,mc(2,:)','-g.');
+hold on;
+plot(x,mc(3,:)','-b.');
+hold on;
+plot(x,mc(4,:)','-c.');
+
+% legend 放在右下角
+legend(['dis=',num2str(2)], ...
+    ['dis=',num2str(4)],...
+    ['dis=',num2str(6)],...
+    ['dis=',num2str(8)],...
+    'Location', 'southeast');
+xlabel(['tw=',num2str(tw),';  同宽度比,变匝间距'],'fontsize',10);
+set(gca, 'XGrid', 'on');% 显示网格
+set(gca, 'YGrid', 'on');% 显示网格
+frame = getframe(fig); % 获取frame
+img = frame2im(frame); % 将frame变换成imwrite函数可以识别的格式
+path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\cal_quasi_area\';
+imwrite(img,[path,'同匝间距，变宽度比  中心位置互感; tw=',num2str(tw),'.png']); % 保存到工作目录下
+
+%%绘制中准均匀区域的图
+fig = figure('color','w');
+title('中心位置互感量uH');
+x = rd;
+plot(x,qua_area(1,:)','-r.');
+hold on;
+plot(x,qua_area(2,:)','-g.');
+hold on;
+plot(x,qua_area(3,:)','-b.');
+hold on;
+plot(x,qua_area(4,:)','-c.');
+
+% legend 放在右下角
+legend(['dis=',num2str(2)], ...
+    ['dis=',num2str(4)],...
+    ['dis=',num2str(6)],...
+    ['dis=',num2str(8)],...
+    'Location', 'southeast');
+xlabel(['tw=',num2str(tw),';  同宽度比,变匝间距'],'fontsize',10);
+set(gca, 'XGrid', 'on');% 显示网格
+set(gca, 'YGrid', 'on');% 显示网格
+frame = getframe(fig); % 获取frame
+img = frame2im(frame); % 将frame变换成imwrite函数可以识别的格式
+path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\cal_quasi_area\';
+imwrite(img,[path,'同匝间距，变宽度比  准均匀宽度比; tw=',num2str(tw),'.png']); % 保存到工作目录下
+

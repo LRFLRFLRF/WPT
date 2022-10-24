@@ -46,7 +46,7 @@ class Maxwell:
         self.I_rec = 0
 
         # 模型设计参数 匝数 匝间距
-        self.mindis = 0.01  # 模型导线间最小间距  防止几何碰撞
+        self.mindis = 0.1  # 模型导线间最小间距  防止几何碰撞
         self.send_tw = 0
         self.send_N = 0
         self.aux_N = 0

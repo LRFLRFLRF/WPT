@@ -45,7 +45,7 @@ def loadpara(maxwell, paralist):
     maxwell.Rcs_aux_name = 'RelativeCS_aux'
 
     # 接收线圈参数
-    maxwell.rec_N = 1
+    maxwell.rec_N = 36
     maxwell.rec_wire_r = 0.05 / 2  # 接收线圈导线半径
     maxwell.mo_x = 0  # 设定模型初始显示位置
     maxwell.mo_y = 0
@@ -86,7 +86,7 @@ def startmaxwell(maxwell):
     # 启动本次仿真
     #maxwell.AnalyzeAll_maxwell()
     # 结果处理
-    handle_result(maxwell)
+    #handle_result(maxwell)
 
 
 def run(paralist):
@@ -101,7 +101,7 @@ def run(paralist):
 
 
 def main():
-    paralist = {'send_maxR': 15, 'send_tw': 0.27, 'overlay': 0, 'send_N': 3, 'aux_N': 2, 'aux_maxR': 5}
+    paralist = {'send_maxR': 13, 'send_tw': 0.47, 'overlay': 4.6, 'send_N': 9, 'aux_N': 0, 'aux_maxR': 0}
     run(paralist)
 
 if __name__ == "__main__":

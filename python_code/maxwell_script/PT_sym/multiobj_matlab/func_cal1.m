@@ -1,7 +1,9 @@
 
 %% 执行阵列与接收线圈互感仿真    包含NSGA算法适应度函数计算
 
-function [Var_mean, Mean_mean] = func_cal1(sweep, para)  %
+function [Mc, zhunarea] = func_cal1(sweep, para)  %
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%下面是一些测试参数  正常时注释掉
 
 % paralist.send_maxR = 15;%
@@ -69,7 +71,7 @@ rec_R = paralist.rec_maxR;
 lens = (end_p-start_p)/steps;
 lens_z = (end_z-start_z)/steps_z;
 P_list = [];
-for j = start_z:lens_z:end_z
+for j = 5%start_z:lens_z:end_z     %%先以高度为5cm扫  加快速度！！！！！！！！！！！！！！！！！
     for i = start_p:lens:end_p
         P_list = [P_list; fixed_x,i,j, rec_R];
     end
@@ -81,7 +83,7 @@ res1 = reshape(res, [steps+1, length(res)/(steps+1)]);
 res1 = res1';
 
 
-%% 计算评价指标
+%% 计算评价指标   废弃！！！
 % 将结果单位转化成uH
 res1 = res1*1E+6;  
 
@@ -93,38 +95,57 @@ Var = var(res1,0,2);
 Var_mean = mean(Var);
 
 
+%% 计算准均匀区域大小
+[r,c]=size(res1);
+cent_L = res1(:,round(c/2));   %单元中心位置的互感量
+cond_l = cent_L.*0.85;    %计算15%偏差时的下界
+cond_h = cent_L.*1.15;    %计算15%偏差时的上界
+
+area_num = [];
+for i = 1:r
+    area_num = [area_num; length(find(res1(i,:)>cond_l(i,1) & res1(i,:)<cond_h(i,1)))];  %符合条件的点数
+end
+if para.array_num_y==1
+    overlayyy = 0;
+else
+    overlayyy = (para.array_num_y-1)*paralist.overlay;
+end
+zhunarea = area_num./(para.array_num_y*paralist.send_maxR*2/lens-overlayyy);   %准均匀区域占线圈宽度的百分比
+
+Mc = res1(:,round(c/2));
 
 %% 绘图 并保存
-fig = figure('color','w');
-x = start_p:lens:end_p;
-x = x.*100;
-plot(x,res1(1,:)','-r.');
-hold on;
-plot(x,res1(2,:)','-g.');
-hold on;
-plot(x,res1(3,:)','-b.');
-hold on;
-plot(x,res1(4,:)','-c.');
-hold on;
-% legend 放在右下角
-legend(['Var=',num2str(Var(1,1)),';Mean=',num2str(Mean(1,1))], ...
-    ['Var=',num2str(Var(2,1)),';Mean=',num2str(Mean(2,1))],...
-    ['Var=',num2str(Var(3,1)),';Mean=',num2str(Mean(3,1))],...
-    ['Var=',num2str(Var(4,1)),';Mean=',num2str(Mean(4,1))],...
-    'Location', 'southeast');
-
-xlabel(['tw=',num2str(paralist.send_tw*100),';over=',num2str(paralist.overlay*100),';s_N=',num2str(paralist.send_N),...
-    ';a_N=',num2str(paralist.aux_N),';aux_maxR=',num2str(paralist.aux_maxR*100)],'fontsize',10);
-
-set(gca, 'XGrid', 'on');% 显示网格
-set(gca, 'YGrid', 'on');% 显示网格
-
-frame = getframe(fig); % 获取frame
-img = frame2im(frame); % 将frame变换成imwrite函数可以识别的格式
-path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\img\';
-imwrite(img,[path,'Var_',num2str(Var_mean),';Mean_',num2str(Mean_mean),'.png']); % 保存到工作目录下
-
-Mean_mean = -1 * Mean_mean;
+% fig = figure('color','w');
+% x = start_p:lens:end_p;
+% x = x.*100;
+% plot(x,res1(1,:)','-r.');
+% hold on;
+% plot(x,res1(2,:)','-g.');
+% hold on;
+% plot(x,res1(3,:)','-b.');
+% hold on;
+% plot(x,res1(4,:)','-c.');
+% hold on;
+% % legend 放在右下角
+% legend(['Var=',num2str(Var(1,1)),';Mean=',num2str(Mean(1,1))], ...
+%     ['Var=',num2str(Var(2,1)),';Mean=',num2str(Mean(2,1))],...
+%     ['Var=',num2str(Var(3,1)),';Mean=',num2str(Mean(3,1))],...
+%     ['Var=',num2str(Var(4,1)),';Mean=',num2str(Mean(4,1))],...
+%     'Location', 'southeast');
+% 
+% xlabel(['tw=',num2str(paralist.send_tw*100),';over=',num2str(paralist.overlay*100),';s_N=',num2str(paralist.send_N),...
+%     ';a_N=',num2str(paralist.aux_N),';aux_maxR=',num2str(paralist.aux_maxR*100)],'fontsize',10);
+% 
+% set(gca, 'XGrid', 'on');% 显示网格
+% set(gca, 'YGrid', 'on');% 显示网格
+% 
+% frame = getframe(fig); % 获取frame
+% img = frame2im(frame); % 将frame变换成imwrite函数可以识别的格式
+% %path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\img\';
+% path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\img_individual_unit\';
+% %imwrite(img,[path,'Var_',num2str(Var_mean),';Mean_',num2str(Mean_mean),'.png']); % 保存到工作目录下
+% 
+% Mean_mean = -1 * Mean_mean;
 
 %% 显示运行时间
 toc
