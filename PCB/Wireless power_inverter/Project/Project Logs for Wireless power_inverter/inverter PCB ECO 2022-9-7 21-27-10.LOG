@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=NetC6_1 Pin=T1-3
+Removed Pin From Net: NetName=NetJ5_2 Pin=T1-4
+Added Pin To Net: NetName=NetJ5_2 Pin=T1-3
+Added Pin To Net: NetName=NetC6_1 Pin=T1-4
+Added Room: Name=inverter_2EDF7275K

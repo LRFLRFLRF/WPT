@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=NetJ6_2 Pin=R14-2
+Added Component: Designator=R15(AXIAL0.3)
+Added Pin To Net: NetName=GND Pin=R14-2
+Added Pin To Net: NetName=GND Pin=R15-1
+Added Pin To Net: NetName=NetJ6_2 Pin=R15-2
+Added Member To Class: ClassName=inverter_2EDF7275K Member=Component R15 10
+Added Room: Name=inverter_2EDF7275K

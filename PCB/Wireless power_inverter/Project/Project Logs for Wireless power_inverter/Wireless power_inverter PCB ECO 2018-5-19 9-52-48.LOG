@@ -1,0 +1,5 @@
+Added Component: Designator=Rfbk_I2(AXIAL0.7)
+Added Pin To Net: NetName=GND Pin=Rfbk_I2-1
+Added Pin To Net: NetName=NetP3_2 Pin=Rfbk_I2-2
+Added Member To Class: ClassName=Wireless power_inverter Member=Component Rfbk_I2 R05 0.1%
+Added Room: Name=Wireless power_inverter

@@ -1,0 +1,1227 @@
+********************************************************************************************************************************************************************************************************************************************************************
+***                                                                                                                                                                                                                                                              ***
+*** SIMetrix/SIMPLIS Elite with DVM and Verilog for SIMPLIS Version 8.30 (x64) - 2022/9/2 12:35                                                                                                                                                                  ***
+*** Platform: Windows 10                                                                                                                                                                                                                                         ***
+*** Architecture: x64                                                                                                                                                                                                                                            ***
+*** Serial Number:                                                                                                                                                                                                                                               ***
+*** User:                                                                                                                                                                                                                                                        ***
+***                                                                                                                                                                                                                                                              ***
+*** TITLE:   * D:\works\WPT\PCB\SIMetrix\Infineon-Gate_driver_2EDF7275K_EiceDRIVER_TINA_PSPICE_SIM-SimulationModels-v01_00-EN\2EDF7275K - Dual Channel Isolated Gate Driver - TINA - PSPICE - SIM\Simetrix\48V to 12V Brick with FB primary side 2EDF7275K.sxsch***
+*** NETLIST: D:\works\WPT\PCB\SIMetrix\Infineon-Gate_driver_2EDF7275K_EiceDRIVER_TINA_PSPICE_SIM-SimulationModels-v01_00-EN\2EDF7275K - Dual Channel Isolated Gate Driver - TINA - PSPICE - SIM\Simetrix\design.net                                              ***
+***                                                                                                                                                                                                                                                              ***
+********************************************************************************************************************************************************************************************************************************************************************
+
+********************************************************************************
+***                                                                          ***
+***                                Input Deck                                ***
+***                                                                          ***
+********************************************************************************
+
+.options allowdivzero=1
+.options initCondMode=2
+.options icres=0.002
+.options inhibitAttoISource=1
+#SIMETRIX
+.GRAPH L1#P axisType="grid" axisName="Is" persistence=-1 curveLabel="Is" xLog="auto" yLog="lin"  nowarn=true disabled=false 
+.GRAPH "V(S_Q4)-V(S_Q1)" axisType="owngrid" persistence=-1 curveLabel="Vdiffp" analysis="tran|ac|dc" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH V12_P axisType="grid" axisName="INA" persistence=-1 curveLabel="INA2" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe12  
+V1 Q1_D 0 48
+V2 R7_N 0 3.3
+R1 U2_VDDB R1_N 3
+X$V3 V3_P 0 PUL_SOURCE pinnames: P N params: _V1=0 _V2=3.3 _FREQ=100k _DELAY=5u _DRATIOx100=45.01 _T_RISE=1n _T_FALL=1n _DAMP_COEF=0 _PWIDTH=4.5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=5u
+R2 Vgs_Q2 U2_OUTA 4
+V4 V4_P 0 25
+R3 D3_P V5_P 2
+V5 V5_P 0 12
+L1 L1_P L1_N 600n   
+R4 Vgs_Q1 D1_P 2
+X$V6 V6_P 0 PUL_SOURCE pinnames: P N params: _V1=0 _V2=3.3 _FREQ=100k _DELAY=0 _DRATIOx100=45.01 _T_RISE=1n _T_FALL=1n _DAMP_COEF=0 _PWIDTH=4.5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=0
+D10 D10_P R18_N D1n5408
+.GRAPH TX2#10 axisType="grid" axisName="Ip" persistence=-1 curveLabel="Ip" xLog="auto" yLog="lin"  nowarn=true disabled=false 
+R5 Vgs_Q1 D1_N 4
+D11 Vgs_Q4 D11_N d1n4006
+R6 D6_N U2_OUTA 2
+R7 C5_P R7_N 1
+D1 D1_P D1_N d1n4006
+R8 C6_P R8_N 1
+D2 Vgs_Q3 D2_N d1n4006
+D3 D3_P R1_N D1n5408
+D6 Vgs_Q2 D6_N d1n4006
+D7 0 TX2_20 ZHCS2000
+D8 0 TX2_31 ZHCS2000
+R13 L1_N 0 2
+R14 Vgs_Q3 U1_OUTA 4
+R15 U1_OUTA D2_N 2
+R16 R16_P D11_N 2
+R17 D10_P V16_P 2
+R18 U1_VDDB R18_N 3
+R19 Vgs_Q4 R16_P 4
+X$U1 U1_OUTA 0 D10_P V12_P 0 C6_P U1_Tj U1_Tamb U1_Tc V14_P R8_N U1_DISABLE U1_NC U1_VDDB R16_P S_Q4 2EDF7275K params: THERMAL_MODEL=1
+X$V12 V12_P 0 PUL_SOURCE pinnames: P N params: _V1=0 _V2=3.3 _FREQ=100k _DELAY=0 _DRATIOx100=45.01 _T_RISE=1n _T_FALL=1n _DAMP_COEF=0 _PWIDTH=4.5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=0
+X$U2 U2_OUTA 0 D3_P V3_P 0 C5_P U2_Tj U2_Tamb U2_Tc V6_P R7_N U2_DISABLE U2_NC U2_VDDB D1_N S_Q1 2EDF7275K params: THERMAL_MODEL=1
+V13 U1_Tamb 0 25
+X$Q1 Q1_D Vgs_Q1 S_Q1 BSC057N08NS3_L0  pinnames: D G S 
+X$V14 V14_P 0 PUL_SOURCE pinnames: P N params: _V1=0 _V2=3.3 _FREQ=100k _DELAY=5u _DRATIOx100=45.01 _T_RISE=1n _T_FALL=1n _DAMP_COEF=0 _PWIDTH=4.5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=5u
+X$Q2 S_Q1 Vgs_Q2 0 BSC057N08NS3_L0 pinnames: D G S
+V15 R8_N 0 3.3
+X$Q3 S_Q4 Vgs_Q3 0 BSC057N08NS3_L0 pinnames: D G S
+V16 V16_P 0 12
+X$Q4 Q1_D Vgs_Q4 S_Q4 BSC057N08NS3_L0 pinnames: D G S
+C1 U2_VDDB S_Q1 1u IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C2 L1_N 0 1m   
+C3 D3_P 0 1u IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C4 U1_VDDB S_Q4 1u IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C5 C5_P 0 100n IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C6 C6_P 0 100n IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C7 D10_P 0 1u IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+X$TX2 S_Q4 S_Q1 TX2_20 L1_P L1_P TX2_31 Ideal_TxTX2 pinnames: 10 11 20 21 30 31 
+.subckt Ideal_TxTX2 10 11 20 21 30 31 
+L1 10 11 200u 
+L2 20 21 18u 
+L3 30 31 18u 
+K12 L1 L2 1 
+K13 L1 L3 1 
+K23 L2 L3 1 
+.ends 
+.GRAPH V14_P axisType="grid" axisName="INB" persistence=-1 curveLabel="INB2" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe1  
+.GRAPH V3_P axisType="grid" axisName="INA1" persistence=-1 curveLabel="INA1" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe2  
+.GRAPH "V(L1_P)-V(TX2_20)" axisType="grid" axisName=" Vdiffs" persistence=-1 curveLabel="Vdiffs" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH "V(Vgs_Q2)-V(0)" axisType="grid" axisName="Vgs,Q2" persistence=-1 curveLabel="Vgs,Q2" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH L1_N axisType="grid" axisName="Vout" persistence=-1 curveLabel="Vout" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe5  
+.GRAPH "V(Vgs_Q3)-V(0)" axisType="grid" axisName="Vgs,Q3" persistence=-1 curveLabel="Vgs,Q3" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH "V(Vgs_Q1)-V(S_Q1)" axisType="grid" axisName="Vgs,Q1" persistence=-1 curveLabel="Vgs,Q1" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH V6_P axisType="grid" axisName="INB1" persistence=-1 curveLabel="INB1" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe8  
+.GRAPH "V(Vgs_Q4)-V(S_Q4)" axisType="grid" axisName="Vgs,Q4" persistence=-1 curveLabel="Vgs,Q4" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.tran 400u
+.SUBCKT BSC057N08NS3_L0  drain  gate  source
+Lg     gate  g1    3n
+Ld     drain d1    1n
+Ls     source s1   1n
+Rs      s1    s2   404u
+Rg     g1    g2     1.9
+M1      d2    g2    s2    s2    DMOS    L=1u   W=1u
+.MODEL DMOS NMOS ( KP= 129.7  VTO=3.9  THETA=0  VMAX=1.5e5  ETA=0.006  LEVEL=3)
+Rd     d1    d2    2.96m TC=7m
+Dbd     s2    d2    Dbt
+.MODEL     Dbt    D(BV=92   M=0.27  CJO=2.57n  VJ=0.9V)
+Dbody   s2   21    DBODY
+.MODEL DBODY  D(IS=55.7p  N=1.16  RS=0.07u  EG=1.12  TT=40n)
+Rdiode  d1  21    1.21m TC=5m
+.MODEL   sw    NMOS(VTO=0  KP=10   LEVEL=1)
+Maux      g2   c    a    a   sw
+Maux2     b    d    g2    g2   sw
+Eaux      c    a    d2    g2   1
+Eaux2     d    g2   d2    g2   -1
+Cox       b    d2   0.92n
+.MODEL     DGD    D(M=0.7   CJO=0.92n   VJ=0.5)
+Rpar      b    d2   1Meg
+Dgd       a    d2   DGD
+Rpar2     d2   a    10Meg
+Cgs     g2    s2    2.86n
+.ENDS  BSC057N08NS3_L0
+******
+.SUBCKT PUL_SOURCE 1 2 params: _V1=0 _V2=1 _FREQ=100k _DELAY=0 _T_RISE=0 _T_FALL=0 _PWIDTH=5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=0
+V1 1 2 PWLS PUL
++ V1={_V1} 
++ V2={_V2} 
++ FREQ={_FREQ} 
++ RISE={_T_RISE} 
++ FALL={_T_FALL} 
++ WIDTH={_PWIDTH} 
++ DELAY={IFF(_USEPHASE, _PHASE/360/_FREQ, _DELAY)} 
++ OFF_UNTIL_DELAY={_OFF_UNTIL_DELAY} 
++ END
+.ENDS
+.model d1n4006  D(IS=140f RS=39m IKF=7m CJO=52p M=0.27 VJ=0.75 ISR=16n 
++ BV=1000 IBV=100u TT=7.0u)
+.model D1n5408  D(IS=15f RS=8m CJO=150p M=0.3 VJ=0.75 ISR=120n 
++ BV=1200 Ibv=100u)
+**************************************************************************
+* jrw 17.2.94.
+* Data from Motorola Rectifier device data DL151/D
+* mr750 to mr760
+.MODEL ZHCS2000 D IS=5e-7 N=.59 RS=88e-3 IKF=5e-3 XTI=2
++EG=.58 CJO=370p M=.5231 VJ=.3905 Fc=.5 BV=60 IBV=300E-6
++ISR=10E-6 NR=1.8 
+*
+*$
+*
+*ZETEX ZXM61P03F Spice Model v1.0 Last Revised 23/2/04
+*
+.SUBCKT 2EDF7275K OUTA GNDA VDDA INA GNDI VDDI Tj Tamb Tc INB SLDON DISABLE NC 
++ VDDB OUTB GNDB 
++ PARAMS: THERMAL_MODEL=1 
+.PARAM Ion=1.541997E-03
+.PARAM Ioff=1.661997E-03
+.PARAM YN=7
+.PARAM MN=66
+.PARAM WN=99.8456u
+.PARAM L_N=1000n
+.PARAM LAMBDAN=0
+.PARAM VTHN=2
+.PARAM RDN=194.2484m
+.PARAM KPN=388.4787u
+.PARAM VGSmaxN=4.5
+.PARAM TCRN=2.96m
+.PARAM LAMBDAP=0
+.PARAM VTHP=-2
+.PARAM MP=33
+.PARAM WP=99.8456u
+.PARAM KPP=388.4787u
+.PARAM RDP=539.9186m
+.PARAM LP=1000n
+.PARAM VGSmaxP=4.5
+.PARAM TCRP=6m
+.PARAM CgdP=50.469021f
+.PARAM CgsP=5p
+.PARAM CdsP=5p
+.PARAM CgdN=119.469021f
+.PARAM CgsN=5p
+.PARAM CdsN=5p
+VS6         27 29 1.1
+VS5         28 30 3.3
+VCIb2I      29 GNDI ; Current Arrow
+VCIb1I      49 GNDI ; Current Arrow
+VS3         47 49 1.1
+VCIb1B      42 GNDB ; Current Arrow
+VS1         61 42 1.1
+VIhmosB     34 OUTB ; Current Arrow
+VIlmosB     OUTB 36 ; Current Arrow
+VIhmosA     38 OUTA ; Current Arrow
+VIlmosA     OUTA 39 ; Current Arrow
+VCIb1       72 GNDA ; Current Arrow
+VS2         81 72 1.1
+IT25        0 74 25M
+XD26        GNDI SLDON D_1N_0
+XD25        SLDON VDDI D_1N_0
+XD23        GNDI VDDI D_Z_4_0
+XD22        GNDB VDDB D_Z_22_3_0
+XD13        GNDA VDDA D_Z_22_3_0
+R30         VDDI SLDON 1MEG 
+C4          GNDI GNDB  1.5P
+R29         GNDI GNDB 10G 
+R28         NC GNDI 10G 
+C3          GNDI GNDA  1.5P
+R27         GNDI GNDA 10G 
+XD18        27 28 D_LIM10_0
+R26         28 29 10MEG 
+XD17        VDDI 28 D_LIM10_0
+XD16        30 29 D_LIM10_0
+GVCCS11     28 29 VALUE = {IF(V(SLDONUVLO,0)<0.5,(V(VDDI,GNDI)-3.3)*100M,0)}
+XQ3         34 VhgB VDDB VDDB Tj SWMOSP_0
++ PARAMS: VTH={VTHP} KP={KPP} M={MP} W={WP} L={LP} LAMBDA={LAMBDAP} RD={RDP}
++ CGD={CgdP} CGS={CgsP} TCR={TCRP} CDS={CdsP}
+XQ2         36 VlgB GNDB GNDB Tj SWMOSN_0
++ PARAMS: VTH={VTHN} KP={KPN} M={MN} W={WN} L={L_N} LAMBDA={LAMBDAN} RD={RDN}
++ CGD={CgdN} CGS={CgsN} TCR={TCRN} CDS={CdsN}
+XQ1         38 VhgA VDDA VDDA Tj SWMOSP_0
++ PARAMS: VTH={VTHP} KP={KPP} M={MP} W={WP} L={LP} LAMBDA={LAMBDAP} RD={RDP}
++ CGD={CgdP} CGS={CgsP} TCR={TCRP} CDS={CdsP}
+XQ4         39 VlgA GNDA GNDA Tj SWMOSN_0
++ PARAMS: VTH={VTHN} KP={KPN} M={MN} W={WN} L={L_N} LAMBDA={LAMBDAN} RD={RDN}
++ CGD={CgdN} CGS={CgsN} TCR={TCRN} CDS={CdsN}
+GVCCS10     GNDB 40 VALUE = {(0.0085M*V(63,DGND)/5+0.0115M)*V(VDDB,GNDB)+(0.1M*V(63,DGND)/5+0.600M)-(0.102M*V(63,DGND)/5+0.138M)}
+GIb1B       41 42 VALUE = {V(40,GNDB)*(V(TJ25,0)*((0.000028*V(63,DGND)/5)+0.0002)+1)}
+XD15        GNDI DISABLE D_Z_17_1N_0
+XD14        GNDI INB D_Z_17_1N_0
+XD19        GNDI INA D_Z_17_1N_0
+XAND2_P1    43 VDDIUVLO GDIB DPWR DGND AND2_P
++ PARAMS: DLH=0 DHL=0
+XAND2_P2    45 VDDIUVLO GDIA DPWR DGND AND2_P
++ PARAMS: DLH=0 DHL=0
+XU19        SLDON GNDI SLDONUVLO DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+XD11        47 48 D_LIM10_0
+XD12        VDDI 48 D_LIM10_0
+GVCCS9      48 49 VALUE = {V(50,GNDI)}
+GVCCS8      GNDI 50 VALUE = {1.4M+V(TJ25,0)*0.000798M}
+R25         50 GNDI 1
+R24         48 49 10MEG 
+XU16        VDDI GNDI 51 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+XU11        51 VDDIUVLO DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XAND2       52 53 INVDISABLE 43 DPWR DGND AND3_DP_0
++ PARAMS: DLH=6N DHL=7.5N
+XAND1       54 55 INVDISABLE 45 DPWR DGND AND3_DP_0
++ PARAMS: DLH=6N DHL=7.5N
+XINV6       56 INVDISABLE DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XU10        57 56 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU9         DISABLE GNDI 57 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_1
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+R17         DISABLE GNDI 150K 
+XHYSTCOMP1  VDDB GNDB 58 DGND Tj VDDB HYSTCOMP_THL_THR_TEMP_2EDI_0
++ PARAMS: VOUTH={DOUT_HIGH} VOUTL=0 ROUT=100 TDLH=1N TDHL=1N Y={YN}
+XU7         58 52 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU6         59 53 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU5         INB GNDI 59 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=18N TDHL=18N TRISE=1N TFALL=1N
+R8          INB GNDI 150K 
+GPOROB      GNDB 60 VALUE = {LIMIT(I(VCIB1B),0,100U)}
+C2          60 GNDB  3P
+R23         60 GNDB 43.8K 
+XD10        VDDB 41 D_LIM1_0
+R21         61 42 1MEG 
+XD9         61 41 D_LIM1_0
+R20         40 GNDB 1
+R19         41 42 10MEG 
+R18         OUTB VlgB 10MEG 
+XINV4       62 63 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+XINV3       GDIB 64 DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XINV2       65 66 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+GIhonB      VhgB VghmxB VALUE = {IF(V(63,DGND)>0.5,V(68,0),0)}
+GIlonB      VglmxB VlgB VALUE = {IF(V(66,DGND)>0.5,V(67,0),0)}
+R16         VhgB VDDB 1G 
+GIhoffB     VDDB VhgB VALUE = {IF(V(63,DGND)<0.5,V(68,0),0)}
+XD8         VghmxB VhgB D_LIM01_0
+XD7         VhgB VDDB D_LIM01_0
+XD6         GNDB VlgB D_LIM01_0
+XD5         VlgB VglmxB D_LIM01_0
+GIloffB     VlgB GNDB VALUE = {IF(V(66,DGND)<0.5,V(67,0),0)}
+R15         VlgB GNDB 1G 
+XU4         64 DGND 65 DPWR LEB_0
++ PARAMS: LEB=1.0N
+XU3         GDIB DGND 62 DPWR LEB_0
++ PARAMS: LEB=1.0N
+GVCCS7      GNDB VghmxB VALUE = {V(VDDB,GNDB)-V(60,GNDB)}
+R14         VghmxB GNDB 1
+R13         VDDB VglmxB 1
+GVCCS6      VglmxB VDDB VALUE = {V(VDDB,GNDB)-V(60,GNDB)}
+R12         67 0 1 
+GVCCS5      0 67 VALUE = {IOFF}
+R11         68 0 1 
+GVCCS2      0 68 VALUE = {ION}
+XU2         69 55 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU14        VDDA GNDA 70 DGND Tj VDDA HYSTCOMP_THL_THR_TEMP_2EDI_1
++ PARAMS: VOUTH={DOUT_HIGH} VOUTL=0 ROUT=100 TDLH=1N TDHL=1N Y={YN}
+XU17        70 54 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU1         INA GNDI 69 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=18N TDHL=18N TRISE=1N TFALL=1N
+Rina        INA GNDI 150K 
+GIb1        71 72 VALUE = {V(82,GNDA)*(V(TJ25,0)*((0.000028*V(77,DGND)/5)+0.0002)+1)}
+GPORO       GNDA 73 VALUE = {LIMIT(I(VCIB1),0,100U)}
+R22         OUTA VlgA 10MEG 
+R2          TJ25 0 1K 
+GTD25       0 TJ25 VALUE = {(LIMIT(V(Tj,0),-50,150)-25)*1M}
+XU12        Tj Tamb 75 Tc PT THERMALINJECTION4R_0
++ PARAMS: RTHJA25=112 RTHJCTOP25=44 RTHJB25=66 CTJ=4.9981M CTC=136.3155M
++ THERMAL_MODEL={THERMAL_MODEL} DC=1 CTB=213.280684M RTCA=5K
+XINV5       76 77 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+XU15        GDIA 78 DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XINV1       79 80 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+GIhonA      VhgA Vghmx VALUE = {IF(V(77,DGND)>0.5,V(84,0),0)}
+GIlonA      Vglmx VlgA VALUE = {IF(V(80,DGND)>0.5,V(83,0),0)}
+R1          VhgA VDDA 1G 
+GIhoffA     VDDA VhgA VALUE = {IF(V(77,DGND)<0.5,V(84,0),0)}
+XD4         Vghmx VhgA D_LIM01_0
+XD3         VhgA VDDA D_LIM01_0
+XD1         GNDA VlgA D_LIM01_0
+XD2         VlgA Vglmx D_LIM01_0
+GIloffA     VlgA GNDA VALUE = {IF(V(80,DGND)<0.5,V(83,0),0)}
+Rp2         VlgA GNDA 1G 
+XU13        78 DGND 79 DPWR LEB_0
++ PARAMS: LEB=1.0N
+XU8         GDIA DGND 76 DPWR LEB_0
++ PARAMS: LEB=1.0N
+EPT         PT 0 VALUE = {ABS(V(OUTA,GNDA)*I(VILMOSA))+ABS(V(VDDA,OUTA)*I(VIHMOSA))+
++ABS(V(OUTB,GNDB)*I(VILMOSB))+ABS(V(VDDB,OUTB)*I(VIHMOSB))+
++ABS(V(VDDA,GNDA)*I(VCIB1))+ABS(V(VDDB,GNDB)*I(VCIB1B))+
++ABS(V(VDDI,GNDI)*I(VCIB1I))}
+GVSVghmx    GNDA Vghmx VALUE = {V(VDDA,GNDA)-V(73,GNDA)}
+R10         Vghmx GNDA 1
+R9          VDDA Vglmx 1
+GVSVglmx    Vglmx VDDA VALUE = {V(VDDA,GNDA)-V(73,GNDA)}
+C1          73 GNDA  3P
+R7          73 GNDA 43.8K 
+XD21        VDDA 71 D_LIM1_0
+R6          81 72 1MEG 
+XD20        81 71 D_LIM1_0
+GVCCS1      GNDA 82 VALUE = {(0.0085M*V(77,DGND)/5+0.0115M)*V(VDDA,GNDA)+(0.1M*V(77,DGND)/5+0.600M)-(0.102M*V(77,DGND)/5+0.138M)}
+Rb3         82 GNDA 1
+Rpsrr1      71 72 10MEG 
+R5          83 0 1 
+GVCCS4      0 83 VALUE = {IOFF}
+R4          84 0 1 
+GVCCS3      0 84 VALUE = {ION}
+R3          74 0 1K 
+XDPWR       0 DPWR DGND DIGIFPWR_NOOPNODE
++ PARAMS: VOLTAGE={DOUT_HIGH} REFERENCE=0 
+.ENDS
+.SUBCKT D_1N_0 1    2
+D1 1 2  D_1n
+CD 1 2 1P
+.MODEL D_1n D( IS=1n N=1.0 RS=10 XTI=0 T_ABS=27)
+.ENDS
+.SUBCKT D_Z_4_0 1    2
+D1 1 2  D_Z_4
+CD 1 2 10P
+.MODEL D_Z_4 D( IS=1n N=1.0 BV=4 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+.SUBCKT D_Z_22_3_0 1    2
+D1 1 2  D_Z_22_3
+CD 1 2 10P
+.MODEL D_Z_22_3 D( IS=1n N=1.0 BV=22.3 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+.SUBCKT D_LIM10_0 1 2
+D1 1 2  D_Lim10
+.Model D_Lim10 D (IS=1p N=1 RS=10)
+.ENDS
+.SUBCKT SWMOSP_0 D  G  S  B  TJ
++ Params: Vth=2.0 KP=390u M=30 W=102u L=1u LAMBDA=100m Rd=1m CGD=1p CGS=5p CDS=5p TCR=0
+.Param Tref=25
+.Param Tmin=-40
+.Param Tmax=150
+Rg     G    Gi   1.0
+*Rd     D    Di   {Rd}
+ERd     D    Di   Value={I(ERd)*Max((Rd + TCR*(Limit(V(TJ), Tmin, Tmax) - Tref)),1u)}
+Rb     B    Bi   1.00m
+M1      Di    Gi    S    Bi    SWMOS  M={M} W={W} L={L}
+.MODEL SWMOS PMOS (LEVEL=1 KP={KP} VTO={Vth} LAMBDA={LAMBDA} T_ABS=27)
+RDS Di   S  100MEG
+Dbody   Di Bi       DBODY
+.MODEL DBODY  D(IS=100n  N=1.1 RS=20.47u BV=85 IBV=1m EG=1.12 T_ABS=27)
+Cgd     Gi    Di    {CGD}
+Cgs     Gi    S    {CGS}
+Cds     Di    S    {CDS}
+.ENDS 
+.SUBCKT SWMOSN_0 D  G  S  B  TJ
++ Params: Vth=2.0 KP=390u M=30 W=102u L=1u LAMBDA=100m Rd=1m CGD=1p CGS=5p CDS=5p TCR=0
+.Param Tref=25
+.Param Tmin=-40
+.Param Tmax=150
+*Rs     S    Si   1.00m
+Rg     G    Gi   1.0
+*Rd     D    Di   {Rd}
+ERd     D    Di   Value={I(ERd)*Max((Rd + TCR*(Limit(V(TJ), Tmin, Tmax) - Tref)),1u)}
+Rb     B    Bi   1.00m
+M1      Di    Gi    S    Bi    SWMOS  M={M} W={W} L={L}
+.MODEL SWMOS NMOS (LEVEL=1 KP={KP} VTO={Vth} LAMBDA={LAMBDA} T_ABS=27)
+RDS Di   S  100MEG
+Dbody   Bi   Di    DBODY
+.MODEL DBODY  D(IS=100n  N=1.1 RS=20.47u BV=85 IBV=1m EG=1.12 T_ABS=27)
+Cgd     Gi    Di    {CGD}
+Cgs     Gi    S    {CGS}
+Cds     Di    S    {CDS}
+.ENDS 
+.SUBCKT D_Z_17_1N_0 1    2
+D1 1 2  D_Z_17_1n
+CD 1 2 10P
+.MODEL D_Z_17_1n D( IS=1n N=1.0 BV=17 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+.SUBCKT AND2_P  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.02, 2.83, 0, 2.84, 24.87, 2.84, 50.13, 2.84, 100.26, 2.84, 150, 2.84)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.02, 2.68, 0, 2.68, 24.87, 2.69, 50.13, 2.69, 100.26, 2.69, 150, 2.7)
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS   
+.SUBCKT AD_BUF_DP_0 IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 IN_LOW=0.475 IN_HIGH=0.525
+*
+XU1     IN OUT DPWR DGND   AD_BUF_P
++ PARAMS:  DLH={DLH} DHL={DHL} IN_LOW={IN_LOW} IN_HIGH={IN_HIGH}
+.ENDS
+.SUBCKT AND3_DP_0 IN1 IN2 IN3 OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0
+*
+XU1     IN1 IN2 IN3 OUT DPWR DGND   AND3_P 
++ PARAMS:  DLH={DLH} DHL={DHL}
+.ENDS
+.SUBCKT INV_DP_0 IN OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0
+*
+XU1     IN OUT DPWR DGND   INV_P 
++ PARAMS:  DLH={DLH} DHL={DHL}
+.ENDS
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_1 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.05, 1.99, 0, 2.02, 25.13, 2.038,49.87, 2.046, 100.13, 2.053, 150, 2.057)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.05, 1.209, 0, 1.209, 25.13, 1.22, 49.87, 1.22, 100.13, 1.22, 150, 1.22)
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS
+.SUBCKT HYSTCOMP_THL_THR_TEMP_2EDI_0 inp inm out gnd Tj VDD
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Y=7
+*
+*2EDF7
+GVthrH7 0 VthrH7 table {V(Tj,gnd)} = (-39.73, 4.17, -0.07, 4.18, 24.98, 4.186, 49.69, 4.189, 99.46, 4.19, 149.57, 4.19)
+RVthrH7 0 VthrH7 1
+GVthrL7 0 VthrL7 table {V(Tj,gnd)} = (-39.82, 3.87, -0.16, 3.88, 24.89, 3.89, 49.95, 3.89, 99.71, 3.898, 149.83, 3.9)
+RVthrL7 0 VthrL7 1
+*2EDS8
+GVthrH8 0 VthrH8 table {V(Tj,gnd)} = (-40, 7.961, 0, 7.99, 24.815, 7.99, 50, 7.989, 100, 7.988, 150, 7.986)
+RVthrH8 0 VthrH8 1
+GVthrL8 0 VthrL8 table {V(Tj,gnd)} = (-40, 6.988, 0, 7.004, 24.815, 7.008, 50, 7.012, 100, 7.019, 150, 7.026)
+RVthrL8 0 VthrL8 1
+*
+*
+.Param Rdel = {IF ( ((Tdlh > 1E-15)|(Tdhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, IF (Y < 7.5, V(VthrH7), V(VthrH8)), IF (Y < 7.5, V(VthrL7), V(VthrL8)) ) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) , VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.05, 1.99, 0, 2.02, 25.13, 2.038,49.87, 2.046, 100.13, 2.053, 150, 2.057)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.05, 1.209, 0, 1.209, 25.13, 1.22, 49.87, 1.22, 100.13, 1.22, 150, 1.22)
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+*Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh*(-0.0013*V(TJ,gnd) + 1), (VoutL - V(outi,gnd))*Gdhl*(-0.0013*V(TJ,gnd) + 1) ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS
+.SUBCKT D_LIM1_0 1 2
+D1 1 2  D_Lim1
+.ENDS
+.SUBCKT DA_BUF_DP_0 IN OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0 OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+*
+XU1     IN OUT DPWR DGND   DA_BUF_P 
++ PARAMS:  DLH={DLH} DHL={DHL} OUT_LOW={OUT_LOW} OUT_HIGH={OUT_HIGH} ROUT={ROUT} COUT={COUT}
+.ENDS
+.SUBCKT D_LIM01_0 1 2
+D1 1 2  D_LIM01
+.ENDS
+.SUBCKT LEB_0 IN GND OUT PWR
++ PARAMS:    LEB = 100n
+XU1         IN 5 PWR GND BUF_P
++ PARAMS: DLH={LEB} DHL={1N}
+XU2         IN 5 OUT PWR GND AND2_P
++ PARAMS: DLH=0N DHL=0N 
+.ENDS
+.SUBCKT HYSTCOMP_THL_THR_TEMP_2EDI_1 inp inm out gnd Tj VDD
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Y=7
+*
+*2EDF7
+GVthrH7 0 VthrH7 table {V(Tj,gnd)} = (-39.73, 4.17, -0.07, 4.18, 24.98, 4.186, 49.69, 4.189, 99.46, 4.19, 149.57, 4.19)
+RVthrH7 0 VthrH7 1
+GVthrL7 0 VthrL7 table {V(Tj,gnd)} = (-39.82, 3.87, -0.16, 3.88, 24.89, 3.89, 49.95, 3.89, 99.71, 3.898, 149.83, 3.9)
+RVthrL7 0 VthrL7 1
+*2EDS8
+GVthrH8 0 VthrH8 table {V(Tj,gnd)} = (-40, 7.961, 0, 7.99, 24.815, 7.99, 50, 7.989, 100, 7.988, 150, 7.986)
+RVthrH8 0 VthrH8 1
+GVthrL8 0 VthrL8 table {V(Tj,gnd)} = (-40, 6.988, 0, 7.004, 24.815, 7.008, 50, 7.012, 100, 7.019, 150, 7.026)
+RVthrL8 0 VthrL8 1
+*
+.Param Rdel = {IF ( ((Tdlh > 1E-15)|(Tdhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, IF (Y < 7.5, V(VthrH7), V(VthrH8)), IF (Y < 7.5, V(VthrL7), V(VthrL8)) ) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) , VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+.SUBCKT THERMALINJECTION4R_0 Tj Tamb Tctop Tb P Params: 
++ THERMAL_MODEL=1 ; 0 = External case to ambient thermal model, 1 = Internal case to ambient thermal model 
++ DC=1 ; 0 = thermal model switched off in operating point calculation , 1 = thermal model switched on in operating point calculation
++ RthJA25=125 RthJCtop25=16 RthJB25=55 Ctj=198.704482u Ctb=213.280684m Ctc=377u Rtca=5k ; DSO-8
+*+ RthJA25=64 RthJCtop25=9 RthJB25=13 Ctj=248.746859u Ctb=20.001486m Ctc=105.3u Rtca=11.111111k ; MSOP-8
+*+ RthJA25=61 RthJCtop25=8 RthJB25=11 Ctj=248.746859u Ctb=20.001486m Ctc=105.3u Rtca=11.111111k ; WSON-8
+*+ RthJA25=250 RthJCtop25=100 RthJB25=100 Ctj=166.366396u Ctb=57.3053m Ctc=60.32u Rtca=21.551724k ; SOT23-3
+*+ RthJA25=151 RthJCtop25=51 RthJB25=51 Ctj=166.366396u Ctb=57.3053m Ctc=60.32u Rtca=21.551724k ; SOT23-6
+.Param Rtjctop={Max(RthJCtop25, 1m)}  
+.Param Rtjb={Max(RthJB25, 1m)}  
+.Param Rtja={Max(RthJA25, Max(Rtjb,Rtjb)+1m)} 
+.Param Rtcatop={Max(Rtca, 1m)}
+.Param Rtba= {IF (THERMAL_MODEL > 0.5, Rtja*(Rtjctop + Rtca)/(Rtjctop + Rtca - Rtja) - Rtjb, Rtca)}
+.Param Ctctop={Max(Ctc, 1p)}
+.Param Ctbot= {IF (THERMAL_MODEL > 0.5, {Max(Ctb, 1p)}, Ctctop)}
+*Rtemp       Tamb 0 1MEG 
+*GTemp       0 Tamb VALUE = {1U*TEMP}
+Rtemp       Tamb 0 1k
+GTemp       0 Tamb VALUE = {1m*TEMP}
+*GP         Tamb Tj Value={if (Time>1n ,V(P),0.0)}
+GP         Tamb Tj Value={if ( (Time>1n) | (DC>0.5) ,V(P),0.0)}
+*GP         Tamb Tj Value={V(P)}
+Rtba        Tb Tamb {Rtba}  
+Ctb         Tb Tamb {Ctbot}
+Rtjb        Tj Tb {Rtjb} 
+Rtca        Tctop Tamb {Rtcatop} 
+Ctctop      Tctop Tamb {Ctctop}
+Rtjctop     Tj Tctop {Rtjctop} 
+Ctj         Tj Tamb {Ctj}
+.Ends
+********************************************
+**  This file was created by TINA         **
+**   SMPS subcircuits  for SIMetrix       **
+**    (c) 1996-2019 DesignSoft, Inc.      **
+********************************************
+*! Library references
+*! Library name, version
+*! BaseComps_SIMetrix, 2019-03-03
+*! Change history of model
+*! Version, Changes
+*! 1.0-2015-04-08, creation	   
+*! 1.1-2017-01-10, fixes
+*! 1.2-2018-05-02, AD_BUF and DA_BUF fixes for non zero GND levels
+*! 1.3-2018-12-05, remove global nodes from DIGIFPWR digital power subcircuit, AD_BUF threshold levels fix 
+*! 1.4-2019-03-03, VCO bug fix
+.subckt DIGIFPWR_NOOPNODE  AGND DPWR DGND
+*+	optional: DPWR=$G_DPWR DGND=$G_DGND
+*+	params:   VOLTAGE=5.0v REFERENCE=0v
++	params:   VOLTAGE={DOUT_HIGH} REFERENCE=0v
+*
+VDPWR  DPWR0 DGND0  {VOLTAGE}
+R10     DPWR0 DGND0  1MEG
+*VDGND  DGND0 AGND  {REFERENCE}
+EVDGND  DGND0 0 Value= { V(AGND) +  REFERENCE }
+R20     DGND0 0  1MEG
+*VNC  G_NC AGND  
+R1 DPWR0 DPWR 1m
+R2 DGND0 DGND 1m
+*R3 G_NC $G_NC 1m
+*AC1 DGND $G_DGNDD adc_bridge1
+.model adc_bridge1 adc_bridge (in_low={VOLTAGE*0.4 + REFERENCE} in_high={VOLTAGE*0.6 + REFERENCE}
++                              rise_delay=1.0e-12 fall_delay=1.0e-12)
+.ends
+.SUBCKT BUF_P  IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Abuf1 IN OUT d_buf1
+.model d_buf1 d_buffer (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+.SUBCKT DA_BUF_P   IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=1N
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+.Param Gout={1/(Abs(ROUT)+1m)}
+*.Param COUT_={IF ( COUT > 1f, COUT, 0.1*Min(Trc,Tfc)/Max(ROUT,1m)) }
+.Param COUT_={IF ( COUT > 1f, COUT, 0 ) }
+Gout DGND OUT Value = {Gout*V(OUT_,0)}
+Rout OUT DGND {ROUT}
+Cout OUT DGND {COUT_}
+*Ac1 IN OUT dac_bridge1
+Ac1 IN OUT_ dac_bridge1
+.model dac_bridge1 dac_bridge 
++ out_high={OUT_HIGH}  ; Logic high voltage
++ out_low={OUT_LOW}  ; Logic high voltage
++ input_load={Cin}     ; Compensates for added rise and fall time
++ t_rise={Trc}         ; Output rise time
++ t_fall={Tfc}         ; Output fall time
++ g_pullup={1/ROUT}    ; 1/(logic high output resistance)
++ g_pulldown={1/ROUT}  ; 1/(logic low output resistance)
++ g_hiz=1e-9           ; 1/(high impedance output res)
++ knee_low = {OUT_LOW + 2/5*OUT_HIGH}       ; voltage at resistive/constant current knee logic low
++ knee_high ={OUT_LOW + 3/5*OUT_HIGH}   ; voltage at resistive/constant current knee logic high
++ v_smooth ={(OUT_HIGH - OUT_LOW)/10}    ; Knee smoothing band
+.ENDS
+** UNIV
+** This is the default logic family if none is specified
+.SUBCKT INV_P  IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Ainv1 IN OUT d_inv1
+.model d_inv1 d_inverter (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+.SUBCKT AND3_P  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+.SUBCKT AD_BUF_P   IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 IN_LOW=0.495 IN_HIGH=0.505
+*
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+*Gin 0 IN_ Value = {V(IN,DGND)/(ABS(V(DPWR,DGND)) + 1m)}
+Gin 0 IN_ Value = {V(IN,DGND)}
+Rin IN_ 0 1
+*AC1 IN OUT adc_bridge1
+AC1 IN_ OUT adc_bridge1
+.model adc_bridge1 adc_bridge (in_low={IN_LOW} in_high={IN_HIGH}
++                              rise_delay={Trc} fall_delay={Tfc})
+.ENDS
+.MODEL D_LIM1 D( IS=10F N=1.0 RS=100 XTI=0 AF=0 KF=0 EG=0.48)
+.MODEL D_LIM01 D( IS=10F N=0.1 RS=10 XTI=0 AF=0 KF=0 EG=0.111)
+.PARAM dout_high= {5}
+.Param MinADel=100p
+
+********************************************************************************
+***                                                                          ***
+*** Starting Transient analysis at 12:35                                     ***
+***                                                                          ***
+*** Analysis card: .tran 400u                                                ***
+***                                                                          ***
+********************************************************************************
+********************************************************************************
+***                                                                          ***
+***                            Simulation Options                            ***
+***                                                                          ***
+********************************************************************************
+RELTOL                    0.001
+ABSTOL                    1e-12
+VNTOL                     1e-06
+POINTTOL                  0.001
+TEMPERATURE               27C
+GMIN                      1e-12
+Matrix Solver             UF KLU Version 1.1
+
+
+
+********************************************************************************
+***                                                                          ***
+***                             Device parameters                            ***
+***                                                                          ***
+********************************************************************************
+Model parameters for devices of type d_inverter
+===============================================
+Model:       U1.XINV3.XU1.U1.XINV6.XU1.U1.XU15.XU1. U2.XINV3.XU1.U2.XINV6.XU1.
+             d_inv1       d_inv1       d_inv1       d_inv1       d_inv1       
+
+fall_delay   1n           1n           1n           1n           1n           
+input_load   1p           1p           1p           1p           1p           
+rise_delay   1n           1n           1n           1n           1n           
+
+Model:       U2.XU15.XU1. 
+             d_inv1       
+
+fall_delay   1n           
+input_load   1p           
+rise_delay   1n           
+
+
+Model parameters for devices of type d_buffer
+=============================================
+Model:       U1.XU13.XU1. U1.XU3.XU1.  U1.XU4.XU1.  U1.XU8.XU1.  U2.XU13.XU1. 
+             d_buf1       d_buf1       d_buf1       d_buf1       d_buf1       
+
+fall_delay   1n           1n           1n           1n           1n           
+input_load   1p           1p           1p           1p           1p           
+rise_delay   1n           1n           1n           1n           1n           
+
+Model:       U2.XU3.XU1.  U2.XU4.XU1.  U2.XU8.XU1.  
+             d_buf1       d_buf1       d_buf1       
+
+fall_delay   1n           1n           1n           
+input_load   1p           1p           1p           
+rise_delay   1n           1n           1n           
+
+
+Model parameters for devices of type dac_bridge
+===============================================
+Model:       U1.XINV1.XU1.U1.XINV2.XU1.U1.XINV4.XU1.U1.XINV5.XU1.U2.XINV1.XU1.
+             dac_bridge1  dac_bridge1  dac_bridge1  dac_bridge1  dac_bridge1  
+
+g_hiz        1n           1n           1n           1n           1n           
+g_pulldown   1            1            1            1            1            
+g_pullup     1            1            1            1            1            
+input_load   1p           1p           1p           1p           1p           
+knee_high    600m         600m         600m         600m         600m         
+knee_low     400m         400m         400m         400m         400m         
+out_high     1            1            1            1            1            
+out_low      0            0            0            0            0            
+t_fall       1n           1n           1n           1n           1n           
+t_rise       1n           1n           1n           1n           1n           
+v_smooth     100m         100m         100m         100m         100m         
+
+Model:       U2.XINV2.XU1.U2.XINV4.XU1.U2.XINV5.XU1.
+             dac_bridge1  dac_bridge1  dac_bridge1  
+
+g_hiz        1n           1n           1n           
+g_pulldown   1            1            1            
+g_pullup     1            1            1            
+input_load   1p           1p           1p           
+knee_high    600m         600m         600m         
+knee_low     400m         400m         400m         
+out_high     1            1            1            
+out_low      0            0            0            
+t_fall       1n           1n           1n           
+t_rise       1n           1n           1n           
+v_smooth     100m         100m         100m         
+
+
+Model parameters for devices of type adc_bridge
+===============================================
+Model:       U1.XU10.XU1. U1.XU11.XU1. U1.XU17.XU1. U1.XU2.XU1.  U1.XU6.XU1.  
+             adc_bridge1  adc_bridge1  adc_bridge1  adc_bridge1  adc_bridge1  
+
+fall_delay   1n           1n           1n           1n           1n           
+in_high      525m         525m         525m         525m         525m         
+in_low       475m         475m         475m         475m         475m         
+rise_delay   1n           1n           1n           1n           1n           
+
+Model:       U1.XU7.XU1.  U2.XU10.XU1. U2.XU11.XU1. U2.XU17.XU1. U2.XU2.XU1.  
+             adc_bridge1  adc_bridge1  adc_bridge1  adc_bridge1  adc_bridge1  
+
+fall_delay   1n           1n           1n           1n           1n           
+in_high      525m         525m         525m         525m         525m         
+in_low       475m         475m         475m         475m         475m         
+rise_delay   1n           1n           1n           1n           1n           
+
+Model:       U2.XU6.XU1.  U2.XU7.XU1.  
+             adc_bridge1  adc_bridge1  
+
+fall_delay   1n           1n           
+in_high      525m         525m         
+in_low       475m         475m         
+rise_delay   1n           1n           
+
+
+Model parameters for devices of type d_and
+==========================================
+Model:       U1.XAND1.XU1.U1.XAND2.XU1.U1.XAND2_P1. U1.XAND2_P2. U1.XU13.XU2. 
+             d_and1       d_and1       d_and1       d_and1       d_and1       
+
+fall_delay   7.5n         7.5n         1n           1n           1n           
+input_load   1p           1p           1p           1p           1p           
+rise_delay   6n           6n           1n           1n           1n           
+
+Model:       U1.XU3.XU2.  U1.XU4.XU2.  U1.XU8.XU2.  U2.XAND1.XU1.U2.XAND2.XU1.
+             d_and1       d_and1       d_and1       d_and1       d_and1       
+
+fall_delay   1n           1n           1n           7.5n         7.5n         
+input_load   1p           1p           1p           1p           1p           
+rise_delay   1n           1n           1n           6n           6n           
+
+Model:       U2.XAND2_P1. U2.XAND2_P2. U2.XU13.XU2. U2.XU3.XU2.  U2.XU4.XU2.  
+             d_and1       d_and1       d_and1       d_and1       d_and1       
+
+fall_delay   1n           1n           1n           1n           1n           
+input_load   1p           1p           1p           1p           1p           
+rise_delay   1n           1n           1n           1n           1n           
+
+Model:       U2.XU8.XU2.  
+             d_and1       
+
+fall_delay   1n           
+input_load   1p           
+rise_delay   1n           
+
+
+Instance parameters for devices of type CAP3
+============================================
+Instance:    C1           C3           C4           C5           C6           
+Using model: $CAP3        $CAP3        $CAP3        $CAP3        $CAP3        
+
+branch       1            1            1            1            1            
+
+Instance:    C7           
+Using model: $CAP3        
+
+branch       1            
+
+
+Model parameters for devices of type MOS3
+=========================================
+Model:       Q1.DMOS      Q2.DMOS      Q3.DMOS      Q4.DMOS      
+
+eta          6m           6m           6m           6m           
+kp           129.7        129.7        129.7        129.7        
+theta        0            0            0            0            
+vmax         150k         150k         150k         150k         
+vt0          3.9          3.9          3.9          3.9          
+
+
+Model parameters for devices of type MOS1
+=========================================
+Model:       Q1.sw        Q2.sw        Q3.sw        Q4.sw        U1.XQ1.SWMOS 
+
+kp           10           10           10           10           388.4787u    
+lambda       0            0            0            0            0            
+t_abs        0            0            0            0            27           
+vt0          0            0            0            0            -2           
+
+Model:       U1.XQ2.SWMOS U1.XQ3.SWMOS U1.XQ4.SWMOS U2.XQ1.SWMOS U2.XQ2.SWMOS 
+
+kp           388.4787u    388.4787u    388.4787u    388.4787u    388.4787u    
+lambda       0            0            0            0            0            
+t_abs        27           27           27           27           27           
+vt0          2            -2           2            -2           2            
+
+Model:       U2.XQ3.SWMOS U2.XQ4.SWMOS 
+
+kp           388.4787u    388.4787u    
+lambda       0            0            
+t_abs        27           27           
+vt0          -2           2            
+
+
+Model parameters for devices of type Diode
+==========================================
+Model:       d1n4006      D1n5408      D_LIM01      D_Lim1       Q1.DBODY     
+
+_ibv         100u         100u         100p         100p         100p         
+af           1            1            0            0            1            
+bv           1k           1.2k         0            0            0            
+cjo          52p          150p         0            0            0            
+eg           1.11         1.11         111m         480m         1.12         
+fc           500m         500m         500m         500m         500m         
+ikf          7m           0            0            0            0            
+is           140f         15f          10f          10f          55.7p        
+isr          16n          120n         0            0            0            
+kf           0            0            0            0            0            
+m            270m         300m         500m         500m         500m         
+n            1            1            100m         1            1.16         
+nr           2            2            2            2            2            
+rs           39m          8m           10           100          70n          
+t_abs        0            0            0            0            0            
+tt           7u           0            0            0            40n          
+vj           750m         750m         1            1            1            
+xti          3            3            0            0            3            
+
+Model:       Q1.Dbt       Q1.DGD       Q2.DBODY     Q2.Dbt       Q2.DGD       
+
+_ibv         100p         100p         100p         100p         100p         
+af           1            1            1            1            1            
+bv           92           0            0            92           0            
+cjo          2.57n        920p         0            2.57n        920p         
+eg           1.11         1.11         1.12         1.11         1.11         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           10f          10f          55.7p        10f          10f          
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            270m         700m         500m         270m         700m         
+n            1            1            1.16         1            1            
+nr           2            2            2            2            2            
+rs           0            0            70n          0            0            
+t_abs        0            0            0            0            0            
+tt           0            0            40n          0            0            
+vj           900m         500m         1            900m         500m         
+xti          3            3            3            3            3            
+
+Model:       Q3.DBODY     Q3.Dbt       Q3.DGD       Q4.DBODY     Q4.Dbt       
+
+_ibv         100p         100p         100p         100p         100p         
+af           1            1            1            1            1            
+bv           0            92           0            0            92           
+cjo          0            2.57n        920p         0            2.57n        
+eg           1.12         1.11         1.11         1.12         1.11         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           55.7p        10f          10f          55.7p        10f          
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            500m         270m         700m         500m         270m         
+n            1.16         1            1            1.16         1            
+nr           2            2            2            2            2            
+rs           70n          0            0            70n          0            
+t_abs        0            0            0            0            0            
+tt           40n          0            0            40n          0            
+vj           1            900m         500m         1            900m         
+xti          3            3            3            3            3            
+
+Model:       Q4.DGD       U1.XD11.     U1.XD12.     U1.XD13.     U1.XD14.     
+                          D_Lim10      D_Lim10      D_Z_22_3     D_Z_17_1n    
+
+_ibv         100p         100p         100p         5m           5m           
+af           1            1            1            1            1            
+bv           0            0            0            22.3         17           
+cjo          920p         0            0            0            0            
+eg           1.11         1.11         1.11         1.11         1.11         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           10f          1p           1p           1n           1n           
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            700m         500m         500m         500m         500m         
+n            1            1            1            1            1            
+nr           2            2            2            2            2            
+rs           0            10           10           10           10           
+t_abs        0            0            0            27           27           
+tt           0            0            0            0            0            
+vj           500m         1            1            1            1            
+xti          3            3            3            0            0            
+
+Model:       U1.XD15.     U1.XD16.     U1.XD17.     U1.XD18.     U1.XD19.     
+             D_Z_17_1n    D_Lim10      D_Lim10      D_Lim10      D_Z_17_1n    
+
+_ibv         5m           100p         100p         100p         5m           
+af           1            1            1            1            1            
+bv           17           0            0            0            17           
+cjo          0            0            0            0            0            
+eg           1.11         1.11         1.11         1.11         1.11         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           1n           1p           1p           1p           1n           
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            500m         500m         500m         500m         500m         
+n            1            1            1            1            1            
+nr           2            2            2            2            2            
+rs           10           10           10           10           10           
+t_abs        27           0            0            0            27           
+tt           0            0            0            0            0            
+vj           1            1            1            1            1            
+xti          0            3            3            3            0            
+
+Model:       U1.XD22.     U1.XD23.     U1.XD25.D_1n U1.XD26.D_1n U1.XQ1.DBODY 
+             D_Z_22_3     D_Z_4        
+
+_ibv         5m           5m           100p         100p         1m           
+af           1            1            1            1            1            
+bv           22.3         4            0            0            85           
+cjo          0            0            0            0            0            
+eg           1.11         1.11         1.11         1.11         1.12         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           1n           1n           1n           1n           100n         
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            500m         500m         500m         500m         500m         
+n            1            1            1            1            1.1          
+nr           2            2            2            2            2            
+rs           10           10           10           10           20.47u       
+t_abs        27           27           27           27           27           
+tt           0            0            0            0            0            
+vj           1            1            1            1            1            
+xti          0            0            0            0            3            
+
+Model:       U1.XQ2.DBODY U1.XQ3.DBODY U1.XQ4.DBODY U2.XD11.     U2.XD12.     
+                                                    D_Lim10      D_Lim10      
+
+_ibv         1m           1m           1m           100p         100p         
+af           1            1            1            1            1            
+bv           85           85           85           0            0            
+cjo          0            0            0            0            0            
+eg           1.12         1.12         1.12         1.11         1.11         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           100n         100n         100n         1p           1p           
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            500m         500m         500m         500m         500m         
+n            1.1          1.1          1.1          1            1            
+nr           2            2            2            2            2            
+rs           20.47u       20.47u       20.47u       10           10           
+t_abs        27           27           27           0            0            
+tt           0            0            0            0            0            
+vj           1            1            1            1            1            
+xti          3            3            3            3            3            
+
+Model:       U2.XD13.     U2.XD14.     U2.XD15.     U2.XD16.     U2.XD17.     
+             D_Z_22_3     D_Z_17_1n    D_Z_17_1n    D_Lim10      D_Lim10      
+
+_ibv         5m           5m           5m           100p         100p         
+af           1            1            1            1            1            
+bv           22.3         17           17           0            0            
+cjo          0            0            0            0            0            
+eg           1.11         1.11         1.11         1.11         1.11         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           1n           1n           1n           1p           1p           
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            500m         500m         500m         500m         500m         
+n            1            1            1            1            1            
+nr           2            2            2            2            2            
+rs           10           10           10           10           10           
+t_abs        27           27           27           0            0            
+tt           0            0            0            0            0            
+vj           1            1            1            1            1            
+xti          0            0            0            3            3            
+
+Model:       U2.XD18.     U2.XD19.     U2.XD22.     U2.XD23.     U2.XD25.D_1n 
+             D_Lim10      D_Z_17_1n    D_Z_22_3     D_Z_4        
+
+_ibv         100p         5m           5m           5m           100p         
+af           1            1            1            1            1            
+bv           0            17           22.3         4            0            
+cjo          0            0            0            0            0            
+eg           1.11         1.11         1.11         1.11         1.11         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           1p           1n           1n           1n           1n           
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            500m         500m         500m         500m         500m         
+n            1            1            1            1            1            
+nr           2            2            2            2            2            
+rs           10           10           10           10           10           
+t_abs        0            27           27           27           27           
+tt           0            0            0            0            0            
+vj           1            1            1            1            1            
+xti          3            0            0            0            0            
+
+Model:       U2.XD26.D_1n U2.XQ1.DBODY U2.XQ2.DBODY U2.XQ3.DBODY U2.XQ4.DBODY 
+
+_ibv         100p         1m           1m           1m           1m           
+af           1            1            1            1            1            
+bv           0            85           85           85           85           
+cjo          0            0            0            0            0            
+eg           1.11         1.12         1.12         1.12         1.12         
+fc           500m         500m         500m         500m         500m         
+ikf          0            0            0            0            0            
+is           1n           100n         100n         100n         100n         
+isr          0            0            0            0            0            
+kf           0            0            0            0            0            
+m            500m         500m         500m         500m         500m         
+n            1            1.1          1.1          1.1          1.1          
+nr           2            2            2            2            2            
+rs           10           20.47u       20.47u       20.47u       20.47u       
+t_abs        27           27           27           27           27           
+tt           0            0            0            0            0            
+vj           1            1            1            1            1            
+xti          0            3            3            3            3            
+
+Model:       ZHCS2000     
+
+_ibv         300u         
+af           1            
+bv           60           
+cjo          370p         
+eg           580m         
+fc           500m         
+ikf          5m           
+is           500n         
+isr          10u          
+kf           0            
+m            523.1m       
+n            590m         
+nr           1.8          
+rs           88m          
+t_abs        0            
+tt           0            
+vj           390.5m       
+xti          2            
+
+
+Analysis statistics
+===================
+
+Nominal temperature = 27
+Operating temperature = 27
+Total iterations = 295326
+Transient iterations = 295281
+Transient timepoints = 85435
+Accepted timepoints = 81840
+Total analysis time = 33.89
+Transient time = 0
+Matrix reordering time = 0
+L-U decomposition time = 0
+Matrix solve time = 0
+Load time = 0
+Transient L-U decomp time = 0
+Transient solve time = 0
+Circuit build time = 0.032
+Simulator initialise time = 0.015
+Data write time = 0
+Convergence test time = 0
+LTE time = 0
+JI2 Iterations = 45
+Diag. GMIN stepping iterations = 0
+Junc. GMIN stepping iterations = 0
+Source stepping iterations = 0
+PTA iterations = 0
+Number of matrix fill ins = 538
+Number of initial matrix elements = 1815
+Circuit equations = 480
+State vector size = 2538
+Number of write buffer faults = 0
+EVT outputs = 42
+EVT ports = 100
+EVT instances = 50
+EVT nodes = 42
+
+Run statistics
+==============
+
+Netlist read in time = 0.078
+Total run time = 34.078 seconds
+Analysis concluded 2022/9/2 12:35

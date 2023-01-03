@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=GND Pin=R8-1
+Removed Member From Class: ClassName=boost_sheet Member=R8
+Change Component Footprint: Designator=R7 Old Footprint=AXIAL0.1Z New Footprint=0805r
+Added Pin To Net: NetName=GND Pin=U2-6
+Added Room: Name=boost_sheet

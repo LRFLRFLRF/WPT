@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=NetD4_2 Pin=K1-1
+Removed Pin From Net: NetName=NetD4_2 Pin=P1-1
+Added Component: Designator=s£¿(Switch_8.2*5.2)
+Added Pin To Net: NetName=NetD4_2 Pin=s£¿-1
+Added Pin To Net: NetName=NetK1_1 Pin=K1-1
+Added Pin To Net: NetName=NetK1_1 Pin=P1-1
+Added Pin To Net: NetName=NetK1_1 Pin=s£¿-2
+Added Pin To Net: NetName=NetK1_1 Pin=s£¿-2
+Added Net: Name=NetK1_1
+Added Member To Class: ClassName=boost_sheet Member=Component s£¿ switch1
+Added Room: Name=boost_sheet

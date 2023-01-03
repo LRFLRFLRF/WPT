@@ -1,0 +1,3 @@
+Removed Pin From Net: NetName=GND Pin=Rfbk_V2-1
+Added Pin To Net: NetName=AGND Pin=Rfbk_V2-1
+Added Room: Name=Wireless power_inverter

@@ -1,0 +1,12 @@
+Board Information Report
+Filename     : E:\ÎÞÏß³äµç\PCB\Wireless power_boost\boost.PcbDoc
+Date         : 2018/5/21
+Time         : 13:52:26
+Time Elapsed : 00:00:00
+
+Routing Information
+    Routing completion, 100.00%
+    Connections, 65
+    Connections routed, 65
+    Connections remaining, 0
+count : 4

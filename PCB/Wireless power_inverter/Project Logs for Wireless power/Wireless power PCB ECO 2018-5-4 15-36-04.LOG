@@ -1,0 +1,25 @@
+Added Component: Designator=D11(AXIAL0.2Z)
+Added Component: Designator=D12(AXIAL0.2Z)
+Added Component: Designator=D21(AXIAL0.2Z)
+Added Component: Designator=D22(AXIAL0.2Z)
+Added Pin To Net: NetName=NetQ11_2 Pin=D11-1
+Added Pin To Net: NetName=NetR11_1 Pin=D11-2
+Added Pin To Net: NetName=NetQ12_2 Pin=D12-1
+Added Pin To Net: NetName=NetR13_1 Pin=D12-2
+Added Pin To Net: NetName=NetQ21_2 Pin=D21-1
+Added Pin To Net: NetName=NetR21_1 Pin=D21-2
+Added Pin To Net: NetName=NetQ22_2 Pin=D22-1
+Added Pin To Net: NetName=NetR23_1 Pin=D22-2
+Change Net Name : Old Net Name=NetQ11_2 New Net Name=NetD11_1
+Change Net Name : Old Net Name=NetQ12_2 New Net Name=NetD12_1
+Change Net Name : Old Net Name=NetQ21_2 New Net Name=NetD21_1
+Change Net Name : Old Net Name=NetQ22_2 New Net Name=NetD22_1
+Change Net Name : Old Net Name=NetR11_1 New Net Name=NetD11_2
+Change Net Name : Old Net Name=NetR13_1 New Net Name=NetD12_2
+Change Net Name : Old Net Name=NetR21_1 New Net Name=NetD21_2
+Change Net Name : Old Net Name=NetR23_1 New Net Name=NetD22_2
+Added Member To Class: ClassName=Wireless power1 Member=Component D11 BYV26
+Added Member To Class: ClassName=Wireless power1 Member=Component D12 BYV26
+Added Member To Class: ClassName=Wireless power1 Member=Component D21 BYV26
+Added Member To Class: ClassName=Wireless power1 Member=Component D22 BYV26
+Added Room: Name=Wireless power1

@@ -1,0 +1,39 @@
+Added Component: Designator=Q13(IRL100HS121)
+Added Component: Designator=Q14(IRL100HS121)
+Added Component: Designator=Q23(IRL100HS121)
+Added Component: Designator=Q24(IRL100HS121)
+Added Pin To Net: NetName=POWER Pin=Q13-1
+Added Pin To Net: NetName=POWER Pin=Q13-1
+Added Pin To Net: NetName=POWER Pin=Q13-1
+Added Pin To Net: NetName=POWER Pin=Q13-1
+Added Pin To Net: NetName=POWER Pin=Q13-1
+Added Pin To Net: NetName=NetD11_1 Pin=Q13-2
+Added Pin To Net: NetName=NetC11_2 Pin=Q13-3
+Added Pin To Net: NetName=NetC11_2 Pin=Q13-3
+Added Pin To Net: NetName=NetC11_2 Pin=Q14-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q14-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q14-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q14-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q14-1
+Added Pin To Net: NetName=NetD12_1 Pin=Q14-2
+Added Pin To Net: NetName=GND Pin=Q14-3
+Added Pin To Net: NetName=GND Pin=Q14-3
+Added Pin To Net: NetName=POWER Pin=Q23-1
+Added Pin To Net: NetName=POWER Pin=Q23-1
+Added Pin To Net: NetName=POWER Pin=Q23-1
+Added Pin To Net: NetName=POWER Pin=Q23-1
+Added Pin To Net: NetName=POWER Pin=Q23-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q23-3
+Added Pin To Net: NetName=NetC21_2 Pin=Q23-3
+Added Pin To Net: NetName=NetC21_2 Pin=Q24-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q24-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q24-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q24-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q24-1
+Added Pin To Net: NetName=GND Pin=Q24-3
+Added Pin To Net: NetName=GND Pin=Q24-3
+Added Member To Class: ClassName=Wireless power1 Member=Component Q13 IRL100HS121
+Added Member To Class: ClassName=Wireless power1 Member=Component Q14 IRL100HS121
+Added Member To Class: ClassName=Wireless power1 Member=Component Q23 IRL100HS121
+Added Member To Class: ClassName=Wireless power1 Member=Component Q24 IRL100HS121
+Added Room: Name=Wireless power1

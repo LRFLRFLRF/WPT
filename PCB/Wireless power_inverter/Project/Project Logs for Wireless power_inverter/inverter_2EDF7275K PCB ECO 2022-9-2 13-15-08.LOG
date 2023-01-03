@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=NetC4_2 Pin=C4-2
+Removed Pin From Net: NetName=GND Pin=U3-8
+Removed Pin From Net: NetName=NetD9_2 Pin=U3-9
+Removed Pin From Net: NetName=NetC4_2 Pin=U3-11
+Removed Pin From Net: NetName=NetD6_2 Pin=U3-12
+Added Pin To Net: NetName=NetC4_2 Pin=C4-1
+Added Pin To Net: NetName=+12 Pin=C4-2
+Added Pin To Net: NetName=+12 Pin=R4-1
+Added Pin To Net: NetName=NetC4_2 Pin=U3-8
+Added Pin To Net: NetName=NetD6_2 Pin=U3-9
+Added Pin To Net: NetName=GND Pin=U3-11
+Added Pin To Net: NetName=NetD9_2 Pin=U3-12
+Added Pin To Net: NetName=+12 Pin=U3-13
+Change Net Name : Old Net Name=NetC4_2 New Net Name=NetC4_1
+Added Room: Name=inverter_2EDF7275K

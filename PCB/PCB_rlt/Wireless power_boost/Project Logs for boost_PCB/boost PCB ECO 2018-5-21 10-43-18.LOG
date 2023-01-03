@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=GND Pin=P3-7
+Added Pin To Net: NetName=GND Pin=P3-6
+Added Pin To Net: NetName=NetP3_7 Pin=P3-7
+Added Pin To Net: NetName=NetP3_7 Pin=R4-1
+Added Pin To Net: NetName=NetP3_7 Pin=R5-2
+Added Net: Name=NetP3_7
+Added Member To Class: ClassName=boost_sheet Member=Component  IRFB4115PBF
+Added Member To Class: ClassName=boost_sheet Member=Component U1 Optoisolator1
+Added Member To Class: ClassName=boost_sheet Member=Component U2 IR2184s
+Added Room: Name=boost_sheet

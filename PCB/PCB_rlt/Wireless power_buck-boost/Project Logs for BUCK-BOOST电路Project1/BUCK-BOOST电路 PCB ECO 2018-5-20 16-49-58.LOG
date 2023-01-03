@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=GND Pin=P3-5
+Removed Pin From Net: NetName=GND Pin=P3-7
+Removed Pin From Net: NetName=NetP2_2 Pin=P3-8
+Added Pin To Net: NetName=NetP2_2 Pin=P3-5
+Added Pin To Net: NetName=GND Pin=P3-6
+Added Pin To Net: NetName=GND Pin=P3-8
+Added Pin To Net: NetName=NetP3_7 Pin=P3-7
+Added Pin To Net: NetName=NetP3_7 Pin=R4-1
+Added Pin To Net: NetName=NetP3_7 Pin=R5-2
+Added Net: Name=NetP3_7
+Added Room: Name=BUCK-BOOSTµçÂ·

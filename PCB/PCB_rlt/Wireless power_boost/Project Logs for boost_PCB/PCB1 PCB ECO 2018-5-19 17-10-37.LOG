@@ -1,0 +1,6 @@
+Added Component: Designator=MBR20150(lm317´øÉ¢ÈÈÆ¬)
+Added Pin To Net: NetName=Net_2 Pin=MBR20150-1
+Added Pin To Net: NetName=NetC2_1 Pin=MBR20150-2
+Added Pin To Net: NetName=Net_2 Pin=MBR20150-3
+Added Member To Class: ClassName=boost_sheet Member=Component MBR20150
+Added Room: Name=boost_sheet

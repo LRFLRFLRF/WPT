@@ -1,0 +1,5 @@
+Added Component: Designator=C5(1210)
+Added Pin To Net: NetName=POWER Pin=C5-1
+Added Pin To Net: NetName=GND Pin=C5-2
+Added Member To Class: ClassName=Wireless power_inverter Member=Component C5 104
+Added Room: Name=Wireless power_inverter

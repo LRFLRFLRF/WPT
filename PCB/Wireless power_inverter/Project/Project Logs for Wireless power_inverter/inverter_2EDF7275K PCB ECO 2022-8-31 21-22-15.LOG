@@ -1,0 +1,7 @@
+Added Component: Designator=J?(SIP4)
+Added Pin To Net: NetName=+3V3 Pin=J?-1
+Added Pin To Net: NetName=+3V3 Pin=J?-2
+Added Pin To Net: NetName=+3V3 Pin=J?-3
+Added Pin To Net: NetName=+3V3 Pin=J?-4
+Added Member To Class: ClassName=inverter_2EDF7275K Member=Component J? CON4
+Added Room: Name=inverter_2EDF7275K

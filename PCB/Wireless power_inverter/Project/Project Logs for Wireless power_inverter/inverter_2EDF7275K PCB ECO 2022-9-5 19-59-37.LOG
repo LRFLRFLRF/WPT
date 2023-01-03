@@ -1,0 +1,14 @@
+Removed Pin From Net: NetName=NetC4_1 Pin=J5-2
+Removed Pin From Net: NetName=NetJ6_6 Pin=Rfbk_V1-1
+Removed Pin From Net: NetName=NetC4_1 Pin=Rfbk_V1-2
+Removed Pin From Net: NetName=GND Pin=Rfbk_V2-1
+Removed Pin From Net: NetName=NetJ6_6 Pin=Rfbk_V2-2
+Removed Pin From Net: NetName=NetC1_1 Pin=T1-3
+Removed Member From Class: ClassName=inverter_2EDF7275K Member=Rfbk_V1
+Removed Member From Class: ClassName=inverter_2EDF7275K Member=Rfbk_V2
+Added Pin To Net: NetName=NetC1_1 Pin=J5-1
+Added Pin To Net: NetName=NetC4_1 Pin=T1-4
+Added Pin To Net: NetName=NetJ5_2 Pin=J5-2
+Added Pin To Net: NetName=NetJ5_2 Pin=T1-3
+Added Net: Name=NetJ5_2
+Added Room: Name=inverter_2EDF7275K

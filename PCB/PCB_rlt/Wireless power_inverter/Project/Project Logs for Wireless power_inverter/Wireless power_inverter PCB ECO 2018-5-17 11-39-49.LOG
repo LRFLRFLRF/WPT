@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=R11 Old Footprint=AXIAL0.1Z New Footprint=1206
+Change Component Footprint: Designator=R13 Old Footprint=AXIAL0.1Z New Footprint=1206
+Change Component Footprint: Designator=R21 Old Footprint=AXIAL0.1Z New Footprint=1206
+Change Component Footprint: Designator=R23 Old Footprint=AXIAL0.1Z New Footprint=1206
+Added Room: Name=Wireless power_inverter

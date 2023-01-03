@@ -1,0 +1,138 @@
+Added Component: Designator=C1(Elector_470uf_8*9/12*3mm)
+Added Component: Designator=C2(RB5-10.5)
+Added Component: Designator=C3(cb2)
+Added Component: Designator=C4(CB2)
+Added Component: Designator=C5(cb2)
+Added Component: Designator=C6(CB1)
+Added Component: Designator=D1(lm317带散热片)
+Added Component: Designator=D2(SK34-SMB/DO-214AA)
+Added Component: Designator=D3(AXIAL0.1Z)
+Added Component: Designator=D4(SK34-SMB/DO-214AA)
+Added Component: Designator=J2(SIP4)
+Added Component: Designator=K1(HHC66A-1Z-12VDC电位器)
+Added Component: Designator=L1(BOOST升压电感2)
+Added Component: Designator=L2(BOOST电路滤波电感)
+Added Component: Designator=LED1(0603_LED)
+Added Component: Designator=P1(050-2)
+Added Component: Designator=P2(050-2)
+Added Component: Designator=P3(HDR2X4)
+Added Component: Designator=R1(0805r)
+Added Component: Designator=R2(AXIAL0.1Z)
+Added Component: Designator=R3(AXIAL0.1Z)
+Added Component: Designator=R4(AXIAL0.1Z)
+Added Component: Designator=R5(AXIAL0.1Z)
+Added Component: Designator=R6(AXIAL-0.7)
+Added Component: Designator=R7(0805r)
+Added Component: Designator=R9(0805R)
+Added Component: Designator=R10(0805R)
+Added Component: Designator=R11(0805R)
+Added Component: Designator=S1(Switch_8.2*5.2)
+Added Component: Designator=(lm317带散热片)
+Added Component: Designator=U1(DIP-4)
+Added Component: Designator=U2(SO-8NB)
+Added Pin To Net: NetName=+12 Pin=-2
+Added Pin To Net: NetName=+12 Pin=D3-1
+Added Pin To Net: NetName=+12 Pin=J2-3
+Added Pin To Net: NetName=+12 Pin=J2-4
+Added Pin To Net: NetName=+12 Pin=K1-3
+Added Pin To Net: NetName=+12 Pin=R9-2
+Added Net: Name=+12
+Added Pin To Net: NetName=GND Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=GND Pin=C3-2
+Added Pin To Net: NetName=GND Pin=C5-1
+Added Pin To Net: NetName=GND Pin=L1-2
+Added Pin To Net: NetName=GND Pin=LED1-2
+Added Pin To Net: NetName=GND Pin=P1-2
+Added Pin To Net: NetName=GND Pin=P3-3
+Added Pin To Net: NetName=GND Pin=P3-4
+Added Pin To Net: NetName=GND Pin=P3-5
+Added Pin To Net: NetName=GND Pin=P3-7
+Added Pin To Net: NetName=GND Pin=R2-2
+Added Pin To Net: NetName=GND Pin=R5-1
+Added Pin To Net: NetName=GND Pin=R6-2
+Added Pin To Net: NetName=GND Pin=R11-1
+Added Pin To Net: NetName=GND Pin=U1-2
+Added Pin To Net: NetName=GND Pin=U2-3
+Added Pin To Net: NetName=GND Pin=U2-6
+Added Net: Name=GND
+Added Pin To Net: NetName=Net_1 Pin=-1
+Added Pin To Net: NetName=Net_1 Pin=D2-1
+Added Pin To Net: NetName=Net_1 Pin=R1-2
+Added Pin To Net: NetName=Net_1 Pin=R2-1
+Added Net: Name=Net_1
+Added Pin To Net: NetName=Net_3 Pin=-3
+Added Pin To Net: NetName=Net_3 Pin=C6-1
+Added Pin To Net: NetName=Net_3 Pin=D1-2
+Added Pin To Net: NetName=Net_3 Pin=L1-1
+Added Pin To Net: NetName=Net_3 Pin=R3-1
+Added Net: Name=Net_3
+Added Pin To Net: NetName=NetC1_1 Pin=C1-1
+Added Pin To Net: NetName=NetC1_1 Pin=K1-1
+Added Pin To Net: NetName=NetC1_1 Pin=P1-1
+Added Pin To Net: NetName=NetC1_1 Pin=S1-1
+Added Net: Name=NetC1_1
+Added Pin To Net: NetName=NetC2_1 Pin=C2-1
+Added Pin To Net: NetName=NetC2_1 Pin=C4-2
+Added Pin To Net: NetName=NetC2_1 Pin=D1-1
+Added Pin To Net: NetName=NetC2_1 Pin=D1-3
+Added Pin To Net: NetName=NetC2_1 Pin=L2-1
+Added Net: Name=NetC2_1
+Added Pin To Net: NetName=NetC3_1 Pin=C3-1
+Added Pin To Net: NetName=NetC3_1 Pin=C5-2
+Added Pin To Net: NetName=NetC3_1 Pin=L2-2
+Added Pin To Net: NetName=NetC3_1 Pin=P2-1
+Added Pin To Net: NetName=NetC3_1 Pin=R4-2
+Added Net: Name=NetC3_1
+Added Pin To Net: NetName=NetC4_1 Pin=C4-1
+Added Pin To Net: NetName=NetC4_1 Pin=R3-2
+Added Net: Name=NetC4_1
+Added Pin To Net: NetName=NetC6_2 Pin=C6-2
+Added Pin To Net: NetName=NetC6_2 Pin=D3-2
+Added Net: Name=NetC6_2
+Added Pin To Net: NetName=NetD2_2 Pin=D2-2
+Added Pin To Net: NetName=NetD2_2 Pin=R1-1
+Added Pin To Net: NetName=NetD2_2 Pin=U2-4
+Added Net: Name=NetD2_2
+Added Pin To Net: NetName=NetD4_1 Pin=D4-1
+Added Pin To Net: NetName=NetD4_1 Pin=K1-B
+Added Pin To Net: NetName=NetD4_1 Pin=U1-4
+Added Net: Name=NetD4_1
+Added Pin To Net: NetName=NetD4_2 Pin=D4-2
+Added Pin To Net: NetName=NetD4_2 Pin=K1-A
+Added Pin To Net: NetName=NetD4_2 Pin=S1-2
+Added Pin To Net: NetName=NetD4_2 Pin=S1-2
+Added Net: Name=NetD4_2
+Added Pin To Net: NetName=NetLED1_1 Pin=LED1-1
+Added Pin To Net: NetName=NetLED1_1 Pin=R9-1
+Added Net: Name=NetLED1_1
+Added Pin To Net: NetName=NetP2_2 Pin=P2-2
+Added Pin To Net: NetName=NetP2_2 Pin=P3-8
+Added Pin To Net: NetName=NetP2_2 Pin=R6-1
+Added Net: Name=NetP2_2
+Added Pin To Net: NetName=NetP3_1 Pin=P3-1
+Added Pin To Net: NetName=NetP3_1 Pin=R10-1
+Added Pin To Net: NetName=NetP3_1 Pin=U2-2
+Added Net: Name=NetP3_1
+Added Pin To Net: NetName=NetP3_2 Pin=P3-2
+Added Pin To Net: NetName=NetP3_2 Pin=R7-1
+Added Net: Name=NetP3_2
+Added Pin To Net: NetName=NetP3_6 Pin=P3-6
+Added Pin To Net: NetName=NetP3_6 Pin=R4-1
+Added Pin To Net: NetName=NetP3_6 Pin=R5-2
+Added Net: Name=NetP3_6
+Added Pin To Net: NetName=NetR7_2 Pin=R7-2
+Added Pin To Net: NetName=NetR7_2 Pin=U2-1
+Added Net: Name=NetR7_2
+Added Pin To Net: NetName=NetR10_2 Pin=R10-2
+Added Pin To Net: NetName=NetR10_2 Pin=U1-1
+Added Net: Name=NetR10_2
+Added Pin To Net: NetName=NetR11_2 Pin=R11-2
+Added Pin To Net: NetName=NetR11_2 Pin=U1-3
+Added Net: Name=NetR11_2
+Added Pin To Net: NetName=VCC Pin=J2-1
+Added Pin To Net: NetName=VCC Pin=J2-2
+Added Pin To Net: NetName=VCC Pin=U2-5
+Added Net: Name=VCC
+Added Class: Name=BUCK-BOOST电路
+Added Room: Name=BUCK-BOOST电路

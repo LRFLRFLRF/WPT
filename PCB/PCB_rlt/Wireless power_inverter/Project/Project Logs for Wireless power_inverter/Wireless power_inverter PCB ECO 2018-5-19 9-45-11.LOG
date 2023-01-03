@@ -1,0 +1,27 @@
+Removed Pin From Net: NetName=NetC11_2 Pin=P3-6
+Removed Pin From Net: NetName=GND Pin=Q12-3
+Removed Pin From Net: NetName=GND Pin=Q12-3
+Removed Pin From Net: NetName=GND Pin=Q22-3
+Removed Pin From Net: NetName=GND Pin=Q22-3
+Removed Pin From Net: NetName=GND Pin=R14-1
+Removed Pin From Net: NetName=GND Pin=R24-1
+Added Component: Designator=Rfbk_I2(AXIAL0.7)
+Added Component: Designator=Rfbk_I(AXIAL0.7)
+Added Pin To Net: NetName=NetC11_2 Pin=J2-1
+Added Pin To Net: NetName=GND Pin=Rfbk_I2-1
+Added Pin To Net: NetName=GND Pin=Rfbk_I-1
+Added Pin To Net: NetName=NetP3_2 Pin=P3-2
+Added Pin To Net: NetName=NetP3_2 Pin=Q12-3
+Added Pin To Net: NetName=NetP3_2 Pin=Q12-3
+Added Pin To Net: NetName=NetP3_2 Pin=R14-1
+Added Pin To Net: NetName=NetP3_2 Pin=Rfbk_I-2
+Added Net: Name=NetP3_2
+Added Pin To Net: NetName=NetP3_6 Pin=P3-6
+Added Pin To Net: NetName=NetP3_6 Pin=Q22-3
+Added Pin To Net: NetName=NetP3_6 Pin=Q22-3
+Added Pin To Net: NetName=NetP3_6 Pin=R24-1
+Added Pin To Net: NetName=NetP3_6 Pin=Rfbk_I2-2
+Added Net: Name=NetP3_6
+Added Member To Class: ClassName=Wireless power_inverter Member=Component Rfbk_I2 R05 0.1%
+Added Member To Class: ClassName=Wireless power_inverter Member=Component Rfbk_I R05 0.1%
+Added Room: Name=Wireless power_inverter

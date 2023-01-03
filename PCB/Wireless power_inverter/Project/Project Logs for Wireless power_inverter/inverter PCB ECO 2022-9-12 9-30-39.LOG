@@ -1,0 +1,15 @@
+Removed Member From Class: ClassName=inverter_2EDF7275K Member=P?
+Added Component: Designator=J7(LPRS_SMA_CONNECTOR)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "SMA_CONNECTOR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetJ6_2 Pin=J7-1
+Added Pin To Net: NetName=NetJ6_4 Pin=J7-G1
+Added Pin To Net: NetName=NetJ6_4 Pin=J7-G2
+Added Pin To Net: NetName=NetJ6_4 Pin=J7-G3
+Added Pin To Net: NetName=NetJ6_4 Pin=J7-G4
+Added Member To Class: ClassName=inverter_2EDF7275K Member=Component J7 SMA_CONNECTOR
+Added Room: Name=inverter_2EDF7275K

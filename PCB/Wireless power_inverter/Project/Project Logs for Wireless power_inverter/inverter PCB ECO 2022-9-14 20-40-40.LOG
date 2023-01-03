@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=POWER Pin=F1-2
+Removed Pin From Net: NetName=POWER Pin=P2-1
+Added Pin To Net: NetName=POWER Pin=F1-1
+Added Pin To Net: NetName=POWER Pin=Q1-5
+Added Pin To Net: NetName=POWER Pin=Q1-6
+Added Pin To Net: NetName=POWER Pin=Q1-7
+Added Pin To Net: NetName=POWER Pin=Q1-8
+Added Pin To Net: NetName=NetF1_2 Pin=F1-2
+Added Pin To Net: NetName=NetF1_2 Pin=P2-1
+Added Net: Name=NetF1_2
+Added Room: Name=inverter_2EDF7275K

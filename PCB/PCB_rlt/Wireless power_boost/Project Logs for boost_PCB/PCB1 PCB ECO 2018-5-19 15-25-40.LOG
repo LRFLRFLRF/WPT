@@ -1,0 +1,30 @@
+Removed Pin From Net: NetName=NetD2_2 Pin=J7-1
+Removed Pin From Net: NetName=NetD2_2 Pin=J7-2
+Removed Pin From Net: NetName=NetD2_2 Pin=J7-3
+Removed Pin From Net: NetName=NetD2_2 Pin=J7-4
+Removed Member From Class: ClassName=boost_sheet Member=J3
+Removed Member From Class: ClassName=boost_sheet Member=J4
+Removed Member From Class: ClassName=boost_sheet Member=J5
+Removed Member From Class: ClassName=boost_sheet Member=J6
+Removed Member From Class: ClassName=boost_sheet Member=J7
+Added Component: Designator=P3(HDR2X4)
+Added Pin To Net: NetName=GND Pin=P3-2
+Added Pin To Net: NetName=NetD2_2 Pin=P3-4
+Added Pin To Net: NetName=GND Pin=P3-5
+Added Pin To Net: NetName=GND Pin=P3-7
+Added Pin To Net: NetName=NetP2_2 Pin=P2-2
+Added Pin To Net: NetName=NetP2_2 Pin=P3-8
+Added Pin To Net: NetName=NetP2_2 Pin=R6-1
+Added Net: Name=NetP2_2
+Added Pin To Net: NetName=NetP3_1 Pin=P3-1
+Added Pin To Net: NetName=NetP3_1 Pin=R10-1
+Added Net: Name=NetP3_1
+Added Pin To Net: NetName=NetP3_3 Pin=P3-3
+Added Pin To Net: NetName=NetP3_3 Pin=R7-1
+Added Net: Name=NetP3_3
+Added Pin To Net: NetName=NetP3_6 Pin=P3-6
+Added Pin To Net: NetName=NetP3_6 Pin=R4-1
+Added Pin To Net: NetName=NetP3_6 Pin=R5-2
+Added Net: Name=NetP3_6
+Added Member To Class: ClassName=boost_sheet Member=Component P3 Header 4X2
+Added Room: Name=boost_sheet

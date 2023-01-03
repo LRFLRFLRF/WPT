@@ -1,0 +1,16 @@
+Added Component: Designator=L1(IHLP-3232CZ-11)
+Added Component: Designator=Q?(IRL100HS121)
+Added Pin To Net: NetName=NetL1_1 Pin=L1-1
+Added Pin To Net: NetName=NetL1_1 Pin=Q?-1
+Added Pin To Net: NetName=NetL1_1 Pin=Q?-1
+Added Pin To Net: NetName=NetL1_1 Pin=Q?-1
+Added Pin To Net: NetName=NetL1_1 Pin=Q?-1
+Added Pin To Net: NetName=NetL1_1 Pin=Q?-1
+Added Net: Name=NetL1_1
+Added Pin To Net: NetName=NetL1_2 Pin=L1-2
+Added Pin To Net: NetName=NetL1_2 Pin=Q?-3
+Added Pin To Net: NetName=NetL1_2 Pin=Q?-3
+Added Net: Name=NetL1_2
+Added Member To Class: ClassName=Wireless power1 Member=Component L1 Inductor
+Added Member To Class: ClassName=Wireless power1 Member=Component Q? IRL100HS121
+Added Room: Name=Wireless power1

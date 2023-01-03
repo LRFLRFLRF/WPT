@@ -1,0 +1,18 @@
+Removed Pin From Net: NetName=NetC1_1 Pin=Rfbk_I1-1
+Removed Pin From Net: NetName=NetJ5_1 Pin=Rfbk_I1-2
+Removed Member From Class: ClassName=inverter_2EDF7275K Member=Rfbk_I1
+Added Component: Designator=T1(CU8965ALD)
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.mouser.co.uk/datasheet/2/597/cu8965-774485.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "3mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "COILCRAFT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "CU8965-ALC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetC1_1 Pin=T1-3
+Added Pin To Net: NetName=NetJ5_1 Pin=T1-4
+Added Pin To Net: NetName=NetT1_1 Pin=T1-1
+Added Net: Name=NetT1_1
+Added Pin To Net: NetName=NetT1_2 Pin=T1-2
+Added Net: Name=NetT1_2
+Added Member To Class: ClassName=inverter_2EDF7275K Member=Component T1 CU8965-ALC
+Added Room: Name=inverter_2EDF7275K

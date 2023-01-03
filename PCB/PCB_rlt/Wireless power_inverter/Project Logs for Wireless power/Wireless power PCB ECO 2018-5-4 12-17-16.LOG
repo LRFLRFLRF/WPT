@@ -1,0 +1,208 @@
+Added Component: Designator=C1(0603-c)
+Added Component: Designator=C2(CE/10MM)
+Added Component: Designator=C3(CB2)
+Added Component: Designator=C4(CD6)
+Added Component: Designator=C11(CB2)
+Added Component: Designator=C12(CB2)
+Added Component: Designator=C21(CB2)
+Added Component: Designator=C22(CB2)
+Added Component: Designator=J1(SIP3)
+Added Component: Designator=J2(050-2)
+Added Component: Designator=LED1(0603_LED)
+Added Component: Designator=LED2(0603_LED)
+Added Component: Designator=P1(050-2)
+Added Component: Designator=P2(050-2)
+Added Component: Designator=Q11(IRL100HS121)
+Added Component: Designator=Q12(IRL100HS121)
+Added Component: Designator=Q21(IRL100HS121)
+Added Component: Designator=Q22(IRL100HS121)
+Added Component: Designator=R1(0603-R)
+Added Component: Designator=R2(0603-R)
+Added Component: Designator=R3(1206R)
+Added Component: Designator=R4(1206R)
+Added Component: Designator=R11(AXIAL0.1Z)
+Added Component: Designator=R12(AXIAL0.1Z)
+Added Component: Designator=R13(AXIAL0.1Z)
+Added Component: Designator=R14(AXIAL0.1Z)
+Added Component: Designator=R15(AXIAL0.1Z)
+Added Component: Designator=R21(AXIAL0.1Z)
+Added Component: Designator=R22(AXIAL0.1Z)
+Added Component: Designator=R23(AXIAL0.1Z)
+Added Component: Designator=R24(AXIAL0.1Z)
+Added Component: Designator=R25(AXIAL0.1Z)
+Added Component: Designator=S1(Switch_8.2*5.2)
+Added Component: Designator=U1(QFN80P400X400X100_HS-13M)
+Added Component: Designator=U2(QFN80P400X400X100_HS-13M)
+Added Pin To Net: NetName=+12 Pin=C3-1
+Added Pin To Net: NetName=+12 Pin=C4-1
+Added Pin To Net: NetName=+12 Pin=R1-2
+Added Pin To Net: NetName=+12 Pin=S1-1
+Added Pin To Net: NetName=+12 Pin=U1-9
+Added Pin To Net: NetName=+12 Pin=U1-12
+Added Pin To Net: NetName=+12 Pin=U2-7
+Added Pin To Net: NetName=+12 Pin=U2-12
+Added Net: Name=+12
+Added Pin To Net: NetName=AGND Pin=C3-2
+Added Pin To Net: NetName=AGND Pin=C4-2
+Added Pin To Net: NetName=AGND Pin=C12-1
+Added Pin To Net: NetName=AGND Pin=C22-1
+Added Pin To Net: NetName=AGND Pin=J1-1
+Added Pin To Net: NetName=AGND Pin=J1-2
+Added Pin To Net: NetName=AGND Pin=LED1-2
+Added Pin To Net: NetName=AGND Pin=R3-2
+Added Pin To Net: NetName=AGND Pin=R4-2
+Added Pin To Net: NetName=AGND Pin=R15-1
+Added Pin To Net: NetName=AGND Pin=R25-1
+Added Pin To Net: NetName=AGND Pin=U1-4
+Added Pin To Net: NetName=AGND Pin=U1-6
+Added Pin To Net: NetName=AGND Pin=U2-4
+Added Pin To Net: NetName=AGND Pin=U2-8
+Added Net: Name=AGND
+Added Pin To Net: NetName=GND Pin=C1-2
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=GND Pin=LED2-2
+Added Pin To Net: NetName=GND Pin=P1-2
+Added Pin To Net: NetName=GND Pin=P2-2
+Added Pin To Net: NetName=GND Pin=Q12-3
+Added Pin To Net: NetName=GND Pin=Q12-3
+Added Pin To Net: NetName=GND Pin=Q22-3
+Added Pin To Net: NetName=GND Pin=Q22-3
+Added Pin To Net: NetName=GND Pin=R3-1
+Added Pin To Net: NetName=GND Pin=R4-1
+Added Pin To Net: NetName=GND Pin=R14-1
+Added Pin To Net: NetName=GND Pin=R24-1
+Added Pin To Net: NetName=GND Pin=U1-10
+Added Pin To Net: NetName=GND Pin=U2-10
+Added Net: Name=GND
+Added Pin To Net: NetName=NetC11_1 Pin=C11-1
+Added Pin To Net: NetName=NetC11_1 Pin=U1-1
+Added Net: Name=NetC11_1
+Added Pin To Net: NetName=NetC11_2 Pin=C11-2
+Added Pin To Net: NetName=NetC11_2 Pin=J2-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q11-3
+Added Pin To Net: NetName=NetC11_2 Pin=Q11-3
+Added Pin To Net: NetName=NetC11_2 Pin=Q12-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q12-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q12-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q12-1
+Added Pin To Net: NetName=NetC11_2 Pin=Q12-1
+Added Pin To Net: NetName=NetC11_2 Pin=R12-1
+Added Pin To Net: NetName=NetC11_2 Pin=U1-3
+Added Net: Name=NetC11_2
+Added Pin To Net: NetName=NetC12_2 Pin=C12-2
+Added Pin To Net: NetName=NetC12_2 Pin=R15-2
+Added Pin To Net: NetName=NetC12_2 Pin=U1-5
+Added Net: Name=NetC12_2
+Added Pin To Net: NetName=NetC21_1 Pin=C21-1
+Added Pin To Net: NetName=NetC21_1 Pin=U2-1
+Added Net: Name=NetC21_1
+Added Pin To Net: NetName=NetC21_2 Pin=C21-2
+Added Pin To Net: NetName=NetC21_2 Pin=J2-2
+Added Pin To Net: NetName=NetC21_2 Pin=Q21-3
+Added Pin To Net: NetName=NetC21_2 Pin=Q21-3
+Added Pin To Net: NetName=NetC21_2 Pin=Q22-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q22-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q22-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q22-1
+Added Pin To Net: NetName=NetC21_2 Pin=Q22-1
+Added Pin To Net: NetName=NetC21_2 Pin=R22-1
+Added Pin To Net: NetName=NetC21_2 Pin=U2-3
+Added Net: Name=NetC21_2
+Added Pin To Net: NetName=NetC22_2 Pin=C22-2
+Added Pin To Net: NetName=NetC22_2 Pin=R25-2
+Added Pin To Net: NetName=NetC22_2 Pin=U2-5
+Added Net: Name=NetC22_2
+Added Pin To Net: NetName=NetJ1_3 Pin=J1-3
+Added Pin To Net: NetName=NetJ1_3 Pin=U1-7
+Added Pin To Net: NetName=NetJ1_3 Pin=U1-8
+Added Pin To Net: NetName=NetJ1_3 Pin=U2-6
+Added Pin To Net: NetName=NetJ1_3 Pin=U2-9
+Added Net: Name=NetJ1_3
+Added Pin To Net: NetName=NetLED1_1 Pin=LED1-1
+Added Pin To Net: NetName=NetLED1_1 Pin=R1-1
+Added Net: Name=NetLED1_1
+Added Pin To Net: NetName=NetLED2_1 Pin=LED2-1
+Added Pin To Net: NetName=NetLED2_1 Pin=R2-1
+Added Net: Name=NetLED2_1
+Added Pin To Net: NetName=NetP1_1 Pin=P1-1
+Added Pin To Net: NetName=NetP1_1 Pin=S1-2
+Added Net: Name=NetP1_1
+Added Pin To Net: NetName=NetQ11_2 Pin=Q11-2
+Added Pin To Net: NetName=NetQ11_2 Pin=R11-2
+Added Pin To Net: NetName=NetQ11_2 Pin=R12-2
+Added Net: Name=NetQ11_2
+Added Pin To Net: NetName=NetQ12_2 Pin=Q12-2
+Added Pin To Net: NetName=NetQ12_2 Pin=R13-2
+Added Pin To Net: NetName=NetQ12_2 Pin=R14-2
+Added Net: Name=NetQ12_2
+Added Pin To Net: NetName=NetQ21_2 Pin=Q21-2
+Added Pin To Net: NetName=NetQ21_2 Pin=R21-2
+Added Pin To Net: NetName=NetQ21_2 Pin=R22-2
+Added Net: Name=NetQ21_2
+Added Pin To Net: NetName=NetQ22_2 Pin=Q22-2
+Added Pin To Net: NetName=NetQ22_2 Pin=R23-2
+Added Pin To Net: NetName=NetQ22_2 Pin=R24-2
+Added Net: Name=NetQ22_2
+Added Pin To Net: NetName=NetR11_1 Pin=R11-1
+Added Pin To Net: NetName=NetR11_1 Pin=U1-2
+Added Net: Name=NetR11_1
+Added Pin To Net: NetName=NetR13_1 Pin=R13-1
+Added Pin To Net: NetName=NetR13_1 Pin=U1-11
+Added Net: Name=NetR13_1
+Added Pin To Net: NetName=NetR21_1 Pin=R21-1
+Added Pin To Net: NetName=NetR21_1 Pin=U2-2
+Added Net: Name=NetR21_1
+Added Pin To Net: NetName=NetR23_1 Pin=R23-1
+Added Pin To Net: NetName=NetR23_1 Pin=U2-11
+Added Net: Name=NetR23_1
+Added Pin To Net: NetName=POWER Pin=C1-1
+Added Pin To Net: NetName=POWER Pin=C2-1
+Added Pin To Net: NetName=POWER Pin=P2-1
+Added Pin To Net: NetName=POWER Pin=Q11-1
+Added Pin To Net: NetName=POWER Pin=Q11-1
+Added Pin To Net: NetName=POWER Pin=Q11-1
+Added Pin To Net: NetName=POWER Pin=Q11-1
+Added Pin To Net: NetName=POWER Pin=Q11-1
+Added Pin To Net: NetName=POWER Pin=Q21-1
+Added Pin To Net: NetName=POWER Pin=Q21-1
+Added Pin To Net: NetName=POWER Pin=Q21-1
+Added Pin To Net: NetName=POWER Pin=Q21-1
+Added Pin To Net: NetName=POWER Pin=Q21-1
+Added Pin To Net: NetName=POWER Pin=R2-2
+Added Net: Name=POWER
+Added Member To Class: ClassName=Wireless power1 Member=Component C1 104
+Added Member To Class: ClassName=Wireless power1 Member=Component C2 100UF
+Added Member To Class: ClassName=Wireless power1 Member=Component C3 Cap
+Added Member To Class: ClassName=Wireless power1 Member=Component C4 Cap
+Added Member To Class: ClassName=Wireless power1 Member=Component C11 Cap
+Added Member To Class: ClassName=Wireless power1 Member=Component C12 Cap
+Added Member To Class: ClassName=Wireless power1 Member=Component C21 Cap
+Added Member To Class: ClassName=Wireless power1 Member=Component C22 Cap
+Added Member To Class: ClassName=Wireless power1 Member=Component J1 PORT
+Added Member To Class: ClassName=Wireless power1 Member=Component J2 COIL
+Added Member To Class: ClassName=Wireless power1 Member=Component LED1 
+Added Member To Class: ClassName=Wireless power1 Member=Component LED2 
+Added Member To Class: ClassName=Wireless power1 Member=Component P1 VCC
+Added Member To Class: ClassName=Wireless power1 Member=Component P2 POWER
+Added Member To Class: ClassName=Wireless power1 Member=Component Q11 IRL100HS121
+Added Member To Class: ClassName=Wireless power1 Member=Component Q12 IRL100HS121
+Added Member To Class: ClassName=Wireless power1 Member=Component Q21 IRL100HS121
+Added Member To Class: ClassName=Wireless power1 Member=Component Q22 IRL100HS121
+Added Member To Class: ClassName=Wireless power1 Member=Component R1 2K
+Added Member To Class: ClassName=Wireless power1 Member=Component R2 2K
+Added Member To Class: ClassName=Wireless power1 Member=Component R3 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R4 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R11 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R12 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R13 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R14 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R15 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R21 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R22 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R23 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R24 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component R25 Res2
+Added Member To Class: ClassName=Wireless power1 Member=Component S1 switch1
+Added Member To Class: ClassName=Wireless power1 Member=Component U1 MAX5064BATC+
+Added Member To Class: ClassName=Wireless power1 Member=Component U2 MAX5064BATC+
+Added Room: Name=Wireless power1

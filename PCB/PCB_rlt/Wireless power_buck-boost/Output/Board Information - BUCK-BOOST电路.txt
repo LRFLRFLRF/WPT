@@ -1,0 +1,12 @@
+Board Information Report
+Filename     : C:\Users\lhc\Desktop\我的PCB\BUCK-BOSST电路\BUCK-BOOST电路.PcbDoc
+Date         : 2018/5/20
+Time         : 22:08:51
+Time Elapsed : 00:00:00
+
+Routing Information
+    Routing completion, 100.00%
+    Connections, 68
+    Connections routed, 68
+    Connections remaining, 0
+count : 4

@@ -1,0 +1,710 @@
+******************************************************************************
+*  v1.2 2EDF7275K SIMetrix simulation models
+*  (C) Copyright 2019 Infineon Technologies. All rights reserved.
+******************************************************************************
+* This library contains models of the following INFINEON Gate Drivers: 
+* 
+* 2EDF7275K Dual-channel MOSFET gate-driver IC
+*
+******************************************************************************
+*  Model performance :
+*  - Static Electrical Characteristics and Dynamic Electrical Characteristics 
+*    are modeled with the typical values from the datasheet.
+******************************************************************************
+* PINS: 
+*  --------------------------------------------------------------------------
+*  | NAME   | TYPE   | DESCRIPTION                                          |
+*  --------------------------------------------------------------------------
+*  | INA    | IN     | Input for channel A                                  |
+*  --------------------------------------------------------------------------
+*  | INB    | IN     | Input for channel A                                  |
+*  --------------------------------------------------------------------------
+*  | VDDI   | IN     | Supply voltage 3.3V                                  |
+*  --------------------------------------------------------------------------
+*  | GNDI   | INOUT  | Ground input side                                    |
+*  --------------------------------------------------------------------------
+*  | DISABLE| IN     | Logic input high disables both output channel        |
+*  --------------------------------------------------------------------------
+*  | SLDON  | IN     |                                                      |
+*  --------------------------------------------------------------------------
+*  | GNDB   | INOUT  | Ground for output channel B                          |
+*  --------------------------------------------------------------------------
+*  | OUTB   | OUT    | Output gate driver for channel B                     |
+*  --------------------------------------------------------------------------
+*  | VDDB   | IN     | Supply voltage for output channel B                  |
+*  --------------------------------------------------------------------------
+*  | GNDA   | INOUT  | Ground for output channel A                          |
+*  --------------------------------------------------------------------------
+*  | OUTA   | OUT    | Output gate driver for channel A                     |
+*  --------------------------------------------------------------------------
+*  | VDDA   | IN     | Supply voltage for output channel A                  |
+*  --------------------------------------------------------------------------
+*  | TAMB   | IN     | ambient temperature                                  |
+*  |        |        |  - connect to this pin a voltage source with desired |
+*  |        |        |  ambient temperature given in Celsius Degrees        |
+*  --------------------------------------------------------------------------
+*  | TJ     | OUT    | junction temperature                                 |
+*  |        |        | - leave it open                                      |
+*  |        |        | - the voltage level of this pin gives the junction   |
+*  |        |        |  temperature at any time in Celsius Degrees          |
+*  --------------------------------------------------------------------------
+*  | TC     | OUT    | case temperature                                     |
+*  |        |        | - the voltage level of this pin gives the case       |
+*  |        |        |  temperature at any time in Celsius Degrees          |
+*  --------------------------------------------------------------------------
+*
+******************************************************************************
+* DISCLAIMER
+*
+* INFINEON’S MODEL TERMS OF USE
+*  
+*
+* BY DOWNLOADING AND/OR USING THIS INFINEON MODEL (“MODEL”), THE USER
+* (INCLUDING YOU) AGREES TO BE BOUND BY THE TERMS OF USE HERE STATED. IF USER
+* DOES NOT AGREE TO ALL TERMS OF USE HERE STATED, USER SHALL NOT DOWNLOAD,
+* USE OR COPY THE MODEL BUT IMMEDIATELY DELETE IT (TO THE EXTENT THAT IT
+* WAS DOWNLOADED ALREADY).
+*
+* 1. SCOPE OF USE
+* 1.1 Any use of this Model provided by Infineon Technologies AG is subject
+*     to these Terms of Use.
+* 1.2 This Model, provided by Infineon, does not fully represent all of the
+*     specifications and operating characteristics of the product to which
+*     this Model relates.
+* 1.3 This Model only describes the characteristics of a typical product.
+*     In all cases, the current data sheet information for a given product
+*     is the final design guideline and the only actual performance
+*     specification. Although this Model can be a useful tool to evaluate
+*     the product performance, it cannot simulate the exact product performance
+*     under all conditions and it is also not intended to replace
+*     bread-boarding for final verification.
+*
+* 2. IMPORTANT NOTICE
+* 2.1 Infineon Technologies AG (“Infineon”) is not and cannot be aware of the
+*     specific application of the Infineon’s Model by User. However, Model may
+*     from time to time be used by User in potentially harmful and/or life-
+*     endangering applications such as traffic, logistic, medical, nuclear
+*     or military applications or in other applications where failure of the
+*     Model may predictably cause damage to persons’ life or health or to
+*     property (hereinafter "Critical Applications").
+* 2.2 User acknowledges that Infineon has not specifically designed or
+*     qualified the Model for Critical Applications that the Model may contain
+*     errors and bugs and that User is required to qualify the Model for
+*     Critical Applications pursuant to the applicable local quality, safety
+*     and legal requirements before permitting or giving access to any such use.
+*
+* 3. CONFIDENTIAL INFORMATION
+*     User shall treat ideas, concepts and information incorporated in the
+*     Model, the documentation and the content of this Terms of Use (together
+*     hereinafter "Confidential Information") confidential, not disclose it to
+*     any third party unless otherwise agreed in writing between User and
+*     Infineon, not use it for any other purposes than using the Model for
+*     simulation and testing purposes only.
+*
+* 4. WARRANTY
+* 4.1 User acknowledges that the Model is provided by Infineon under this Terms	       
+*     of Use is provided free of charge and "AS IS" without any warranty or 	      
+*     liability of any kind and Infineon hereby expressly disclaims any 		      
+*     warranties or representations, whether express, implied, statutory or 	      
+*     otherwise, including but not limited to warranties of workmanship, 		      
+*     merchantability, fitness for a particular purpose, defects in the 		      
+*     Model, or non-infringement of third parties intellectual property rights.	       
+* 4.2 Infineon reserves the right to make corrections, deletions, modifications, 	      
+*     enhancements, improvements and other changes to the Model at any time 	      
+*     or to move or discontinue any Model without notice. 			      
+* 										      
+* 5. LIABILITY 									      
+* 5.1 Nothing in this Terms of Use shall limit or exclude Infineon's liability 	      
+*     under mandatory liability laws, for injuries to life, body or health,  	      
+*     for fraudulent concealment of defects in the software, or in cases 		      
+*     of Infineon's intentional misconduct or gross negligence. 			      
+* 5.2 Without prejudice to Sections 5.1, in cases of Infineon's slight		       
+*     negligent breach of obligations that restrict essential rights or duties 	      
+*     arising from the nature of this Terms of Use in a way that there is a 	      
+*     risk of non-achievement of the purpose of this Terms of Use or of an 	      
+*     obligation whose observance User regularly may trust in and whereas		       
+*     compliance with only makes proper execution of this Terms of Use 		      
+*     possible, Infineon's liability shall be limited to the typically, 		      
+*     foreseeable damage. 							      
+* 5.3 Without prejudice to Sections 8.1 and 8.2, Infineon's liability under 	      
+*     this Agreement shall be excluded in all other cases. 			      
+* 										      
+* 6. EXPORT REGULATIONS 								      
+*     The User shall comply with all applicable national and international 	      
+*     laws and regulations, in particular the applicable export control 		      
+*     regulations and sanction programs. The User also agrees not to 		      
+*     export, re-export or transfer any software or technology developed		       
+*     with or using information, software or technology offered by Infineon, 	      
+*     in violation of any applicable laws or regulations of the competent 	      
+*     authorities. Further, the User shall neither use any products, 		      
+*     information, software and technology offered by Infineon in or in 		      
+*     connection with nuclear technology or weapons of mass destruction 		      
+*     (nuclear, biological or chemical) and carriers thereof nor supply 		      
+*     military consignees. 							      
+* 										      
+* 7. TERMINATION OF USE PERMIT 							      
+*     If the User violates these Terms of Use, such User’s permit to use 		      
+*     this Model terminates automatically. In addition, Infineon may 		      
+*     terminate the User’s permit to use this Model at its discretion and 	      
+*     at any time regardless of any violation of these Terms of Use. In 		      
+*     any of the foregoing events, the User is obliged to immediately destroy 	      
+*     any content that has been downloaded or printed from Infineon’s website. 	      
+* 										      
+* 8. MISCELLANEOUS 								      
+* 8.1 These Terms of Use are subject to the laws of the Federal Republic 		      
+*     of Germany with the exception of the United Nations on Purchase 		      
+*     Contracts on the International Sale of Goods dated April 11, 1980 (CISG). 	      
+*     The exclusive place of jurisdiction is Munich, Germany. 			      
+* 8.2 Should any provision in these Terms of Use be or become invalid, the 	      
+*     validity of all other provisions or agreements shall remain unaffected 	      
+*     thereby.
+* 
+******************************************************************************
+
+.Lib "<TINADIR>\Spicelib\TINA_SMPS.lib"
+* ------------------------------------------------------------------------------
+
+* 2EDF7275K Dual-channel MOSFET gate-driver IC
+*! Name: 2EDF7275K
+*! Version: 1.2-2019-07-16
+
+*! Library references
+*! Library name, version
+*! 2EDF7275K, 2019-07-16
+
+*! Change history of model
+*! Version, Changes	 
+*! 1.0-2019-05-29, base model creation
+*! 1.1-2019-06-03, SLDON inverted and pull-up resistor added
+*! 1.2-2019-07-16, improvement for convergence when GNDA or GNDB is floating
+
+.PARAM dout_high= {5}
+
+.SUBCKT 2EDF7275K OUTA GNDA VDDA INA GNDI VDDI Tj Tamb Tc INB SLDON DISABLE NC 
++ VDDB OUTB GNDB 
++ PARAMS: THERMAL_MODEL=1 
+.PARAM Ion=1.541997E-03
+.PARAM Ioff=1.661997E-03
+.PARAM YN=7
+.PARAM MN=66
+.PARAM WN=99.8456u
+.PARAM L_N=1000n
+.PARAM LAMBDAN=0
+.PARAM VTHN=2
+.PARAM RDN=194.2484m
+.PARAM KPN=388.4787u
+.PARAM VGSmaxN=4.5
+.PARAM TCRN=2.96m
+.PARAM LAMBDAP=0
+.PARAM VTHP=-2
+.PARAM MP=33
+.PARAM WP=99.8456u
+.PARAM KPP=388.4787u
+.PARAM RDP=539.9186m
+.PARAM LP=1000n
+.PARAM VGSmaxP=4.5
+.PARAM TCRP=6m
+.PARAM CgdP=50.469021f
+.PARAM CgsP=5p
+.PARAM CdsP=5p
+.PARAM CgdN=119.469021f
+.PARAM CgsN=5p
+.PARAM CdsN=5p
+VS6         27 29 1.1
+VS5         28 30 3.3
+VCIb2I      29 GNDI ; Current Arrow
+VCIb1I      49 GNDI ; Current Arrow
+VS3         47 49 1.1
+VCIb1B      42 GNDB ; Current Arrow
+VS1         61 42 1.1
+VIhmosB     34 OUTB ; Current Arrow
+VIlmosB     OUTB 36 ; Current Arrow
+VIhmosA     38 OUTA ; Current Arrow
+VIlmosA     OUTA 39 ; Current Arrow
+VCIb1       72 GNDA ; Current Arrow
+VS2         81 72 1.1
+IT25        0 74 25M
+XD26        GNDI SLDON D_1N_0
+XD25        SLDON VDDI D_1N_0
+XD23        GNDI VDDI D_Z_4_0
+XD22        GNDB VDDB D_Z_22_3_0
+XD13        GNDA VDDA D_Z_22_3_0
+R30         VDDI SLDON 1MEG 
+C4          GNDI GNDB  1.5P
+R29         GNDI GNDB 10G 
+R28         NC GNDI 10G 
+C3          GNDI GNDA  1.5P
+R27         GNDI GNDA 10G 
+XD18        27 28 D_LIM10_0
+R26         28 29 10MEG 
+XD17        VDDI 28 D_LIM10_0
+XD16        30 29 D_LIM10_0
+GVCCS11     28 29 VALUE = {IF(V(SLDONUVLO,0)<0.5,(V(VDDI,GNDI)-3.3)*100M,0)}
+XQ3         34 VhgB VDDB VDDB Tj SWMOSP_0
++ PARAMS: VTH={VTHP} KP={KPP} M={MP} W={WP} L={LP} LAMBDA={LAMBDAP} RD={RDP}
++ CGD={CgdP} CGS={CgsP} TCR={TCRP} CDS={CdsP}
+XQ2         36 VlgB GNDB GNDB Tj SWMOSN_0
++ PARAMS: VTH={VTHN} KP={KPN} M={MN} W={WN} L={L_N} LAMBDA={LAMBDAN} RD={RDN}
++ CGD={CgdN} CGS={CgsN} TCR={TCRN} CDS={CdsN}
+XQ1         38 VhgA VDDA VDDA Tj SWMOSP_0
++ PARAMS: VTH={VTHP} KP={KPP} M={MP} W={WP} L={LP} LAMBDA={LAMBDAP} RD={RDP}
++ CGD={CgdP} CGS={CgsP} TCR={TCRP} CDS={CdsP}
+XQ4         39 VlgA GNDA GNDA Tj SWMOSN_0
++ PARAMS: VTH={VTHN} KP={KPN} M={MN} W={WN} L={L_N} LAMBDA={LAMBDAN} RD={RDN}
++ CGD={CgdN} CGS={CgsN} TCR={TCRN} CDS={CdsN}
+GVCCS10     GNDB 40 VALUE = {(0.0085M*V(63,DGND)/5+0.0115M)*V(VDDB,GNDB)+(0.1M*V(63,DGND)/5+0.600M)-(0.102M*V(63,DGND)/5+0.138M)}
+GIb1B       41 42 VALUE = {V(40,GNDB)*(V(TJ25,0)*((0.000028*V(63,DGND)/5)+0.0002)+1)}
+XD15        GNDI DISABLE D_Z_17_1N_0
+XD14        GNDI INB D_Z_17_1N_0
+XD19        GNDI INA D_Z_17_1N_0
+XAND2_P1    43 VDDIUVLO GDIB DPWR DGND AND2_P
++ PARAMS: DLH=0 DHL=0
+XAND2_P2    45 VDDIUVLO GDIA DPWR DGND AND2_P
++ PARAMS: DLH=0 DHL=0
+XU19        SLDON GNDI SLDONUVLO DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+XD11        47 48 D_LIM10_0
+XD12        VDDI 48 D_LIM10_0
+GVCCS9      48 49 VALUE = {V(50,GNDI)}
+GVCCS8      GNDI 50 VALUE = {1.4M+V(TJ25,0)*0.000798M}
+R25         50 GNDI 1
+R24         48 49 10MEG 
+XU16        VDDI GNDI 51 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+XU11        51 VDDIUVLO DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XAND2       52 53 INVDISABLE 43 DPWR DGND AND3_DP_0
++ PARAMS: DLH=6N DHL=7.5N
+XAND1       54 55 INVDISABLE 45 DPWR DGND AND3_DP_0
++ PARAMS: DLH=6N DHL=7.5N
+XINV6       56 INVDISABLE DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XU10        57 56 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU9         DISABLE GNDI 57 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_1
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+R17         DISABLE GNDI 150K 
+XHYSTCOMP1  VDDB GNDB 58 DGND Tj VDDB HYSTCOMP_THL_THR_TEMP_2EDI_0
++ PARAMS: VOUTH={DOUT_HIGH} VOUTL=0 ROUT=100 TDLH=1N TDHL=1N Y={YN}
+XU7         58 52 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU6         59 53 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU5         INB GNDI 59 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=18N TDHL=18N TRISE=1N TFALL=1N
+R8          INB GNDI 150K 
+GPOROB      GNDB 60 VALUE = {LIMIT(I(VCIB1B),0,100U)}
+C2          60 GNDB  3P
+R23         60 GNDB 43.8K 
+XD10        VDDB 41 D_LIM1_0
+R21         61 42 1MEG 
+XD9         61 41 D_LIM1_0
+R20         40 GNDB 1
+R19         41 42 10MEG 
+R18         OUTB VlgB 10MEG 
+XINV4       62 63 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+XINV3       GDIB 64 DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XINV2       65 66 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+GIhonB      VhgB VghmxB VALUE = {IF(V(63,DGND)>0.5,V(68,0),0)}
+GIlonB      VglmxB VlgB VALUE = {IF(V(66,DGND)>0.5,V(67,0),0)}
+R16         VhgB VDDB 1G 
+GIhoffB     VDDB VhgB VALUE = {IF(V(63,DGND)<0.5,V(68,0),0)}
+XD8         VghmxB VhgB D_LIM01_0
+XD7         VhgB VDDB D_LIM01_0
+XD6         GNDB VlgB D_LIM01_0
+XD5         VlgB VglmxB D_LIM01_0
+GIloffB     VlgB GNDB VALUE = {IF(V(66,DGND)<0.5,V(67,0),0)}
+R15         VlgB GNDB 1G 
+XU4         64 DGND 65 DPWR LEB_0
++ PARAMS: LEB=1.0N
+XU3         GDIB DGND 62 DPWR LEB_0
++ PARAMS: LEB=1.0N
+GVCCS7      GNDB VghmxB VALUE = {V(VDDB,GNDB)-V(60,GNDB)}
+R14         VghmxB GNDB 1
+R13         VDDB VglmxB 1
+GVCCS6      VglmxB VDDB VALUE = {V(VDDB,GNDB)-V(60,GNDB)}
+R12         67 0 1 
+GVCCS5      0 67 VALUE = {IOFF}
+R11         68 0 1 
+GVCCS2      0 68 VALUE = {ION}
+XU2         69 55 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU14        VDDA GNDA 70 DGND Tj VDDA HYSTCOMP_THL_THR_TEMP_2EDI_1
++ PARAMS: VOUTH={DOUT_HIGH} VOUTL=0 ROUT=100 TDLH=1N TDHL=1N Y={YN}
+XU17        70 54 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU1         INA GNDI 69 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=18N TDHL=18N TRISE=1N TFALL=1N
+Rina        INA GNDI 150K 
+GIb1        71 72 VALUE = {V(82,GNDA)*(V(TJ25,0)*((0.000028*V(77,DGND)/5)+0.0002)+1)}
+GPORO       GNDA 73 VALUE = {LIMIT(I(VCIB1),0,100U)}
+R22         OUTA VlgA 10MEG 
+R2          TJ25 0 1K 
+GTD25       0 TJ25 VALUE = {(LIMIT(V(Tj,0),-50,150)-25)*1M}
+XU12        Tj Tamb 75 Tc PT THERMALINJECTION4R_0
++ PARAMS: RTHJA25=112 RTHJCTOP25=44 RTHJB25=66 CTJ=4.9981M CTC=136.3155M
++ THERMAL_MODEL={THERMAL_MODEL} DC=1 CTB=213.280684M RTCA=5K
+XINV5       76 77 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+XU15        GDIA 78 DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XINV1       79 80 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+GIhonA      VhgA Vghmx VALUE = {IF(V(77,DGND)>0.5,V(84,0),0)}
+GIlonA      Vglmx VlgA VALUE = {IF(V(80,DGND)>0.5,V(83,0),0)}
+R1          VhgA VDDA 1G 
+GIhoffA     VDDA VhgA VALUE = {IF(V(77,DGND)<0.5,V(84,0),0)}
+XD4         Vghmx VhgA D_LIM01_0
+XD3         VhgA VDDA D_LIM01_0
+XD1         GNDA VlgA D_LIM01_0
+XD2         VlgA Vglmx D_LIM01_0
+GIloffA     VlgA GNDA VALUE = {IF(V(80,DGND)<0.5,V(83,0),0)}
+Rp2         VlgA GNDA 1G 
+XU13        78 DGND 79 DPWR LEB_0
++ PARAMS: LEB=1.0N
+XU8         GDIA DGND 76 DPWR LEB_0
++ PARAMS: LEB=1.0N
+EPT         PT 0 VALUE = {ABS(V(OUTA,GNDA)*I(VILMOSA))+ABS(V(VDDA,OUTA)*I(VIHMOSA))+
++ABS(V(OUTB,GNDB)*I(VILMOSB))+ABS(V(VDDB,OUTB)*I(VIHMOSB))+
++ABS(V(VDDA,GNDA)*I(VCIB1))+ABS(V(VDDB,GNDB)*I(VCIB1B))+
++ABS(V(VDDI,GNDI)*I(VCIB1I))}
+GVSVghmx    GNDA Vghmx VALUE = {V(VDDA,GNDA)-V(73,GNDA)}
+R10         Vghmx GNDA 1
+R9          VDDA Vglmx 1
+GVSVglmx    Vglmx VDDA VALUE = {V(VDDA,GNDA)-V(73,GNDA)}
+C1          73 GNDA  3P
+R7          73 GNDA 43.8K 
+XD21        VDDA 71 D_LIM1_0
+R6          81 72 1MEG 
+XD20        81 71 D_LIM1_0
+GVCCS1      GNDA 82 VALUE = {(0.0085M*V(77,DGND)/5+0.0115M)*V(VDDA,GNDA)+(0.1M*V(77,DGND)/5+0.600M)-(0.102M*V(77,DGND)/5+0.138M)}
+Rb3         82 GNDA 1
+Rpsrr1      71 72 10MEG 
+R5          83 0 1 
+GVCCS4      0 83 VALUE = {IOFF}
+R4          84 0 1 
+GVCCS3      0 84 VALUE = {ION}
+R3          74 0 1K 
+XDPWR       0 DPWR DGND DIGIFPWR_NOOPNODE
++ PARAMS: VOLTAGE={DOUT_HIGH} REFERENCE=0 
+.ENDS
+
+.SUBCKT D_1N_0 1    2
+D1 1 2  D_1n
+CD 1 2 1P
+.MODEL D_1n D( IS=1n N=1.0 RS=10 XTI=0 T_ABS=27)
+.ENDS
+
+.SUBCKT D_Z_4_0 1    2
+D1 1 2  D_Z_4
+CD 1 2 10P
+.MODEL D_Z_4 D( IS=1n N=1.0 BV=4 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+
+.SUBCKT D_Z_22_3_0 1    2
+D1 1 2  D_Z_22_3
+CD 1 2 10P
+.MODEL D_Z_22_3 D( IS=1n N=1.0 BV=22.3 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+
+.SUBCKT D_LIM10_0 1 2
+D1 1 2  D_Lim10
+.Model D_Lim10 D (IS=1p N=1 RS=10)
+.ENDS
+
+.SUBCKT SWMOSP_0 D  G  S  B  TJ
++ Params: Vth=2.0 KP=390u M=30 W=102u L=1u LAMBDA=100m Rd=1m CGD=1p CGS=5p CDS=5p TCR=0
+.Param Tref=25
+.Param Tmin=-40
+.Param Tmax=150
+
+Rg     G    Gi   1.0
+*Rd     D    Di   {Rd}
+ERd     D    Di   Value={I(ERd)*Max((Rd + TCR*(Limit(V(TJ), Tmin, Tmax) - Tref)),1u)}
+Rb     B    Bi   1.00m
+
+M1      Di    Gi    S    Bi    SWMOS  M={M} W={W} L={L}
+
+.MODEL SWMOS PMOS (LEVEL=1 KP={KP} VTO={Vth} LAMBDA={LAMBDA} T_ABS=27)
+RDS Di   S  100MEG
+
+Dbody   Di Bi       DBODY
+.MODEL DBODY  D(IS=100n  N=1.1 RS=20.47u BV=85 IBV=1m EG=1.12 T_ABS=27)
+
+Cgd     Gi    Di    {CGD}
+Cgs     Gi    S    {CGS}
+Cds     Di    S    {CDS}
+.ENDS 
+ 
+
+.SUBCKT SWMOSN_0 D  G  S  B  TJ
++ Params: Vth=2.0 KP=390u M=30 W=102u L=1u LAMBDA=100m Rd=1m CGD=1p CGS=5p CDS=5p TCR=0
+.Param Tref=25
+.Param Tmin=-40
+.Param Tmax=150
+
+*Rs     S    Si   1.00m
+Rg     G    Gi   1.0
+*Rd     D    Di   {Rd}
+ERd     D    Di   Value={I(ERd)*Max((Rd + TCR*(Limit(V(TJ), Tmin, Tmax) - Tref)),1u)}
+Rb     B    Bi   1.00m
+
+M1      Di    Gi    S    Bi    SWMOS  M={M} W={W} L={L}
+
+.MODEL SWMOS NMOS (LEVEL=1 KP={KP} VTO={Vth} LAMBDA={LAMBDA} T_ABS=27)
+RDS Di   S  100MEG
+
+Dbody   Bi   Di    DBODY
+.MODEL DBODY  D(IS=100n  N=1.1 RS=20.47u BV=85 IBV=1m EG=1.12 T_ABS=27)
+
+Cgd     Gi    Di    {CGD}
+Cgs     Gi    S    {CGS}
+Cds     Di    S    {CDS}
+.ENDS 
+ 
+
+.SUBCKT D_Z_17_1N_0 1    2
+D1 1 2  D_Z_17_1n
+CD 1 2 10P
+.MODEL D_Z_17_1n D( IS=1n N=1.0 BV=17 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.02, 2.83, 0, 2.84, 24.87, 2.84, 50.13, 2.84, 100.26, 2.84, 150, 2.84)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.02, 2.68, 0, 2.68, 24.87, 2.69, 50.13, 2.69, 100.26, 2.69, 150, 2.7)
+
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS   
+
+.SUBCKT AD_BUF_DP_0 IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 IN_LOW=0.475 IN_HIGH=0.525
+*
+XU1     IN OUT DPWR DGND   AD_BUF_P
++ PARAMS:  DLH={DLH} DHL={DHL} IN_LOW={IN_LOW} IN_HIGH={IN_HIGH}
+.ENDS
+
+.SUBCKT AND3_DP_0 IN1 IN2 IN3 OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0
+*
+XU1     IN1 IN2 IN3 OUT DPWR DGND   AND3_P 
++ PARAMS:  DLH={DLH} DHL={DHL}
+.ENDS
+
+.SUBCKT INV_DP_0 IN OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0
+*
+XU1     IN OUT DPWR DGND   INV_P 
++ PARAMS:  DLH={DLH} DHL={DHL}
+.ENDS
+
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_1 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.05, 1.99, 0, 2.02, 25.13, 2.038,49.87, 2.046, 100.13, 2.053, 150, 2.057)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.05, 1.209, 0, 1.209, 25.13, 1.22, 49.87, 1.22, 100.13, 1.22, 150, 1.22)
+
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS
+ 
+.SUBCKT HYSTCOMP_THL_THR_TEMP_2EDI_0 inp inm out gnd Tj VDD
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Y=7
+*
+*2EDF7
+GVthrH7 0 VthrH7 table {V(Tj,gnd)} = (-39.73, 4.17, -0.07, 4.18, 24.98, 4.186, 49.69, 4.189, 99.46, 4.19, 149.57, 4.19)
+RVthrH7 0 VthrH7 1
+GVthrL7 0 VthrL7 table {V(Tj,gnd)} = (-39.82, 3.87, -0.16, 3.88, 24.89, 3.89, 49.95, 3.89, 99.71, 3.898, 149.83, 3.9)
+RVthrL7 0 VthrL7 1
+
+*2EDS8
+GVthrH8 0 VthrH8 table {V(Tj,gnd)} = (-40, 7.961, 0, 7.99, 24.815, 7.99, 50, 7.989, 100, 7.988, 150, 7.986)
+RVthrH8 0 VthrH8 1
+GVthrL8 0 VthrL8 table {V(Tj,gnd)} = (-40, 6.988, 0, 7.004, 24.815, 7.008, 50, 7.012, 100, 7.019, 150, 7.026)
+RVthrL8 0 VthrL8 1
+*
+*
+.Param Rdel = {IF ( ((Tdlh > 1E-15)|(Tdhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+
+
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, IF (Y < 7.5, V(VthrH7), V(VthrH8)), IF (Y < 7.5, V(VthrL7), V(VthrL8)) ) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) , VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.05, 1.99, 0, 2.02, 25.13, 2.038,49.87, 2.046, 100.13, 2.053, 150, 2.057)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.05, 1.209, 0, 1.209, 25.13, 1.22, 49.87, 1.22, 100.13, 1.22, 150, 1.22)
+
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+*Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh*(-0.0013*V(TJ,gnd) + 1), (VoutL - V(outi,gnd))*Gdhl*(-0.0013*V(TJ,gnd) + 1) ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS
+
+.SUBCKT D_LIM1_0 1 2
+D1 1 2  D_Lim1
+.ENDS
+.MODEL D_LIM1 D( IS=10F N=1.0 RS=100 XTI=0 AF=0 KF=0 EG=0.48)
+
+.SUBCKT DA_BUF_DP_0 IN OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0 OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+*
+XU1     IN OUT DPWR DGND   DA_BUF_P 
++ PARAMS:  DLH={DLH} DHL={DHL} OUT_LOW={OUT_LOW} OUT_HIGH={OUT_HIGH} ROUT={ROUT} COUT={COUT}
+.ENDS
+
+ 
+
+.SUBCKT D_LIM01_0 1 2
+D1 1 2  D_LIM01
+.ENDS
+.MODEL D_LIM01 D( IS=10F N=0.1 RS=10 XTI=0 AF=0 KF=0 EG=0.111)
+
+.SUBCKT LEB_0 IN GND OUT PWR
++ PARAMS:    LEB = 100n
+XU1         IN 5 PWR GND BUF_P
++ PARAMS: DLH={LEB} DHL={1N}
+XU2         IN 5 OUT PWR GND AND2_P
++ PARAMS: DLH=0N DHL=0N 
+.ENDS
+
+.SUBCKT HYSTCOMP_THL_THR_TEMP_2EDI_1 inp inm out gnd Tj VDD
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Y=7
+*
+*2EDF7
+GVthrH7 0 VthrH7 table {V(Tj,gnd)} = (-39.73, 4.17, -0.07, 4.18, 24.98, 4.186, 49.69, 4.189, 99.46, 4.19, 149.57, 4.19)
+RVthrH7 0 VthrH7 1
+GVthrL7 0 VthrL7 table {V(Tj,gnd)} = (-39.82, 3.87, -0.16, 3.88, 24.89, 3.89, 49.95, 3.89, 99.71, 3.898, 149.83, 3.9)
+RVthrL7 0 VthrL7 1
+
+*2EDS8
+GVthrH8 0 VthrH8 table {V(Tj,gnd)} = (-40, 7.961, 0, 7.99, 24.815, 7.99, 50, 7.989, 100, 7.988, 150, 7.986)
+RVthrH8 0 VthrH8 1
+GVthrL8 0 VthrL8 table {V(Tj,gnd)} = (-40, 6.988, 0, 7.004, 24.815, 7.008, 50, 7.012, 100, 7.019, 150, 7.026)
+RVthrL8 0 VthrL8 1
+*
+
+.Param Rdel = {IF ( ((Tdlh > 1E-15)|(Tdhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, IF (Y < 7.5, V(VthrH7), V(VthrH8)), IF (Y < 7.5, V(VthrL7), V(VthrL8)) ) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) , VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT THERMALINJECTION4R_0 Tj Tamb Tctop Tb P Params: 
++ THERMAL_MODEL=1 ; 0 = External case to ambient thermal model, 1 = Internal case to ambient thermal model 
++ DC=1 ; 0 = thermal model switched off in operating point calculation , 1 = thermal model switched on in operating point calculation
++ RthJA25=125 RthJCtop25=16 RthJB25=55 Ctj=198.704482u Ctb=213.280684m Ctc=377u Rtca=5k ; DSO-8
+*+ RthJA25=64 RthJCtop25=9 RthJB25=13 Ctj=248.746859u Ctb=20.001486m Ctc=105.3u Rtca=11.111111k ; MSOP-8
+*+ RthJA25=61 RthJCtop25=8 RthJB25=11 Ctj=248.746859u Ctb=20.001486m Ctc=105.3u Rtca=11.111111k ; WSON-8
+*+ RthJA25=250 RthJCtop25=100 RthJB25=100 Ctj=166.366396u Ctb=57.3053m Ctc=60.32u Rtca=21.551724k ; SOT23-3
+*+ RthJA25=151 RthJCtop25=51 RthJB25=51 Ctj=166.366396u Ctb=57.3053m Ctc=60.32u Rtca=21.551724k ; SOT23-6
+.Param Rtjctop={Max(RthJCtop25, 1m)}  
+.Param Rtjb={Max(RthJB25, 1m)}  
+.Param Rtja={Max(RthJA25, Max(Rtjb,Rtjb)+1m)} 
+.Param Rtcatop={Max(Rtca, 1m)}
+.Param Rtba= {IF (THERMAL_MODEL > 0.5, Rtja*(Rtjctop + Rtca)/(Rtjctop + Rtca - Rtja) - Rtjb, Rtca)}
+.Param Ctctop={Max(Ctc, 1p)}
+.Param Ctbot= {IF (THERMAL_MODEL > 0.5, {Max(Ctb, 1p)}, Ctctop)}
+*Rtemp       Tamb 0 1MEG 
+*GTemp       0 Tamb VALUE = {1U*TEMP}
+Rtemp       Tamb 0 1k
+GTemp       0 Tamb VALUE = {1m*TEMP}
+*GP         Tamb Tj Value={if (Time>1n ,V(P),0.0)}
+GP         Tamb Tj Value={if ( (Time>1n) | (DC>0.5) ,V(P),0.0)}
+*GP         Tamb Tj Value={V(P)}
+Rtba        Tb Tamb {Rtba}  
+Ctb         Tb Tamb {Ctbot}
+Rtjb        Tj Tb {Rtjb} 
+Rtca        Tctop Tamb {Rtcatop} 
+Ctctop      Tctop Tamb {Ctctop}
+Rtjctop     Tj Tctop {Rtjctop} 
+Ctj         Tj Tamb {Ctj}
+.Ends
+

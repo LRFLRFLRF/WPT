@@ -1,0 +1,13 @@
+STATUS: PSpice Model Import Wizard for "Capture" (16.6.0.d001)
+STATUS:  
+   INFO: LIB driven flow
+   INFO: Input File: D:\works\WPT\PCB\芯片数据\AD8130\ad8130.lib
+   INFO: Output File: D:\works\WPT\PCB\芯片数据\AD8130\ad8130.olb
+STATUS:  
+STATUS: Identifying matching symbols automatically...started at Thursday, September 15, 2022 13:36:18
+STATUS:  
+   INFO: Symbol "AD8130" already exists for model "AD8130".
+STATUS:  
+STATUS: Completed identifying matching symbols automatically...at Thursday, September 15, 2022 13:36:18
+STATUS:  
+STATUS: 0 Error messages, 0 Warning messages

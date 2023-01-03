@@ -1,0 +1,4 @@
+Change Component Footprint: Designator=R9 Old Footprint=AXIAL0.1Z New Footprint=0805R
+Change Component Footprint: Designator=R10 Old Footprint=AXIAL0.1Z New Footprint=0805R
+Change Component Footprint: Designator=R11 Old Footprint=AXIAL0.1Z New Footprint=0805R
+Added Room: Name=boost_sheet

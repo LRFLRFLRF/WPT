@@ -1,0 +1,54 @@
+Removed Pin From Net: NetName=Net_1 Pin=-1
+Removed Pin From Net: NetName=Net_2 Pin=-2
+Removed Pin From Net: NetName=GND Pin=-3
+Removed Pin From Net: NetName=GND Pin=C6-1
+Removed Pin From Net: NetName=Net_2 Pin=D3-1
+Removed Pin From Net: NetName=+12 Pin=L1-1
+Removed Pin From Net: NetName=Net_2 Pin=L1-2
+Removed Pin From Net: NetName=GND Pin=P1-1
+Removed Pin From Net: NetName=NetC1_1 Pin=P1-2
+Removed Pin From Net: NetName=NetP2_2 Pin=P2-1
+Removed Pin From Net: NetName=NetC3_1 Pin=P2-2
+Removed Pin From Net: NetName=GND Pin=R2-1
+Removed Pin From Net: NetName=NetD2_2 Pin=U2-4
+Removed Pin From Net: NetName=GND Pin=U2-6
+Added Component: Designator=C10(CB1)
+Added Component: Designator=D5(AXIAL0.1Z)
+Added Component: Designator=D6(DO-41)
+Added Component: Designator=(lm317带散热片)
+Added Pin To Net: NetName=Net_1 Pin=-1
+Added Pin To Net: NetName=+12 Pin=-2
+Added Pin To Net: NetName=Net_2 Pin=C2-1
+Added Pin To Net: NetName=+12 Pin=D3-1
+Added Pin To Net: NetName=VCC Pin=D5-1
+Added Pin To Net: NetName=Net_1 Pin=D6-2
+Added Pin To Net: NetName=GND Pin=L1-2
+Added Pin To Net: NetName=Net_2 Pin=L2-1
+Added Pin To Net: NetName=NetC1_1 Pin=P1-1
+Added Pin To Net: NetName=GND Pin=P1-2
+Added Pin To Net: NetName=NetC3_1 Pin=P2-1
+Added Pin To Net: NetName=NetP2_2 Pin=P2-2
+Added Pin To Net: NetName=NetD2_2 Pin=U2-7
+Change Net Name : Old Net Name=Net_2 New Net Name=NetC2_1
+Added Pin To Net: NetName=Net_3 Pin=-3
+Added Pin To Net: NetName=Net_3 Pin=C6-1
+Added Pin To Net: NetName=Net_3 Pin=C10-1
+Added Pin To Net: NetName=Net_3 Pin=D1-2
+Added Pin To Net: NetName=Net_3 Pin=D6-1
+Added Pin To Net: NetName=Net_3 Pin=L1-1
+Added Pin To Net: NetName=Net_3 Pin=R2-1
+Added Pin To Net: NetName=Net_3 Pin=R3-1
+Added Pin To Net: NetName=Net_3 Pin=U2-6
+Added Net: Name=Net_3
+Added Pin To Net: NetName=NetC10_2 Pin=C10-2
+Added Pin To Net: NetName=NetC10_2 Pin=D5-2
+Added Pin To Net: NetName=NetC10_2 Pin=U2-8
+Added Net: Name=NetC10_2
+Change Class Name : Old Net Name=boost_sheet New Net Name=BUCK-BOOST电路
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component C10 Cap
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component D5 IN4007
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component D6 Diode 1N4172
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component  IRFB4115PBF
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component U1 Optoisolator1
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component U2 IR2184s
+Added Room: Name=BUCK-BOOST电路

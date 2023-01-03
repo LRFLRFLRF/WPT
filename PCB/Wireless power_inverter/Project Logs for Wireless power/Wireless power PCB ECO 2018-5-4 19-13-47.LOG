@@ -1,0 +1,3 @@
+Removed Pin From Net: NetName=GND Pin=P1-2
+Added Pin To Net: NetName=AGND Pin=P1-2
+Added Room: Name=Wireless power1

@@ -1,0 +1,7 @@
+Added Component: Designator=R12(AXIAL0.1Z)
+Added Pin To Net: NetName=NetP3_1 Pin=R12-1
+Added Pin To Net: NetName=GND Pin=R12-2
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component R12 Res1
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component  IRFB4115PBF
+Added Member To Class: ClassName=BUCK-BOOST电路 Member=Component U2 IR2184s
+Added Room: Name=BUCK-BOOST电路

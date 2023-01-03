@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=NetP3_6 Pin=P3-6
+Removed Pin From Net: NetName=GND Pin=Rfbk_I-1
+Removed Member From Class: ClassName=Wireless power_inverter Member=Rfbk_I
+Added Pin To Net: NetName=NetP3_6 Pin=P3-2
+Added Pin To Net: NetName=GND Pin=Q12-3
+Added Pin To Net: NetName=GND Pin=Q12-3
+Added Pin To Net: NetName=GND Pin=R14-1
+Change Net Name : Old Net Name=NetP3_6 New Net Name=NetP3_2
+Added Pin To Net: NetName=NetP3_6 Pin=P3-6
+Added Net: Name=NetP3_6
+Added Room: Name=Wireless power_inverter

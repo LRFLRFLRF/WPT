@@ -1,0 +1,4 @@
+Change Component Designator: OldDesignator= NewDesignator=Q1
+Change Net Name : Old Net Name=Net_1 New Net Name=NetD2_1
+Change Net Name : Old Net Name=Net_2 New Net Name=NetC4_2
+Added Room: Name=boost_sheet

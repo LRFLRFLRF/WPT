@@ -1,0 +1,8 @@
+STATUS: PSpice Schematics to Capture translator (16.6.0.d001)
+STATUS:  
+STATUS: Translator started at Tuesday, September 20, 2022 13:23:50
+STATUS: E:\IDE\Pspice\tools\Capture\sch2cap -f "E:\IDE\Pspice\tools\capture\PSpice models\PSpice models\ADI_All_Spice_Models\spice_models\ad8130.cir" -o "D:\works\WPT\PCB\IC_data\AD8130\new\ad8130.olb" -i C:\Users\LRF\AppData\Roaming\SPB_16.6\cdssetup\OrCAD_PSpice/16.6.0/PSpice.ini
+INFO(ORSCH-1029): Using existing library 'E:\IDE\Pspice\tools\Capture\Library\PSpice\modeled.etc'.
+INFO(ORSCH-1031): Created new library 'D:\works\WPT\PCB\IC_data\AD8130\new\ad8130.olb'.
+STATUS: Translator stopped at Tuesday, September 20, 2022 13:23:50
+STATUS: 0 Error messages, 0 Warning messages

@@ -82,21 +82,25 @@ zajianju = parto{findres, 2}
 
 
 %% 画该点的图像
-tw = 0.47;
-rd = 0.31;
-lpp = 13;
+tw = 0.378;
+rd = 0.25;
+lpp = 14;
 n = round(rd*lpp/tw);
-n=9;
-single_unit_plot(tw, 4.6, n, lpp, 2);
-
-%% 画该点的图像
-tw = 0.25/2;
-rd = 0.31;
-lpp = 5;
-n = round(rd*lpp/tw);
-n=8;
-single_unit_plot(tw, 4.6, n, lpp, 1);
+n=11;
+single_unit_plot(tw, 4.5, n, lpp, 2);
 
 
 
+%% 线匝计算
+lpp = 14:-0.378:(14-0.378*10)
 
+D = lpp * 8;
+sum(D) % 绕组总长度
+
+lpp= lpp*1.414
+
+%% 线匝计算
+lpp = 5:-0.25:(5-0.25*7)
+
+D = lpp * 8 *3;
+sum(D) % 绕组总长度

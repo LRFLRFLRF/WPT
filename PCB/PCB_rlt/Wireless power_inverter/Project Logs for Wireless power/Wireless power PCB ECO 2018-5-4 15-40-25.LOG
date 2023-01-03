@@ -1,0 +1,6 @@
+Change Component Footprint: Designator=D22 Old Footprint=1N4007_Stand New Footprint=1N4148_Stand
+Change Component Footprint: Designator=D11 Old Footprint=AXIAL0.2Z New Footprint=1N4148_Stand
+Change Component Footprint: Designator=D12 Old Footprint=AXIAL0.2Z New Footprint=1N4148_Stand
+Change Component Footprint: Designator=D21 Old Footprint=AXIAL0.2Z New Footprint=1N4148_Stand
+Added Pin To Net: NetName=NetD22_1 Pin=D22-1
+Added Pin To Net: NetName=NetD22_2 Pin=D22-2

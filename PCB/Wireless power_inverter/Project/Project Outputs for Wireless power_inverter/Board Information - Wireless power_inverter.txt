@@ -1,0 +1,12 @@
+Board Information Report
+Filename     : E:\ÎÞÏß³äµç\PCB\Wireless power_inverter\Wireless power_inverter.PcbDoc
+Date         : 2018/5/21
+Time         : 13:52:12
+Time Elapsed : 00:00:00
+
+Routing Information
+    Routing completion, 100.00%
+    Connections, 175
+    Connections routed, 175
+    Connections remaining, 0
+count : 4

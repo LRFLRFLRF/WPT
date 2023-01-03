@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=Net*_3 Pin=Q1-3
+Added Pin To Net: NetName=Net*_3 Pin=Q1-4
+Added Pin To Net: NetName=Net*_3 Pin=Q1-4
+Added Room: Name=Wireless power1

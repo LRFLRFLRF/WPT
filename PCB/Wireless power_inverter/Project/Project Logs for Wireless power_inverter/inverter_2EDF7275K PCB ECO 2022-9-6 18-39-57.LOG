@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=GND Pin=C2-2
+Removed Pin From Net: NetName=GND Pin=C5-2
+Removed Pin From Net: NetName=GND Pin=U1-1
+Removed Pin From Net: NetName=GND Pin=U1-4
+Removed Pin From Net: NetName=GND Pin=U3-1
+Removed Pin From Net: NetName=GND Pin=U3-4
+Added Pin To Net: NetName=AGND Pin=C2-2
+Added Pin To Net: NetName=AGND Pin=C5-2
+Added Pin To Net: NetName=AGND Pin=U1-1
+Added Pin To Net: NetName=AGND Pin=U1-4
+Added Pin To Net: NetName=AGND Pin=U3-1
+Added Pin To Net: NetName=AGND Pin=U3-4
+Added Room: Name=inverter_2EDF7275K

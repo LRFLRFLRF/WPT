@@ -1,0 +1,37 @@
+Removed Pin From Net: NetName=GND Pin=J1-1
+Removed Pin From Net: NetName=GND Pin=J1-2
+Removed Pin From Net: NetName=GND Pin=J1-3
+Removed Pin From Net: NetName=GND Pin=J1-4
+Added Member To Class: ClassName=boost_sheet Member=Component C1 Cap Pol1
+Added Member To Class: ClassName=boost_sheet Member=Component C2 Cap Pol1
+Added Member To Class: ClassName=boost_sheet Member=Component C3 Cap
+Added Member To Class: ClassName=boost_sheet Member=Component C4 Cap
+Added Member To Class: ClassName=boost_sheet Member=Component C5 Cap
+Added Member To Class: ClassName=boost_sheet Member=Component C6 Cap
+Added Member To Class: ClassName=boost_sheet Member=Component D1 MBR20150
+Added Member To Class: ClassName=boost_sheet Member=Component D2 SS14
+Added Member To Class: ClassName=boost_sheet Member=Component D3 IN4007
+Added Member To Class: ClassName=boost_sheet Member=Component D4 SS14
+Added Member To Class: ClassName=boost_sheet Member=Component J2 CON4
+Added Member To Class: ClassName=boost_sheet Member=Component K1 HHC66A-1Z-12VDC
+Added Member To Class: ClassName=boost_sheet Member=Component L1 Inductor
+Added Member To Class: ClassName=boost_sheet Member=Component L2 Inductor
+Added Member To Class: ClassName=boost_sheet Member=Component LED1 
+Added Member To Class: ClassName=boost_sheet Member=Component P1 VCC
+Added Member To Class: ClassName=boost_sheet Member=Component P2 VCC
+Added Member To Class: ClassName=boost_sheet Member=Component P3 Header 4X2
+Added Member To Class: ClassName=boost_sheet Member=Component R1 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component R2 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component R3 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component R4 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component R5 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component R6 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component R7 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component R9 2K
+Added Member To Class: ClassName=boost_sheet Member=Component R10 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component R11 Res1
+Added Member To Class: ClassName=boost_sheet Member=Component S1 switch1
+Added Member To Class: ClassName=boost_sheet Member=Component  IRFB4115PBF
+Added Member To Class: ClassName=boost_sheet Member=Component U1 Optoisolator1
+Added Member To Class: ClassName=boost_sheet Member=Component U2 IR2184s
+Added Room: Name=boost_sheet

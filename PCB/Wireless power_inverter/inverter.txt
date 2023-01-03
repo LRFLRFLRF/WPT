@@ -1,0 +1,16 @@
+Board Information Report
+Filename     : D:\works\WPT\PCB\Wireless power_inverter\inverter.PcbDoc
+Date         : 2022/9/11
+Time         : 21:49:22
+Time Elapsed : 00:00:00
+
+Routing Information
+    Routing completion, 100.00%
+    Connections, 156
+    Connections routed, 156
+    Connections remaining, 0
+count : 4
+
+Net Via Size, Count
+    1.27mm, 33
+count : 1

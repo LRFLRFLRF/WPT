@@ -1,0 +1,4044 @@
+******************************************************************************
+*  v1.2 2EDF7275K SIMetrix simulation models
+*  (C) Copyright 2019 Infineon Technologies. All rights reserved.
+******************************************************************************
+* This library contains models of the following INFINEON Gate Drivers: 
+* 
+* 2EDF7275K Dual-channel MOSFET gate-driver IC
+*
+******************************************************************************
+*  Model performance :
+*  - Static Electrical Characteristics and Dynamic Electrical Characteristics 
+*    are modeled with the typical values from the datasheet.
+******************************************************************************
+* PINS: 
+*  --------------------------------------------------------------------------
+*  | NAME   | TYPE   | DESCRIPTION                                          |
+*  --------------------------------------------------------------------------
+*  | INA    | IN     | Input for channel A                                  |
+*  --------------------------------------------------------------------------
+*  | INB    | IN     | Input for channel A                                  |
+*  --------------------------------------------------------------------------
+*  | VDDI   | IN     | Supply voltage 3.3V                                  |
+*  --------------------------------------------------------------------------
+*  | GNDI   | INOUT  | Ground input side                                    |
+*  --------------------------------------------------------------------------
+*  | DISABLE| IN     | Logic input high disables both output channel        |
+*  --------------------------------------------------------------------------
+*  | SLDON  | IN     |                                                      |
+*  --------------------------------------------------------------------------
+*  | GNDB   | INOUT  | Ground for output channel B                          |
+*  --------------------------------------------------------------------------
+*  | OUTB   | OUT    | Output gate driver for channel B                     |
+*  --------------------------------------------------------------------------
+*  | VDDB   | IN     | Supply voltage for output channel B                  |
+*  --------------------------------------------------------------------------
+*  | GNDA   | INOUT  | Ground for output channel A                          |
+*  --------------------------------------------------------------------------
+*  | OUTA   | OUT    | Output gate driver for channel A                     |
+*  --------------------------------------------------------------------------
+*  | VDDA   | IN     | Supply voltage for output channel A                  |
+*  --------------------------------------------------------------------------
+*  | TAMB   | IN     | ambient temperature                                  |
+*  |        |        |  - connect to this pin a voltage source with desired |
+*  |        |        |  ambient temperature given in Celsius Degrees        |
+*  --------------------------------------------------------------------------
+*  | TJ     | OUT    | junction temperature                                 |
+*  |        |        | - leave it open                                      |
+*  |        |        | - the voltage level of this pin gives the junction   |
+*  |        |        |  temperature at any time in Celsius Degrees          |
+*  --------------------------------------------------------------------------
+*  | TC     | OUT    | case temperature                                     |
+*  |        |        | - the voltage level of this pin gives the case       |
+*  |        |        |  temperature at any time in Celsius Degrees          |
+*  --------------------------------------------------------------------------
+*
+******************************************************************************
+* DISCLAIMER
+*
+* INFINEON’S MODEL TERMS OF USE
+*  
+*
+* BY DOWNLOADING AND/OR USING THIS INFINEON MODEL (“MODEL”), THE USER
+* (INCLUDING YOU) AGREES TO BE BOUND BY THE TERMS OF USE HERE STATED. IF USER
+* DOES NOT AGREE TO ALL TERMS OF USE HERE STATED, USER SHALL NOT DOWNLOAD,
+* USE OR COPY THE MODEL BUT IMMEDIATELY DELETE IT (TO THE EXTENT THAT IT
+* WAS DOWNLOADED ALREADY).
+*
+* 1. SCOPE OF USE
+* 1.1 Any use of this Model provided by Infineon Technologies AG is subject
+*     to these Terms of Use.
+* 1.2 This Model, provided by Infineon, does not fully represent all of the
+*     specifications and operating characteristics of the product to which
+*     this Model relates.
+* 1.3 This Model only describes the characteristics of a typical product.
+*     In all cases, the current data sheet information for a given product
+*     is the final design guideline and the only actual performance
+*     specification. Although this Model can be a useful tool to evaluate
+*     the product performance, it cannot simulate the exact product performance
+*     under all conditions and it is also not intended to replace
+*     bread-boarding for final verification.
+*
+* 2. IMPORTANT NOTICE
+* 2.1 Infineon Technologies AG (“Infineon”) is not and cannot be aware of the
+*     specific application of the Infineon’s Model by User. However, Model may
+*     from time to time be used by User in potentially harmful and/or life-
+*     endangering applications such as traffic, logistic, medical, nuclear
+*     or military applications or in other applications where failure of the
+*     Model may predictably cause damage to persons’ life or health or to
+*     property (hereinafter "Critical Applications").
+* 2.2 User acknowledges that Infineon has not specifically designed or
+*     qualified the Model for Critical Applications that the Model may contain
+*     errors and bugs and that User is required to qualify the Model for
+*     Critical Applications pursuant to the applicable local quality, safety
+*     and legal requirements before permitting or giving access to any such use.
+*
+* 3. CONFIDENTIAL INFORMATION
+*     User shall treat ideas, concepts and information incorporated in the
+*     Model, the documentation and the content of this Terms of Use (together
+*     hereinafter "Confidential Information") confidential, not disclose it to
+*     any third party unless otherwise agreed in writing between User and
+*     Infineon, not use it for any other purposes than using the Model for
+*     simulation and testing purposes only.
+*
+* 4. WARRANTY
+* 4.1 User acknowledges that the Model is provided by Infineon under this Terms	       
+*     of Use is provided free of charge and "AS IS" without any warranty or 	      
+*     liability of any kind and Infineon hereby expressly disclaims any 		      
+*     warranties or representations, whether express, implied, statutory or 	      
+*     otherwise, including but not limited to warranties of workmanship, 		      
+*     merchantability, fitness for a particular purpose, defects in the 		      
+*     Model, or non-infringement of third parties intellectual property rights.	       
+* 4.2 Infineon reserves the right to make corrections, deletions, modifications, 	      
+*     enhancements, improvements and other changes to the Model at any time 	      
+*     or to move or discontinue any Model without notice. 			      
+* 										      
+* 5. LIABILITY 									      
+* 5.1 Nothing in this Terms of Use shall limit or exclude Infineon's liability 	      
+*     under mandatory liability laws, for injuries to life, body or health,  	      
+*     for fraudulent concealment of defects in the software, or in cases 		      
+*     of Infineon's intentional misconduct or gross negligence. 			      
+* 5.2 Without prejudice to Sections 5.1, in cases of Infineon's slight		       
+*     negligent breach of obligations that restrict essential rights or duties 	      
+*     arising from the nature of this Terms of Use in a way that there is a 	      
+*     risk of non-achievement of the purpose of this Terms of Use or of an 	      
+*     obligation whose observance User regularly may trust in and whereas		       
+*     compliance with only makes proper execution of this Terms of Use 		      
+*     possible, Infineon's liability shall be limited to the typically, 		      
+*     foreseeable damage. 							      
+* 5.3 Without prejudice to Sections 8.1 and 8.2, Infineon's liability under 	      
+*     this Agreement shall be excluded in all other cases. 			      
+* 										      
+* 6. EXPORT REGULATIONS 								      
+*     The User shall comply with all applicable national and international 	      
+*     laws and regulations, in particular the applicable export control 		      
+*     regulations and sanction programs. The User also agrees not to 		      
+*     export, re-export or transfer any software or technology developed		       
+*     with or using information, software or technology offered by Infineon, 	      
+*     in violation of any applicable laws or regulations of the competent 	      
+*     authorities. Further, the User shall neither use any products, 		      
+*     information, software and technology offered by Infineon in or in 		      
+*     connection with nuclear technology or weapons of mass destruction 		      
+*     (nuclear, biological or chemical) and carriers thereof nor supply 		      
+*     military consignees. 							      
+* 										      
+* 7. TERMINATION OF USE PERMIT 							      
+*     If the User violates these Terms of Use, such User’s permit to use 		      
+*     this Model terminates automatically. In addition, Infineon may 		      
+*     terminate the User’s permit to use this Model at its discretion and 	      
+*     at any time regardless of any violation of these Terms of Use. In 		      
+*     any of the foregoing events, the User is obliged to immediately destroy 	      
+*     any content that has been downloaded or printed from Infineon’s website. 	      
+* 										      
+* 8. MISCELLANEOUS 								      
+* 8.1 These Terms of Use are subject to the laws of the Federal Republic 		      
+*     of Germany with the exception of the United Nations on Purchase 		      
+*     Contracts on the International Sale of Goods dated April 11, 1980 (CISG). 	      
+*     The exclusive place of jurisdiction is Munich, Germany. 			      
+* 8.2 Should any provision in these Terms of Use be or become invalid, the 	      
+*     validity of all other provisions or agreements shall remain unaffected 	      
+*     thereby.
+* 
+******************************************************************************
+
+* 2EDF7275K Dual-channel MOSFET gate-driver IC
+*! Name: 2EDF7275K
+*! Version: 1.2-2019-07-16
+
+*! Library references
+*! Library name, version
+*! 2EDF7275K, 2019-07-16
+
+*! Change history of model
+*! Version, Changes	 
+*! 1.0-2019-05-29, base model creation
+*! 1.1-2019-06-03, SLDON inverted and pull-up resistor added
+*! 1.2-2019-07-16, improvement for convergence when GNDA or GNDB is floating
+
+.PARAM dout_high= {5}
+
+.SUBCKT 2EDF7275K OUTA GNDA VDDA INA GNDI VDDI Tj Tamb Tc INB SLDON DISABLE NC 
++ VDDB OUTB GNDB 
++ PARAMS: THERMAL_MODEL=1 
+.PARAM Ion=1.541997E-03
+.PARAM Ioff=1.661997E-03
+.PARAM YN=7
+.PARAM MN=66
+.PARAM WN=99.8456u
+.PARAM L_N=1000n
+.PARAM LAMBDAN=0
+.PARAM VTHN=2
+.PARAM RDN=194.2484m
+.PARAM KPN=388.4787u
+.PARAM VGSmaxN=4.5
+.PARAM TCRN=2.96m
+.PARAM LAMBDAP=0
+.PARAM VTHP=-2
+.PARAM MP=33
+.PARAM WP=99.8456u
+.PARAM KPP=388.4787u
+.PARAM RDP=539.9186m
+.PARAM LP=1000n
+.PARAM VGSmaxP=4.5
+.PARAM TCRP=6m
+.PARAM CgdP=50.469021f
+.PARAM CgsP=5p
+.PARAM CdsP=5p
+.PARAM CgdN=119.469021f
+.PARAM CgsN=5p
+.PARAM CdsN=5p
+VS6         27 29 1.1
+VS5         28 30 3.3
+VCIb2I      29 GNDI ; Current Arrow
+VCIb1I      49 GNDI ; Current Arrow
+VS3         47 49 1.1
+VCIb1B      42 GNDB ; Current Arrow
+VS1         61 42 1.1
+VIhmosB     34 OUTB ; Current Arrow
+VIlmosB     OUTB 36 ; Current Arrow
+VIhmosA     38 OUTA ; Current Arrow
+VIlmosA     OUTA 39 ; Current Arrow
+VCIb1       72 GNDA ; Current Arrow
+VS2         81 72 1.1
+IT25        0 74 25M
+XD26        GNDI SLDON D_1N_0
+XD25        SLDON VDDI D_1N_0
+XD23        GNDI VDDI D_Z_4_0
+XD22        GNDB VDDB D_Z_22_3_0
+XD13        GNDA VDDA D_Z_22_3_0
+R30         VDDI SLDON 1MEG 
+C4          GNDI GNDB  1.5P
+R29         GNDI GNDB 10G 
+R28         NC GNDI 10G 
+C3          GNDI GNDA  1.5P
+R27         GNDI GNDA 10G 
+XD18        27 28 D_LIM10_0
+R26         28 29 10MEG 
+XD17        VDDI 28 D_LIM10_0
+XD16        30 29 D_LIM10_0
+GVCCS11     28 29 VALUE = {IF(V(SLDONUVLO,0)<0.5,(V(VDDI,GNDI)-3.3)*100M,0)}
+XQ3         34 VhgB VDDB VDDB Tj SWMOSP_0
++ PARAMS: VTH={VTHP} KP={KPP} M={MP} W={WP} L={LP} LAMBDA={LAMBDAP} RD={RDP}
++ CGD={CgdP} CGS={CgsP} TCR={TCRP} CDS={CdsP}
+XQ2         36 VlgB GNDB GNDB Tj SWMOSN_0
++ PARAMS: VTH={VTHN} KP={KPN} M={MN} W={WN} L={L_N} LAMBDA={LAMBDAN} RD={RDN}
++ CGD={CgdN} CGS={CgsN} TCR={TCRN} CDS={CdsN}
+XQ1         38 VhgA VDDA VDDA Tj SWMOSP_0
++ PARAMS: VTH={VTHP} KP={KPP} M={MP} W={WP} L={LP} LAMBDA={LAMBDAP} RD={RDP}
++ CGD={CgdP} CGS={CgsP} TCR={TCRP} CDS={CdsP}
+XQ4         39 VlgA GNDA GNDA Tj SWMOSN_0
++ PARAMS: VTH={VTHN} KP={KPN} M={MN} W={WN} L={L_N} LAMBDA={LAMBDAN} RD={RDN}
++ CGD={CgdN} CGS={CgsN} TCR={TCRN} CDS={CdsN}
+GVCCS10     GNDB 40 VALUE = {(0.0085M*V(63,DGND)/5+0.0115M)*V(VDDB,GNDB)+(0.1M*V(63,DGND)/5+0.600M)-(0.102M*V(63,DGND)/5+0.138M)}
+GIb1B       41 42 VALUE = {V(40,GNDB)*(V(TJ25,0)*((0.000028*V(63,DGND)/5)+0.0002)+1)}
+XD15        GNDI DISABLE D_Z_17_1N_0
+XD14        GNDI INB D_Z_17_1N_0
+XD19        GNDI INA D_Z_17_1N_0
+XAND2_P1    43 VDDIUVLO GDIB DPWR DGND AND2_P
++ PARAMS: DLH=0 DHL=0
+XAND2_P2    45 VDDIUVLO GDIA DPWR DGND AND2_P
++ PARAMS: DLH=0 DHL=0
+XU19        SLDON GNDI SLDONUVLO DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+XD11        47 48 D_LIM10_0
+XD12        VDDI 48 D_LIM10_0
+GVCCS9      48 49 VALUE = {V(50,GNDI)}
+GVCCS8      GNDI 50 VALUE = {1.4M+V(TJ25,0)*0.000798M}
+R25         50 GNDI 1
+R24         48 49 10MEG 
+XU16        VDDI GNDI 51 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+XU11        51 VDDIUVLO DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XAND2       52 53 INVDISABLE 43 DPWR DGND AND3_DP_0
++ PARAMS: DLH=6N DHL=7.5N
+XAND1       54 55 INVDISABLE 45 DPWR DGND AND3_DP_0
++ PARAMS: DLH=6N DHL=7.5N
+XINV6       56 INVDISABLE DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XU10        57 56 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU9         DISABLE GNDI 57 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_1
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=12N TDHL=10N TRISE=1N TFALL=1N
+R17         DISABLE GNDI 150K 
+XHYSTCOMP1  VDDB GNDB 58 DGND Tj VDDB HYSTCOMP_THL_THR_TEMP_2EDI_0
++ PARAMS: VOUTH={DOUT_HIGH} VOUTL=0 ROUT=100 TDLH=1N TDHL=1N Y={YN}
+XU7         58 52 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU6         59 53 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU5         INB GNDI 59 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=18N TDHL=18N TRISE=1N TFALL=1N
+R8          INB GNDI 150K 
+GPOROB      GNDB 60 VALUE = {LIMIT(I(VCIB1B),0,100U)}
+C2          60 GNDB  3P
+R23         60 GNDB 43.8K 
+XD10        VDDB 41 D_LIM1_0
+R21         61 42 1MEG 
+XD9         61 41 D_LIM1_0
+R20         40 GNDB 1
+R19         41 42 10MEG 
+R18         OUTB VlgB 10MEG 
+XINV4       62 63 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+XINV3       GDIB 64 DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XINV2       65 66 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+GIhonB      VhgB VghmxB VALUE = {IF(V(63,DGND)>0.5,V(68,0),0)}
+GIlonB      VglmxB VlgB VALUE = {IF(V(66,DGND)>0.5,V(67,0),0)}
+R16         VhgB VDDB 1G 
+GIhoffB     VDDB VhgB VALUE = {IF(V(63,DGND)<0.5,V(68,0),0)}
+XD8         VghmxB VhgB D_LIM01_0
+XD7         VhgB VDDB D_LIM01_0
+XD6         GNDB VlgB D_LIM01_0
+XD5         VlgB VglmxB D_LIM01_0
+GIloffB     VlgB GNDB VALUE = {IF(V(66,DGND)<0.5,V(67,0),0)}
+R15         VlgB GNDB 1G 
+XU4         64 DGND 65 DPWR LEB_0
++ PARAMS: LEB=1.0N
+XU3         GDIB DGND 62 DPWR LEB_0
++ PARAMS: LEB=1.0N
+GVCCS7      GNDB VghmxB VALUE = {V(VDDB,GNDB)-V(60,GNDB)}
+R14         VghmxB GNDB 1
+R13         VDDB VglmxB 1
+GVCCS6      VglmxB VDDB VALUE = {V(VDDB,GNDB)-V(60,GNDB)}
+R12         67 0 1 
+GVCCS5      0 67 VALUE = {IOFF}
+R11         68 0 1 
+GVCCS2      0 68 VALUE = {ION}
+XU2         69 55 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU14        VDDA GNDA 70 DGND Tj VDDA HYSTCOMP_THL_THR_TEMP_2EDI_1
++ PARAMS: VOUTH={DOUT_HIGH} VOUTL=0 ROUT=100 TDLH=1N TDHL=1N Y={YN}
+XU17        70 54 DPWR DGND AD_BUF_DP_0
++ PARAMS: DLH = 0 DHL = 0
+XU1         INA GNDI 69 DGND Tj HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2
++ PARAMS: VOUTH=5 VOUTL=0 ROUT=100 TDLH=18N TDHL=18N TRISE=1N TFALL=1N
+Rina        INA GNDI 150K 
+GIb1        71 72 VALUE = {V(82,GNDA)*(V(TJ25,0)*((0.000028*V(77,DGND)/5)+0.0002)+1)}
+GPORO       GNDA 73 VALUE = {LIMIT(I(VCIB1),0,100U)}
+R22         OUTA VlgA 10MEG 
+R2          TJ25 0 1K 
+GTD25       0 TJ25 VALUE = {(LIMIT(V(Tj,0),-50,150)-25)*1M}
+XU12        Tj Tamb 75 Tc PT THERMALINJECTION4R_0
++ PARAMS: RTHJA25=112 RTHJCTOP25=44 RTHJB25=66 CTJ=4.9981M CTC=136.3155M
++ THERMAL_MODEL={THERMAL_MODEL} DC=1 CTB=213.280684M RTCA=5K
+XINV5       76 77 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+XU15        GDIA 78 DPWR DGND INV_DP_0
++ PARAMS: DLH=0N DHL=0N
+XINV1       79 80 DPWR DGND DA_BUF_DP_0
++ PARAMS: DLH=0N DHL=0N OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+GIhonA      VhgA Vghmx VALUE = {IF(V(77,DGND)>0.5,V(84,0),0)}
+GIlonA      Vglmx VlgA VALUE = {IF(V(80,DGND)>0.5,V(83,0),0)}
+R1          VhgA VDDA 1G 
+GIhoffA     VDDA VhgA VALUE = {IF(V(77,DGND)<0.5,V(84,0),0)}
+XD4         Vghmx VhgA D_LIM01_0
+XD3         VhgA VDDA D_LIM01_0
+XD1         GNDA VlgA D_LIM01_0
+XD2         VlgA Vglmx D_LIM01_0
+GIloffA     VlgA GNDA VALUE = {IF(V(80,DGND)<0.5,V(83,0),0)}
+Rp2         VlgA GNDA 1G 
+XU13        78 DGND 79 DPWR LEB_0
++ PARAMS: LEB=1.0N
+XU8         GDIA DGND 76 DPWR LEB_0
++ PARAMS: LEB=1.0N
+EPT         PT 0 VALUE = {ABS(V(OUTA,GNDA)*I(VILMOSA))+ABS(V(VDDA,OUTA)*I(VIHMOSA))+
++ABS(V(OUTB,GNDB)*I(VILMOSB))+ABS(V(VDDB,OUTB)*I(VIHMOSB))+
++ABS(V(VDDA,GNDA)*I(VCIB1))+ABS(V(VDDB,GNDB)*I(VCIB1B))+
++ABS(V(VDDI,GNDI)*I(VCIB1I))}
+GVSVghmx    GNDA Vghmx VALUE = {V(VDDA,GNDA)-V(73,GNDA)}
+R10         Vghmx GNDA 1
+R9          VDDA Vglmx 1
+GVSVglmx    Vglmx VDDA VALUE = {V(VDDA,GNDA)-V(73,GNDA)}
+C1          73 GNDA  3P
+R7          73 GNDA 43.8K 
+XD21        VDDA 71 D_LIM1_0
+R6          81 72 1MEG 
+XD20        81 71 D_LIM1_0
+GVCCS1      GNDA 82 VALUE = {(0.0085M*V(77,DGND)/5+0.0115M)*V(VDDA,GNDA)+(0.1M*V(77,DGND)/5+0.600M)-(0.102M*V(77,DGND)/5+0.138M)}
+Rb3         82 GNDA 1
+Rpsrr1      71 72 10MEG 
+R5          83 0 1 
+GVCCS4      0 83 VALUE = {IOFF}
+R4          84 0 1 
+GVCCS3      0 84 VALUE = {ION}
+R3          74 0 1K 
+XDPWR       0 DPWR DGND DIGIFPWR_NOOPNODE
++ PARAMS: VOLTAGE={DOUT_HIGH} REFERENCE=0 
+.ENDS
+
+.SUBCKT D_1N_0 1    2
+D1 1 2  D_1n
+CD 1 2 1P
+.MODEL D_1n D( IS=1n N=1.0 RS=10 XTI=0 T_ABS=27)
+.ENDS
+
+.SUBCKT D_Z_4_0 1    2
+D1 1 2  D_Z_4
+CD 1 2 10P
+.MODEL D_Z_4 D( IS=1n N=1.0 BV=4 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+
+.SUBCKT D_Z_22_3_0 1    2
+D1 1 2  D_Z_22_3
+CD 1 2 10P
+.MODEL D_Z_22_3 D( IS=1n N=1.0 BV=22.3 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+
+.SUBCKT D_LIM10_0 1 2
+D1 1 2  D_Lim10
+.Model D_Lim10 D (IS=1p N=1 RS=10)
+.ENDS
+
+.SUBCKT SWMOSP_0 D  G  S  B  TJ
++ Params: Vth=2.0 KP=390u M=30 W=102u L=1u LAMBDA=100m Rd=1m CGD=1p CGS=5p CDS=5p TCR=0
+.Param Tref=25
+.Param Tmin=-40
+.Param Tmax=150
+
+Rg     G    Gi   1.0
+*Rd     D    Di   {Rd}
+ERd     D    Di   Value={I(ERd)*Max((Rd + TCR*(Limit(V(TJ), Tmin, Tmax) - Tref)),1u)}
+Rb     B    Bi   1.00m
+
+M1      Di    Gi    S    Bi    SWMOS  M={M} W={W} L={L}
+
+.MODEL SWMOS PMOS (LEVEL=1 KP={KP} VTO={Vth} LAMBDA={LAMBDA} T_ABS=27)
+RDS Di   S  100MEG
+
+Dbody   Di Bi       DBODY
+.MODEL DBODY  D(IS=100n  N=1.1 RS=20.47u BV=85 IBV=1m EG=1.12 T_ABS=27)
+
+Cgd     Gi    Di    {CGD}
+Cgs     Gi    S    {CGS}
+Cds     Di    S    {CDS}
+.ENDS 
+ 
+
+.SUBCKT SWMOSN_0 D  G  S  B  TJ
++ Params: Vth=2.0 KP=390u M=30 W=102u L=1u LAMBDA=100m Rd=1m CGD=1p CGS=5p CDS=5p TCR=0
+.Param Tref=25
+.Param Tmin=-40
+.Param Tmax=150
+
+*Rs     S    Si   1.00m
+Rg     G    Gi   1.0
+*Rd     D    Di   {Rd}
+ERd     D    Di   Value={I(ERd)*Max((Rd + TCR*(Limit(V(TJ), Tmin, Tmax) - Tref)),1u)}
+Rb     B    Bi   1.00m
+
+M1      Di    Gi    S    Bi    SWMOS  M={M} W={W} L={L}
+
+.MODEL SWMOS NMOS (LEVEL=1 KP={KP} VTO={Vth} LAMBDA={LAMBDA} T_ABS=27)
+RDS Di   S  100MEG
+
+Dbody   Bi   Di    DBODY
+.MODEL DBODY  D(IS=100n  N=1.1 RS=20.47u BV=85 IBV=1m EG=1.12 T_ABS=27)
+
+Cgd     Gi    Di    {CGD}
+Cgs     Gi    S    {CGS}
+Cds     Di    S    {CDS}
+.ENDS 
+ 
+
+.SUBCKT D_Z_17_1N_0 1    2
+D1 1 2  D_Z_17_1n
+CD 1 2 10P
+.MODEL D_Z_17_1n D( IS=1n N=1.0 BV=17 IBV=5.0m RS=10 XTI=0 T_ABS=27)
+.ENDS
+
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_0 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.02, 2.83, 0, 2.84, 24.87, 2.84, 50.13, 2.84, 100.26, 2.84, 150, 2.84)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.02, 2.68, 0, 2.68, 24.87, 2.69, 50.13, 2.69, 100.26, 2.69, 150, 2.7)
+
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS   
+
+.SUBCKT AD_BUF_DP_0 IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 IN_LOW=0.475 IN_HIGH=0.525
+*
+XU1     IN OUT DPWR DGND   AD_BUF_P
++ PARAMS:  DLH={DLH} DHL={DHL} IN_LOW={IN_LOW} IN_HIGH={IN_HIGH}
+.ENDS
+
+.SUBCKT AND3_DP_0 IN1 IN2 IN3 OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0
+*
+XU1     IN1 IN2 IN3 OUT DPWR DGND   AND3_P 
++ PARAMS:  DLH={DLH} DHL={DHL}
+.ENDS
+
+.SUBCKT INV_DP_0 IN OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0
+*
+XU1     IN OUT DPWR DGND   INV_P 
++ PARAMS:  DLH={DLH} DHL={DHL}
+.ENDS
+
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_1 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.05, 1.99, 0, 2.02, 25.13, 2.038,49.87, 2.046, 100.13, 2.053, 150, 2.057)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.05, 1.209, 0, 1.209, 25.13, 1.22, 49.87, 1.22, 100.13, 1.22, 150, 1.22)
+
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS
+ 
+.SUBCKT HYSTCOMP_THL_THR_TEMP_2EDI_0 inp inm out gnd Tj VDD
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Y=7
+*
+*2EDF7
+GVthrH7 0 VthrH7 table {V(Tj,gnd)} = (-39.73, 4.17, -0.07, 4.18, 24.98, 4.186, 49.69, 4.189, 99.46, 4.19, 149.57, 4.19)
+RVthrH7 0 VthrH7 1
+GVthrL7 0 VthrL7 table {V(Tj,gnd)} = (-39.82, 3.87, -0.16, 3.88, 24.89, 3.89, 49.95, 3.89, 99.71, 3.898, 149.83, 3.9)
+RVthrL7 0 VthrL7 1
+
+*2EDS8
+GVthrH8 0 VthrH8 table {V(Tj,gnd)} = (-40, 7.961, 0, 7.99, 24.815, 7.99, 50, 7.989, 100, 7.988, 150, 7.986)
+RVthrH8 0 VthrH8 1
+GVthrL8 0 VthrL8 table {V(Tj,gnd)} = (-40, 6.988, 0, 7.004, 24.815, 7.008, 50, 7.012, 100, 7.019, 150, 7.026)
+RVthrL8 0 VthrL8 1
+*
+*
+.Param Rdel = {IF ( ((Tdlh > 1E-15)|(Tdhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+
+
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, IF (Y < 7.5, V(VthrH7), V(VthrH8)), IF (Y < 7.5, V(VthrL7), V(VthrL8)) ) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) , VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMPG_THLRF_TVIN_TEMP_2EDI_2 inp inm out gnd Tj
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+
+EVthrH VthrH 0 table {V(Tj,gnd)} = (-40.05, 1.99, 0, 2.02, 25.13, 2.038,49.87, 2.046, 100.13, 2.053, 150, 2.057)
+EVthrL VthrL 0 table {V(Tj,gnd)} = (-40.05, 1.209, 0, 1.209, 25.13, 1.22, 49.87, 1.22, 100.13, 1.22, 150, 1.22)
+
+Rinp inp gnd 1G
+Rinm inm gnd 1G
+*Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Gthr gnd thr Value= { IF ( V(out,gnd) < VoutM, V(VthrH), V(VthrL) ) }
+Rthr gnd thr 1
+*Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh*(-0.0013*V(TJ,gnd) + 1), (VoutL - V(outi,gnd))*Gdhl*(-0.0013*V(TJ,gnd) + 1) ) }
+Couti outi gnd {Cdel}
+Routi outi gnd 1G
+
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+Rout out gnd 1G
+.ENDS
+
+.SUBCKT D_LIM1_0 1 2
+D1 1 2  D_Lim1
+.ENDS
+.MODEL D_LIM1 D( IS=10F N=1.0 RS=100 XTI=0 AF=0 KF=0 EG=0.48)
+
+.SUBCKT DA_BUF_DP_0 IN OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0 OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=0
+*
+XU1     IN OUT DPWR DGND   DA_BUF_P 
++ PARAMS:  DLH={DLH} DHL={DHL} OUT_LOW={OUT_LOW} OUT_HIGH={OUT_HIGH} ROUT={ROUT} COUT={COUT}
+.ENDS
+
+ 
+
+.SUBCKT D_LIM01_0 1 2
+D1 1 2  D_LIM01
+.ENDS
+.MODEL D_LIM01 D( IS=10F N=0.1 RS=10 XTI=0 AF=0 KF=0 EG=0.111)
+
+.SUBCKT LEB_0 IN GND OUT PWR
++ PARAMS:    LEB = 100n
+XU1         IN 5 PWR GND BUF_P
++ PARAMS: DLH={LEB} DHL={1N}
+XU2         IN 5 OUT PWR GND AND2_P
++ PARAMS: DLH=0N DHL=0N 
+.ENDS
+
+.SUBCKT HYSTCOMP_THL_THR_TEMP_2EDI_1 inp inm out gnd Tj VDD
++ Params: VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Y=7
+*
+*2EDF7
+GVthrH7 0 VthrH7 table {V(Tj,gnd)} = (-39.73, 4.17, -0.07, 4.18, 24.98, 4.186, 49.69, 4.189, 99.46, 4.19, 149.57, 4.19)
+RVthrH7 0 VthrH7 1
+GVthrL7 0 VthrL7 table {V(Tj,gnd)} = (-39.82, 3.87, -0.16, 3.88, 24.89, 3.89, 49.95, 3.89, 99.71, 3.898, 149.83, 3.9)
+RVthrL7 0 VthrL7 1
+
+*2EDS8
+GVthrH8 0 VthrH8 table {V(Tj,gnd)} = (-40, 7.961, 0, 7.99, 24.815, 7.99, 50, 7.989, 100, 7.988, 150, 7.986)
+RVthrH8 0 VthrH8 1
+GVthrL8 0 VthrL8 table {V(Tj,gnd)} = (-40, 6.988, 0, 7.004, 24.815, 7.008, 50, 7.012, 100, 7.019, 150, 7.026)
+RVthrL8 0 VthrL8 1
+*
+
+.Param Rdel = {IF ( ((Tdlh > 1E-15)|(Tdhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, IF (Y < 7.5, V(VthrH7), V(VthrH8)), IF (Y < 7.5, V(VthrL7), V(VthrL8)) ) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) , VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT THERMALINJECTION4R_0 Tj Tamb Tctop Tb P Params: 
++ THERMAL_MODEL=1 ; 0 = External case to ambient thermal model, 1 = Internal case to ambient thermal model 
++ DC=1 ; 0 = thermal model switched off in operating point calculation , 1 = thermal model switched on in operating point calculation
++ RthJA25=125 RthJCtop25=16 RthJB25=55 Ctj=198.704482u Ctb=213.280684m Ctc=377u Rtca=5k ; DSO-8
+*+ RthJA25=64 RthJCtop25=9 RthJB25=13 Ctj=248.746859u Ctb=20.001486m Ctc=105.3u Rtca=11.111111k ; MSOP-8
+*+ RthJA25=61 RthJCtop25=8 RthJB25=11 Ctj=248.746859u Ctb=20.001486m Ctc=105.3u Rtca=11.111111k ; WSON-8
+*+ RthJA25=250 RthJCtop25=100 RthJB25=100 Ctj=166.366396u Ctb=57.3053m Ctc=60.32u Rtca=21.551724k ; SOT23-3
+*+ RthJA25=151 RthJCtop25=51 RthJB25=51 Ctj=166.366396u Ctb=57.3053m Ctc=60.32u Rtca=21.551724k ; SOT23-6
+.Param Rtjctop={Max(RthJCtop25, 1m)}  
+.Param Rtjb={Max(RthJB25, 1m)}  
+.Param Rtja={Max(RthJA25, Max(Rtjb,Rtjb)+1m)} 
+.Param Rtcatop={Max(Rtca, 1m)}
+.Param Rtba= {IF (THERMAL_MODEL > 0.5, Rtja*(Rtjctop + Rtca)/(Rtjctop + Rtca - Rtja) - Rtjb, Rtca)}
+.Param Ctctop={Max(Ctc, 1p)}
+.Param Ctbot= {IF (THERMAL_MODEL > 0.5, {Max(Ctb, 1p)}, Ctctop)}
+*Rtemp       Tamb 0 1MEG 
+*GTemp       0 Tamb VALUE = {1U*TEMP}
+Rtemp       Tamb 0 1k
+GTemp       0 Tamb VALUE = {1m*TEMP}
+*GP         Tamb Tj Value={if (Time>1n ,V(P),0.0)}
+GP         Tamb Tj Value={if ( (Time>1n) | (DC>0.5) ,V(P),0.0)}
+*GP         Tamb Tj Value={V(P)}
+Rtba        Tb Tamb {Rtba}  
+Ctb         Tb Tamb {Ctbot}
+Rtjb        Tj Tb {Rtjb} 
+Rtca        Tctop Tamb {Rtcatop} 
+Ctctop      Tctop Tamb {Ctctop}
+Rtjctop     Tj Tctop {Rtjctop} 
+Ctj         Tj Tamb {Ctj}
+.Ends
+
+********************************************
+**  This file was created by TINA         **
+**   SMPS subcircuits  for SIMetrix       **
+**    (c) 1996-2019 DesignSoft, Inc.      **
+********************************************
+*! Library references
+*! Library name, version
+*! BaseComps_SIMetrix, 2019-03-03
+
+*! Change history of model
+*! Version, Changes
+*! 1.0-2015-04-08, creation	   
+*! 1.1-2017-01-10, fixes
+*! 1.2-2018-05-02, AD_BUF and DA_BUF fixes for non zero GND levels
+*! 1.3-2018-12-05, remove global nodes from DIGIFPWR digital power subcircuit, AD_BUF threshold levels fix 
+*! 1.4-2019-03-03, VCO bug fix
+
+.Subckt Ampli INp INm OUT  Vp Vm
++ Params: GAIN=1000 RIN=1E12 ROUT=10 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=10M IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=500K SLEWRATERISE=0 SLEWRATEFALL=0 FPOLE1=5 FPOLE2=1MEG VDROPOH=0 VDROPOL=0
++    VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0 CURRDOUB=0 VOUTOFFS=0
+X1 INp INm Vp Vm Out  OPAMP Params:
++    GAIN={GAIN} RIN={RIN} ROUT={ROUT} ROUTSOURCE={ROUTSOURCE} ROUTSINK={ROUTSINK} IOUTMAX={IOUTMAX}
++    IOUTMAXSOURCE={IOUTMAXSOURCE} IOUTMAXSINK={IOUTMAXSINK} SLEWRATE={SLEWRATE} SLEWRATERISE={SLEWRATERISE}
++    SLEWRATEFALL={SLEWRATEFALL} FPOLE1={FPOLE1} FPOLE2={FPOLE2} VDROPOH={VDROPOH} VDROPOL={VDROPOL} VOFFS={VOFFSNOM}
++    TCOVOFFS={TCOVOFFS} IBIAS={IBIASNOM} IOFFS={IOFFSNOM} CURRDOUB={CURRDOUB} VOUTOFFS={VOUTOFFS}  );
+.Ends Ampli
+
+.Subckt AmpliGndRefS INp INm OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=100 FPOLE1=1MEG VOUTH=10 VOUTL=0
++    VOFFSNOM=0 IBIASNOM=0 IOFFSNOM=0 VOUTOFFS=0
+X1 INp INm GND Out  OPAMPGndRefS  Params:
++    GAIN={GAIN} RIN={RIN} ROUT={ROUT} FPOLE1={FPOLE1} VOUTH={VOUTH} VOUTL={VOUTL} VOFFS={VOFFSNOM}
++    IBIAS={IBIASNOM} IOFFS={IOFFSNOM} VOUTOFFS={VOUTOFFS}  );
+.Ends AmpliGndRefS
+
+.Subckt AmpliGndRef INp INm OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=100 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=10M IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=500K SLEWRATERISE=0 SLEWRATEFALL=0 FPOLE1=5 FPOLE2=1MEG VOUTH=10 VOUTL=0
++    VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0 CURRDOUB=0 VOUTOFFS=0
+X1 INp INm GND Out  OPAMPGndRef Params:
++    GAIN={GAIN} RIN={RIN} ROUT={ROUT}  SLEWRATE={SLEWRATE}  FPOLE1={FPOLE1} FPOLE2={FPOLE2} VOUTH={VOUTH} VOUTL={VOUTL}
++    VOFFS={VOFFSNOM}  IBIAS={IBIASNOM} IOFFS={IOFFSNOM}
+.Ends AmpliGndRef
+
+.Subckt Comp INp INm OUT  Vp Vm
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0 DELAYHL=0 DELAYLH=0
++    VHYST=0 VDROPOH=0 VDROPOL=0  VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 VTHRES=0
+X1 INp INm Vp Vm Out  COMPARATOR Params:
++    GAIN={GAIN} RIN={RIN} ROUT={ROUT} ROUTSOURCE={ROUTSOURCE} ROUTSINK={ROUTSINK} IOUTMAX={IOUTMAX}
++    IOUTMAXSOURCE={IOUTMAXSOURCE} IOUTMAXSINK={IOUTMAXSINK} SLEWRATE={SLEWRATE} SLEWRATERISE={SLEWRATERISE}
++    SLEWRATEFALL={SLEWRATEFALL} DELAY={DELAY} DELAYHL={DELAYHL} DELAYLH={DELAYLH} VHYST={VHYST} VDROPOH={VDROPOH}
++    VDROPOL={VDROPOL}  VOFFS={VOFFSNOM} TCOVOFFS={TCOVOFFS} IBIAS={IBIASNOM} IOFFS={IOFFSNOM}
++    CURRDOUB={CURRDOUB} VOUTOFFS={VOUTOFFS}  VTHRES={VTHRES}
+.Ends Comp
+
+.Subckt CompGndRef  INp INm OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0 DELAYHL=0 DELAYLH=0
++    VHYST=0 VOUTH=0 VOUTL=0 VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 VTHRES=0
+X1 INp INm Out Gnd  ComparGndRef  Params:
++    GAIN={GAIN} RIN={RIN} ROUT={ROUT} SLEWRATE={SLEWRATE}
++    DELAY={DELAY} VHYST={VHYST} VOUTH={VOUTH}
++    VOUTL={VOUTL} VOFFS={VOFFSNOM} IBIAS={IBIASNOM} IOFFS={IOFFSNOM}
++     VTHRES={VTHRES}
+.Ends CompGndRef
+
+.Subckt CompGndRefS  INp INm OUT GND
++ Params: Vthres=1 Vhyst=0 VoutH=5 VoutL=0 Rout=0 DELAY=1N
+*X1 INp INm Out Gnd   HYSTCOMP  Params: 
+*+    ROUT={ROUT} Tdel={DELAY} VHYST={VHYST} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES={VTHRES}
+X1 INp INm Out Gnd   COMPARGndRefS  Params: 
++    ROUT={ROUT} DELAYLH={DELAY} DELAYHL={DELAY} VHYST={VHYST} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES={VTHRES}
+.Ends CompGndRefS 	
+
+.Subckt CompGndRefS_THL  INp INm OUT GND
++ Params: RIN=1E12 Vthres=0 Vhyst=0 VoutH=5 VoutL=0 Rout=0 DELAYHL=0 DELAYLH=0
+X1 INp INm Out Gnd   COMPARGndRefS  Params: 
++ RIN={RIN} ROUT={ROUT} DELAYLH={DELAYLH} DELAYHL={DELAYHL} VOUTH={VOUTH} VOUTL={VOUTL} 
++ VTHRES={VTHRES} VHYST={VHYST} 
+.Ends CompGndRefS_THL    
+
+.Subckt CompSD IN1p IN1m OUT GND
++ PARAMS: RIN=1E12 ROUT=10 DELAY=10N VOUTH=5 VOUTL=0 VTHRES=2.5
+*
+.Param Tdel = {IF ( (DELAY < 1e-9) , 1e-9, DELAY ) }
+.Param Rdel = {IF ( (Tdel > 1E-15) & (Rout < 1), 1, Rout ) }
+.Param Cout={Tdel/(0.693*(Rdel+1u))}
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+EOUT OUT GND VALUE= { IF ( (V(IN1p,IN1m) > {VTHRES}),
++ VOUTH + RDEL*I(EOUT), VOUTL + RDEL*I(EOUT) ) }
+COUT OUT GND {COUT}
+.Ends CompSD
+
+.Subckt CompInvS IN1p IN1m OUT GND
++ PARAMS: RIN=1E12 VOUTH=5 VOUTL=0 VTHRES=2.5
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+EOUT OUT GND VALUE= { IF ( (V(IN1p,IN1m) > {VTHRES}), VOUTL, VOUTH ) }
+.Ends CompInvS
+
+.Subckt CompInvSD IN1p IN1m OUT GND
++ PARAMS: RIN=1E12 ROUT=10 DELAY=10N VOUTH=5 VOUTL=0 VTHRES=2.5
+*
+.PARAM RDEL = {IF ( (DELAY > 1E-15) & (ROUT < 1), 1, ROUT ) }
+.PARAM COUT={DELAY/(0.693*(RDEL+1U))}
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+EOUT OUT GND VALUE= { IF ( (V(IN1p,IN1m) > {VTHRES}),
++ VOUTL + RDEL*I(EOUT), VOUTH + RDEL*I(EOUT) ) }
+COUT OUT GND {COUT}
+.Ends CompInvSD
+
+.Subckt CompInvD IN1p IN1m OUT GND
++ PARAMS: RIN=1E12 ROUT=10 DELAYLH=10N DELAYHL=10N VOUTH=5 VOUTL=0 VTHRES=2.5
+*
+.PARAM RDEL = {IF ( (ROUT < 1), 1, ROUT ) }
+.PARAM COUT={(DELAYLH + DELAYHL)/2/(0.693*RDEL)}
+.PARAM RDELHL = {DELAYHL/(0.693*COUT)}
+.PARAM RDELLH = {DELAYLH/(0.693*COUT)}
+
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+EOUT OUT GND VALUE= { IF ( (V(IN1p,IN1m) > {VTHRES}),
++ VOUTL + RDELHL*I(EOUT), VOUTH + RDELLH*I(EOUT) ) }
+ROP OUT GND 1MEG
+COUT OUT GND {COUT}
+.Ends CompInvD
+
+.Subckt Comp2INp IN1p IN1m IN2p IN2m OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0
++    DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 DCTRANSFER=0 LOGICFUNC=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0
+X1 IN1p IN1m IN2p IN2m Out Gnd  Comp2INpAnd  Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+
++    IOUTMAXSOURCE={IOUTMAXSOURCE} IOUTMAXSINK={IOUTMAXSINK} SLEWRATE={SLEWRATE} SLEWRATERISE={SLEWRATERISE}
++    SLEWRATEFALL={SLEWRATEFALL} DELAY={DELAY} DELAYHL={DELAYHL} DELAYLH={DELAYLH} VOUTH={VOUTH}
++    VOUTL={VOUTL} VOFFSNOM={VOFFSNOM} TCOVOFFS={TCOVOFFS} IBIASNOM={IBIASNOM} IOFFSNOM={IOFFSNOM} CURRDOUB={CURRDOUB}
++    VOUTOFFS={VOUTOFFS} DCTRANSFER={DCTRANSFER} LOGICFUNC={LOGICFUNC}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+.Ends Comp2INp
+
+.Subckt Comp2INpAndS IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) & (V(IN2p,IN2m) > {VTHRES2}), VOUTH, VOUTL ) }
+.Ends Comp2INpAndS
+
+.Subckt Comp2INpAndSD IN1p IN1m IN2p IN2m OUT GND
++ PARAMS: RIN=1E12 ROUT=10 DELAY=10N VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+*
+.Param Tdel = {IF ( (DELAY < 1e-9) , 1e-9, DELAY ) }
+.Param Rdel = {IF ( (Tdel > 1E-15) & (Rout < 1), 1, Rout ) }
+.Param Cout={Tdel/(0.693*(Rdel+1u))}
+
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+EOUT OUT GND VALUE= { IF ( (V(IN1p,IN1m) > {VTHRES1}) & (V(IN2p,IN2m) > {VTHRES2}),
++ VOUTH + RDEL*I(EOUT), VOUTL + RDEL*I(EOUT) ) }
+COUT OUT GND {COUT}
+.Ends Comp2INpAndSD
+
+.Subckt Comp2InpAndSDLH IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 ROUT=10 DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0
+*
+.Param Rdel = {IF ( Rout < 1, 1, Rout ) }
+*.Param Cout={Tdel/(0.693*(Rdel+1u))}
+.Param Tdhl = {IF ( (DELAYHL < 1e-9) , 1e-9, DELAYHL ) }
+.Param Tdlh = {IF ( (DELAYLH < 1e-9) , 1e-9, DELAYLH ) }
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+EOUT OUT GND VALUE= { IF ( (V(IN1p,IN1m) > {VTHRES1}) & (V(IN2p,IN2m) > {VTHRES2}),
++ VOUTH + Rdlh*I(EOUT), VOUTL + Rdhl*I(EOUT) ) }
+COUT OUT GND {COUT}
+.Ends Comp2InpAndSDLH
+
+
+.Subckt Comp2INpAnd IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 DELAY=10N VOUTH=5 VOUTL=0 VTHRES1=2.5 VHYST1=0 VTHRES2=2.5 VHYST2=0
+.Param VoutM={(VoutH+VoutL)/2}
+X1 IN1p IN1m IN2p IN2m ST1 ST2 GND Hyst2INp Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+Eo OUT gnd Value= { IF ( (V(st1,GND) > {VoutM}) & (V(st2,GND) > {VoutM}), VOUTH, VOUTL ) }
+.Ends Comp2INpAnd
+
+.Subckt Comp2InpAndF IN1p IN1m IN2p IN2m OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0
++    DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 DCTRANSFER=0 LOGICFUNC=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0
+X1 IN1p IN1m IN2p IN2m Out Gnd  Comp2INpAnd  Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+.Ends Comp2InpAndF
+
+.Subckt Comp2INpOrS IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}), VOUTH, VOUTL ) }
+.Ends Comp2INpOrS
+
+
+.Subckt Comp2INpOr IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 DELAY=10N VOUTH=5 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0
+.Param VoutM={(VoutH+VoutL)/2}
+X1 IN1p IN1m IN2p IN2m ST1 ST2 GND Hyst2INp Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+Eo OUT gnd Value= { IF ( (V(st1,GND) > {VoutM}) | (V(st2,GND) > {VoutM}), VOUTH, VOUTL ) }
+.Ends Comp2INpOr
+
+.Subckt Comp2InpOrF IN1p IN1m IN2p IN2m OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0
++    DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 DCTRANSFER=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0
+X1 IN1p IN1m IN2p IN2m OUT GND Comp2INpOr Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+.Ends Comp2InpOrF
+
+.Subckt Comp2INpNAnd IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 DELAY=10N VOUTH=5 VOUTL=0 VTHRES1=2.5 VHYST1=0 VTHRES2=2.5 VHYST2=0
+.Param VoutM={(VoutH+VoutL)/2}
+X1 IN1p IN1m IN2p IN2m ST1 ST2 GND Hyst2INp Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+Eo OUT gnd Value= { IF ( (V(st1,GND) > {VoutM}) & (V(st2,GND) > {VoutM}), VOUTL, VOUTH ) }
+.Ends Comp2INpNAnd
+
+.Subckt Comp2InpNAndS IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) & (V(IN2p,IN2m) > {VTHRES2}), VOUTL, VOUTH ) }
+.Ends Comp2InpNAndS
+
+.Subckt Comp2INpNAndSD IN1p IN1m IN2p IN2m OUT GND
++ PARAMS: RIN=1E12 ROUT=0 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0
+*
+.PARAM RDEL = {IF ( (DELAY > 1E-15) & (ROUT < 1), 1, ROUT ) }
+.PARAM COUT={DELAY/(0.693*(RDEL+1U))}
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+EOUT OUT GND VALUE= { IF ( (V(IN1p,IN1m) > {VTHRES1}) & (V(IN2p,IN2m) > {VTHRES2}),
++ VOUTL + RDEL*I(EOUT), VOUTH + RDEL*I(EOUT) ) }
+COUT OUT GND {COUT}
+.Ends Comp2INpNAndSD
+.Subckt Comp2InpNAndF IN1p IN1m IN2p IN2m OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0
++    DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 DCTRANSFER=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0
+X1 IN1p IN1m IN2p IN2m OUT GND Comp2INpNAnd Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+
+.Ends Comp2InpNAndF
+
+.Subckt Comp2InpNOr IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 DELAY=10N VOUTH=5 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0
+.Param VoutM={(VoutH+VoutL)/2}
+X1 IN1p IN1m IN2p IN2m ST1 ST2 GND Hyst2INp Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
+Eo OUT gnd Value= { IF ( (V(st1,GND) > {VoutM}) | (V(st2,GND) > {VoutM}), VOUTL, VOUTH ) }
+.Ends Comp2InpNOr
+
+
+.Subckt Comp2INpNOrS IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}), VOUTL, VOUTH ) }
+.Ends Comp2INpNOrS
+
+.Subckt Comp2INpNOrSD IN1p IN1m IN2p IN2m OUT GND
++ Params: RIN=1E12 ROUT=0 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0
+*
+.Param Tdel = {IF ( (DELAY < 1e-9) , 1e-9, DELAY ) }
+.Param Rdel = {IF ( (Tdel > 1E-15) & (Rout < 1), 1, Rout ) }
+.Param Cout={Tdel/(0.693*(Rdel+1u))}
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+Eout OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}),
++ VOUTL + Rdel*I(Eout), VOUTH + Rdel*I(Eout) ) }
+Cout OUT gnd {Cout}
+.Ends Comp2INpNOrSD
+
+.Subckt Hyst2INp IN1p IN1m IN2p IN2m ST1 ST2 GND
++ Params: RIN=1E12 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH1={Vthres1+Vhyst1}
+.Param VthL1={Vthres1-Vhyst1}
+.Param VthH2={Vthres2+Vhyst2}
+.Param VthL2={Vthres2-Vhyst2}
+.Param Rdel=10
+.Param Tdel = {IF ( (DELAY < 1e-9) , 1e-9, DELAY ) }
+.Param Cdel={Tdel/(0.693*Rdel)}
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+Ethr1 thr1 gnd Value= { IF ( V(st1,gnd) < {VoutM}, {VthH1}, {VthL1}) }
+Est1 st1 gnd Value= { IF ( V(IN1p,IN1m) > V(thr1,gnd), VoutH + Rdel*I(Est1), VoutL + Rdel*I(Est1) ) }
+Cst1 st1 gnd {Cdel}
+Rp1 st1 gnd 1Meg
+Ethr2 thr2 gnd Value= { IF ( V(st2,gnd) < {VoutM}, {VthH2}, {VthL2}) }
+Est2 st2 gnd Value= { IF ( V(IN2p,IN2m) > V(thr2,gnd), VoutH + Rdel*I(Est2), VoutL + Rdel*I(Est2) ) }
+Cst2 st2 gnd {Cdel}
+Rp2 st2 gnd 1Meg
+.Ends Hyst2INp
+
+
+.Subckt Hyst2INp_THL IN1p IN1m IN2p IN2m ST1 ST2 GND
++ Params: RIN=1E12 DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH1={Vthres1+Vhyst1}
+.Param VthL1={Vthres1-Vhyst1}
+.Param VthH2={Vthres2+Vhyst2}
+.Param VthL2={Vthres2-Vhyst2}
+.Param Rdel=10
+.Param Tdhl = {IF ( (DELAYHL < 1e-9) , 1e-9, DELAYHL ) }
+.Param Tdlh = {IF ( (DELAYLH < 1e-9) , 1e-9, DELAYLH ) }
+*.Param Cdel={Tdel/(0.693*Rdel)}
+.Param Cdel={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+Ethr1 thr1 gnd Value= { IF ( V(st1,gnd) < {VoutM}, {VthH1}, {VthL1}) }
+Est1 st1 gnd Value= { IF ( V(IN1p,IN1m) > V(thr1,gnd), VoutH + Rdlh*I(Est1), VoutL + Rdhl*I(Est1) ) }
+Cst1 st1 gnd {Cdel}
+Rp1 st1 gnd 1Meg
+Ethr2 thr2 gnd Value= { IF ( V(st2,gnd) < {VoutM}, {VthH2}, {VthL2}) }
+Est2 st2 gnd Value= { IF ( V(IN2p,IN2m) > V(thr2,gnd), VoutH + Rdlh*I(Est2), VoutL + Rdhl*I(Est2) ) }
+Cst2 st2 gnd {Cdel}
+Rp2 st2 gnd 1Meg
+.Ends Hyst2INp_THL
+
+.Subckt Comp3INpAndS IN1p IN1m IN2p IN2m IN3p IN3m OUT GND
++ Params: RIN=1E12 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0 VTHRES3=0
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) & (V(IN2p,IN2m) > {VTHRES2}) & (V(IN3p,IN3m) > {VTHRES3}), VOUTH, VOUTL ) }
+.Ends Comp3INpAndS
+
+.Subckt Comp3INpAnd IN1p IN1m IN2p IN2m IN3p IN3m OUT GND
++ Params: RIN=1E12 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0
+.Param VoutM={(VoutH+VoutL)/2}
+X1 IN1p IN1m IN2p IN2m IN3p IN3m ST1 ST2  ST3 GND Hyst3INp Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2} VTHRES3={VTHRES3} VHYST3={VHYST3}
+Eo OUT gnd Value= { IF ( (V(st1,GND) > {VoutM}) & (V(st2,GND) > {VoutM}) & (V(st3,GND) > {VoutM}), VOUTH, VOUTL ) }
+.Ends Comp3INpAnd
+
+.Subckt Comp3InpAndF IN1p IN1m IN2p IN2m IN3p IN3m OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0
++    DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 DCTRANSFER=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0
+X1 IN1p IN1m IN2p IN2m IN3p IN3m OUT GND Comp3INpAnd Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2} VTHRES3={VTHRES3} VHYST3={VHYST3}
+
+.Ends Comp3InpAndF
+.Subckt Comp3INpOr IN1p IN1m IN2p IN2m IN3p IN3m OUT GND
++ Params: RIN=1E12 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0
+.Param VoutM={(VoutH+VoutL)/2}
+X1 IN1p IN1m IN2p IN2m IN3p IN3m ST1 ST2  ST3 GND Hyst3INp Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2} VTHRES3={VTHRES3} VHYST3={VHYST3}
+Eo OUT gnd Value= { IF ( (V(st1,GND) > {VoutM}) | (V(st2,GND) > {VoutM}) | (V(st3,GND) > {VoutM}), VOUTH, VOUTL ) }
+.Ends Comp3INpOr
+
+.Subckt Comp3InpOrS IN1p IN1m IN2p IN2m IN3p IN3m OUT GND
++ Params: RIN=1E12 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0
+*
+Rinp1 IN1p GND {RIN}
+Rinm1 IN1m GND {RIN}
+Rinp2 IN2p GND {RIN}
+Rinm2 IN2m GND {RIN}
+Rinp3 IN3p GND {RIN}
+Rinm3 IN3m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}) | (V(IN3p,IN3m) > {VTHRES3}), VOUTH, VOUTL  ) }
+.Ends Comp3InpOrS
+
+.Subckt Comp3InpNOrS IN1p IN1m IN2p IN2m IN3p IN3m OUT GND
++ Params: RIN=1E12 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0 VTHRES3=0
+*
+Rinp1 IN1p GND {RIN}
+Rinm1 IN1m GND {RIN}
+Rinp2 IN2p GND {RIN}
+Rinm2 IN2m GND {RIN}
+Rinp3 IN3p GND {RIN}
+Rinm3 IN3m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}) | (V(IN3p,IN3m) > {VTHRES3}), VOUTL, VOUTH  ) }
+.Ends Comp3InpNOrS
+
+.Subckt Comp3INpNOrSD IN1p IN1m IN2p IN2m IN3p IN3m OUT GND
++ Params: RIN=1E12 ROUT=0 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0 VTHRES3=0
+*
+.Param Tdel = {IF ( (DELAY < 1e-9) , 1e-9, DELAY ) }
+.Param Rdel = {IF ( (Tdel > 1E-15) & (Rout < 1), 1, Rout ) }
+.Param Cout={Tdel/(0.693*(Rdel+1u))}
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+Eout OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}) | (V(IN3p,IN3m) > {VTHRES3}),
++ VOUTL + Rdel*I(Eout), VOUTH + Rdel*I(Eout) ) }
+Cout OUT gnd {Cout}
+.Ends Comp3INpNOrSD
+
+.Subckt Hyst3INp IN1p IN1m IN2p IN2m IN3p IN3m ST1 ST2 ST3 GND
++ Params: RIN=1E12 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH1={Vthres1+Vhyst1}
+.Param VthL1={Vthres1-Vhyst1}
+.Param VthH2={Vthres2+Vhyst2}
+.Param VthL2={Vthres2-Vhyst2}
+.Param VthH3={Vthres3+Vhyst3}
+.Param VthL3={Vthres3-Vhyst3}
+.Param Rdel=10
+.Param Tdel = {IF ( (DELAY < 1e-9) , 1e-9, DELAY ) }
+.Param Cdel={Tdel/(0.693*Rdel)}
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+Ethr1 thr1 gnd Value= { IF ( V(st1,gnd) < {VoutM}, {VthH1}, {VthL1}) }
+Est1 st1 gnd Value= { IF ( V(IN1p,IN1m) > V(thr1,gnd), VoutH + Rdel*I(Est1), VoutL + Rdel*I(Est1) ) }
+Cst1 st1 gnd {Cdel}
+Rp1 st1 gnd 1Meg
+Ethr2 thr2 gnd Value= { IF ( V(st2,gnd) < {VoutM}, {VthH2}, {VthL2}) }
+Est2 st2 gnd Value= { IF ( V(IN2p,IN2m) > V(thr2,gnd), VoutH + Rdel*I(Est2), VoutL + Rdel*I(Est2) ) }
+Cst2 st2 gnd {Cdel}
+Rp2 st2 gnd 1Meg
+Ethr3 thr3 gnd Value= { IF ( V(st3,gnd) < {VoutM}, {VthH3}, {VthL3}) }
+Est3 st3 gnd Value= { IF ( V(IN3p,IN3m) > V(thr3,gnd), VoutH + Rdel*I(Est3), VoutL + Rdel*I(Est3) ) }
+Cst3 st3 gnd {Cdel}
+Rp3 st3 gnd 1Meg
+.Ends Hyst3INp
+
+.Subckt Comp3INp IN1p IN1m IN2p IN2m IN3p IN3m OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0
++    DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 DCTRANSFER=0 LOGICFUNC=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0
+X1 IN1p IN1m IN2p IN2m IN3p IN3m Out Gnd  Comp3INpAnd Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2} VTHRES3={VTHRES3} VHYST3={VHYST3}
+.Ends Comp3INp
+
+.Subckt Comp4InpAndSDLH IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m OUT GND
++ Params: RIN=1E12 ROUT=10 DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0 VTHRES3=0 VTHRES4=0
+*
+.Param Rdel = {IF ( Rout < 1, 1, Rout ) }
+*.Param Cout={Tdel/(0.693*(Rdel+1u))}
+.Param Tdhl = {IF ( (DELAYHL < 1e-9) , 1e-9, DELAYHL ) }
+.Param Tdlh = {IF ( (DELAYLH < 1e-9) , 1e-9, DELAYLH ) }
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+RINp4 IN4p GND {RIN}
+RINm4 IN4m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) & (V(IN2p,IN2m) > {VTHRES2}) & (V(IN3p,IN3m) > {VTHRES3}) & 
++ (V(IN4p,IN4m) > {VTHRES4}), VOUTH + Rdlh*I(EOUT), VOUTL + Rdhl*I(EOUT)  ) }
+COUT OUT GND {COUT}
+.Ends Comp4InpAndSDLH
+
+.Subckt Comp4INpAndS IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m OUT GND
++ Params: RIN=1E12 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0 VTHRES3=0 VTHRES4=0
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+RINp4 IN4p GND {RIN}
+RINm4 IN4m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) & (V(IN2p,IN2m) > {VTHRES2}) & (V(IN3p,IN3m) > {VTHRES3}) &
++ (V(IN4p,IN4m) > {VTHRES4}), VOUTH, VOUTL ) }
+.Ends Comp4INpAndS
+
+.Subckt Comp4INpAnd IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m OUT GND
++ Params: RIN=1E12 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0 VTHRES4=0 VHYST4=0
+.Param VoutM={(VoutH+VoutL)/2}
+X1 IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m ST1 ST2 ST3 ST4 GND Hyst4INp Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
++    VTHRES3={VTHRES3} VHYST3={VHYST3} VTHRES4={VTHRES4} VHYST4={VHYST4}
+Eo OUT gnd Value= { IF ( (V(st1,GND) > {VoutM}) & (V(st2,GND) > {VoutM}) & (V(st3,GND) > {VoutM}) &
++ (V(st4,GND) > {VoutM}), VOUTH, VOUTL ) }
+.Ends Comp4INpAnd
+
+.Subckt Comp4INpAndF IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m OUT GND
++ Params: GAIN=1000 RIN=1E12 ROUT=0 ROUTSOURCE=0 ROUTSINK=0 IOUTMAX=0 IOUTMAXSOURCE=0
++    IOUTMAXSINK=0 SLEWRATE=0 SLEWRATERISE=0 SLEWRATEFALL=0 DELAY=0
++    DELAYHL=0 DELAYLH=0 VOUTH=0 VOUTL=0 VOFFSNOM=0 TCOVOFFS=0 IBIASNOM=0 IOFFSNOM=0
++    CURRDOUB=0 VOUTOFFS=0 DCTRANSFER=0 LOGICFUNC=0
++    VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0 VTHRES4=0 VHYST4=0
+X1 IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m Out Gnd Comp4INpAnd Params:
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL}
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
++    VTHRES3={VTHRES3} VHYST3={VHYST3} VTHRES4={VTHRES4} VHYST4={VHYST4}
+.Ends Comp4INpAndF   
+
+.Subckt Comp4INpOrS IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m OUT GND
++ Params: RIN=1E12 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0 VTHRES3=0 VTHRES4=0
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+RINp4 IN4p GND {RIN}
+RINm4 IN4m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}) | (V(IN3p,IN3m) > {VTHRES3}) |
++ (V(IN4p,IN4m) > {VTHRES4}), VOUTH, VOUTL ) }
+.Ends Comp4INpOrS
+
+.Subckt Comp4InpOr IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m OUT GND
++ Params: RIN=1E12 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0 VTHRES4=0 VHYST4=0  
+.Param VoutM={(VoutH+VoutL)/2}
+X1 IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m ST1 ST2 ST3 ST4 GND Hyst4INp Params: 
++    RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL} 
++    VTHRES1={VTHRES1} VHYST1={VHYST1} VTHRES2={VTHRES2} VHYST2={VHYST2}
++    VTHRES3={VTHRES3} VHYST3={VHYST3} VTHRES4={VTHRES4} VHYST4={VHYST4}
+Eo OUT gnd Value= { IF ( (V(st1,GND) > {VoutM}) | (V(st2,GND) > {VoutM}) | (V(st3,GND) > {VoutM}) | 
++ (V(st4,GND) > {VoutM}), VOUTH, VOUTL ) }
+.Ends Comp4InpOr
+
+.Subckt Hyst4INp IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m ST1 ST2 ST3 ST4 GND
++ Params: RIN=1E12 DELAY=0 VOUTH=0 VOUTL=0 VTHRES1=0 VHYST1=0 VTHRES2=0 VHYST2=0 VTHRES3=0 VHYST3=0 VTHRES4=0 VHYST4=0
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH1={Vthres1+Vhyst1}
+.Param VthL1={Vthres1-Vhyst1}
+.Param VthH2={Vthres2+Vhyst2}
+.Param VthL2={Vthres2-Vhyst2}
+.Param VthH3={Vthres3+Vhyst3}
+.Param VthL3={Vthres3-Vhyst3}
+.Param VthH4={Vthres4+Vhyst4}
+.Param VthL4={Vthres4-Vhyst4}
+.Param Rdel=10
+.Param Tdel = {IF ( (DELAY < 1e-9) , 1e-9, DELAY ) }
+.Param Cdel={Tdel/(0.693*Rdel)}
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+RINp4 IN4p GND {RIN}
+RINm4 IN4m GND {RIN}
+Ethr1 thr1 gnd Value= { IF ( V(st1,gnd) < {VoutM}, {VthH1}, {VthL1}) }
+Est1 st1 gnd Value= { IF ( V(IN1p,IN1m) > V(thr1,gnd), VoutH + Rdel*I(Est1), VoutL + Rdel*I(Est1) ) }
+Cst1 st1 gnd {Cdel}
+Rp1 st1 gnd 1Meg
+Ethr2 thr2 gnd Value= { IF ( V(st2,gnd) < {VoutM}, {VthH2}, {VthL2}) }
+Est2 st2 gnd Value= { IF ( V(IN2p,IN2m) > V(thr2,gnd), VoutH + Rdel*I(Est2), VoutL + Rdel*I(Est2) ) }
+Cst2 st2 gnd {Cdel}
+Rp2 st2 gnd 1Meg
+Ethr3 thr3 gnd Value= { IF ( V(st3,gnd) < {VoutM}, {VthH3}, {VthL3}) }
+Est3 st3 gnd Value= { IF ( V(IN3p,IN3m) > V(thr3,gnd), VoutH + Rdel*I(Est3), VoutL + Rdel*I(Est3) ) }
+Cst3 st3 gnd {Cdel}
+Rp3 st3 gnd 1Meg
+Ethr4 thr4 gnd Value= { IF ( V(st4,gnd) < {VoutM}, {VthH4}, {VthL4}) }
+Est4 st4 gnd Value= { IF ( V(IN4p,IN4m) > V(thr4,gnd), VoutH + Rdel*I(Est4), VoutL + Rdel*I(Est4) ) }
+Cst4 st4 gnd {Cdel}
+Rp4 st4 gnd 1Meg
+.Ends Hyst4INp
+
+
+.Subckt Comp4INpNOrS IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m OUT GND
++ Params: RIN=1E12 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0 VTHRES3=0 VTHRES4=0
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+RINp4 IN4p GND {RIN}
+RINm4 IN4m GND {RIN}
+Eo OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}) | (V(IN3p,IN3m) > {VTHRES3}) |
++ (V(IN4p,IN4m) > {VTHRES4}), VOUTL, VOUTH ) }
+.Ends Comp4INpNOrS
+
+.Subckt Comp4INpNOrSD IN1p IN1m IN2p IN2m IN3p IN3m IN4p IN4m OUT GND
++ Params: RIN=1E12 DELAYLH=0 DELAYHL=0 VOUTH=0 VOUTL=0 VTHRES1=0 VTHRES2=0 VTHRES3=0 VTHRES4=0
++ COUT=1p
+*
+.Param TdelHL = {IF ( (DELAYHL < 1e-9) , 1e-9, DELAYHL ) }
+.Param TdelLH = {IF ( (DELAYLH < 1e-9) , 1e-9, DELAYLH ) }
+.Param Coutc = {IF ( (Cout < 1p), 1p, Cout ) }
+.Param RdelHL = {IF ( (TdelHL < 1E-12), 1, TdelHL/(0.693*(Cout+1p)) ) }
+.Param RdelLH = {IF ( (TdelLH < 1E-12), 1, TdelLH/(0.693*(Cout+1p)) ) }
+*
+RINp1 IN1p GND {RIN}
+RINm1 IN1m GND {RIN}
+RINp2 IN2p GND {RIN}
+RINm2 IN2m GND {RIN}
+RINp3 IN3p GND {RIN}
+RINm3 IN3m GND {RIN}
+RINp4 IN4p GND {RIN}
+RINm4 IN4m GND {RIN}
+Eout OUT gnd Value= { IF ( (V(IN1p,IN1m) > {VTHRES1}) | (V(IN2p,IN2m) > {VTHRES2}) | (V(IN3p,IN3m) > {VTHRES3}) |
++ (V(IN4p,IN4m) > {VTHRES4}), VOUTL + RdelHL*I(Eout), VOUTH + RdelLH*I(Eout) ) }
+Cout OUT gnd {Coutc}
+.Ends Comp4INpNOrSD
+*$
+
+.Subckt VCO InP InM Gnd OutSin OutTri OutSqr PARAMS: CENTFREQ=0 CONVGAIN=500E3 PHI0=0 OUTAMPLI=2.5 OUTOFFS=2.5
++ INLLIM=0 INULIM=1 LIMRNG=1E-6 DUTYCYC=0.1 RISETIME=1E-9 FALLTIME=1E-9 MODE=1
+XO1 InP InM Gnd OutSin OutTri OutSqr VCOscillatorSin PARAMS:
++ CENTFREQ ={ CENTFREQ} CONVGAIN ={CONVGAIN} VOUTH ={OUTOFFS+OUTAMPLI} VOUTL ={OUTOFFS-OUTAMPLI}
++ INLLIM ={INLLIM} INULIM ={INULIM} DUTYCYC ={DUTYCYC} RISETIME ={RISETIME} FALLTIME ={FALLTIME}
+.Ends
+
+.Subckt SINEVCO INp INm Gnd Out PARAMS: CENTFREQ=1E3 CONVGAIN=1E3 PHI0=0 OUTAMPLI=1 OUTOFFS=0 INLLIM=-1E12 INULIM=1E12
++ LIMRNG=1E-6  MODE=1
+XO1 InP InM Gnd Out OutTri OutSqr VCOscillatorSin PARAMS:
++ CENTFREQ ={ CENTFREQ} CONVGAIN ={CONVGAIN} VOUTH ={OUTOFFS+OUTAMPLI} VOUTL ={OUTOFFS-OUTAMPLI}
++ INLLIM ={INLLIM} INULIM ={INULIM}  
+.Ends
+
+.Subckt TRIVCO INp INm Gnd Out PARAMS: CENTFREQ=1E3 CONVGAIN=1E3 PHI0=0 OUTAMPLI=1 OUTOFFS=0 INLLIM=-1E12 INULIM=1E12
++ LIMRNG=1E-6 DUTYCYC=0.5 MODE=1
+XO1 InP InM Gnd Out OutSqr VCOscillator PARAMS:
++ CENTFREQ ={ CENTFREQ} CONVGAIN ={CONVGAIN} VOUTH ={OUTOFFS+OUTAMPLI} VOUTL ={OUTOFFS-OUTAMPLI}
++ INLLIM ={INLLIM} INULIM ={INULIM}  DUTYCYC ={DUTYCYC} 
+.Ends
+
+.Subckt SQRVCO INp INm Gnd Out PARAMS: CENTFREQ=1E3 CONVGAIN=1E3 PHI0=0 OUTAMPLI=1 OUTOFFS=0 INLLIM=-1E12 INULIM=1E12
++ LIMRNG=1E-6 DUTYCYC=0.5 RISETIME=1E-9 FALLTIME=1E-9 MODE=1
+XO1 InP InM Gnd OutTri Out VCOscillator PARAMS:
++ CENTFREQ ={ CENTFREQ} CONVGAIN ={CONVGAIN} VOUTH ={OUTOFFS+OUTAMPLI} VOUTL ={OUTOFFS-OUTAMPLI}
++ INLLIM ={INLLIM} INULIM ={INULIM} DUTYCYC ={DUTYCYC} RISETIME ={RISETIME} FALLTIME ={FALLTIME}
+.Ends
+
+.Subckt SQRTRIVCO InP InM Gnd OutTri OutSqr PARAMS: CENTFREQ=0 CONVGAIN=500E3 PHI0=0 OUTAMPLI=2.5 OUTOFFS=2.5
++ INLLIM=0 INULIM=1 LIMRNG=1E-6 DUTYCYC=0.1 RISETIME=1E-9 FALLTIME=1E-9 MODE=1
+XO1 InP InM Gnd OutTri OutSqr VCOscillator PARAMS:
++ CENTFREQ ={ CENTFREQ} CONVGAIN ={CONVGAIN} VOUTH ={OUTOFFS+OUTAMPLI} VOUTL ={OUTOFFS-OUTAMPLI}
++ INLLIM ={INLLIM} INULIM ={INULIM} DUTYCYC ={DUTYCYC} RISETIME ={RISETIME} FALLTIME ={FALLTIME}
+.Ends
+
+.Subckt NCOUNTER_UDSR   CLK UD CE S R MIN MAX  GND VCC PARAMS: INTYP=0 OUTTYP=0 DEL=0 IOMODEL=0
++  DELL2H=10E-9 DELH2L=10E-9 LATCH=1 MAXCOUNT=15
+*Y1  UD CLK CE R MIN MAX S GND VCC  _CNTN
+*.Model _CNTN  CNTN_UDSR (INTYP ={INTYP} OUTTYP ={OUTTYP} DEL ={DEL} IOMODEL ={IOMODEL} DELL2H ={DELL2H}
+*+ DELH2L ={DELH2L} LATCH ={LATCH} MAXCOUNT ={MAXCOUNT}
+.Ends
+
+* Standard operational amplifier macromodel subcircuit
+* Created using 08/05/06
+* (REV 1.1 29/07/06 )
+.SUBCKT StdOpamp11 INP INM VP VM Out
++ Params: GAIN=200K RIN=2MEG RINC=1E9 ROUT=75 SLEWRATE=500K FPOLE1=5 FPOLE2=1MEG
++         VDROPOH=1.9 VDROPOL=1.9 VOFFS=1m IBIAS=80n IOFFS=20n
+*
+.PARAM VOSW = 15
+.PARAM pi = 3.141592
+.PARAM IS = 1.0E-12
+.PARAM VT = 0.02585
+.PARAM C1 = {VOSW/ROUT/SLEWRATE}
+.PARAM IMAX = {C1*SLEWRATE}
+.PARAM R1 = {1/(2*pi*C1*FPOLE1)}
+.PARAM GM1 = {GAIN/R1}
+.PARAM R2 = 100
+.PARAM G2 = {1/R2}
+.PARAM GOUT = {1/ROUT}
+.PARAM C2 = {1/(2*pi*R2*FPOLE2)}
+.PARAM VDF = {VT*Log(1 + IMAX/IS)}
+*
+Ibiasm      INM 0  {IBIAS - IOFFS}
+RINM      INM  8  {2*RINC}
+RINP      INP  8  {2*RINC}
+Ibias       10 0   {IBIAS}
+Voffs       10 INP  {VOFFS}
+Vc          VP 11  {VDROPOH + VDF}
+Ve          12 VM  {VDROPOL + VDF}
+D1          VM VP  D_1
+Rp          VP VM  15E3
+ROut        OUT 8  {ROUT}
+*GmO         8 OUT Value =  {V(9,8)*GOUT}
+GMO         8 OUT 9 8 {GOUT}
+C2          9 8  {C2}
+R2          9 8  {R2}
+*Gm2         8 9  Value =  {V(7,8)*G2}
+GM2         8 9 7 8 {G2}
+Rin         INM 10  {RIN}
+EGND        8  0  POLY(2) (VP,0) (VM,0) 0 .5 .5
+D3          12 7  D_1
+D2          7 11  D_1
+C1          7 8  {C1}
+R1          7 8  {R1}
+Gm1         8 7 Value = { Limit( GM1*V(10,INM), -IMAX, IMAX) }
+.MODEL D_1 D( IS={IS} )
+.ENDS
+
+* STANDARD OPERATIONAL AMPLIFIER MACROMODEL SUBCIRCUIT
+* CREATED USING 08/05/06
+* (REV 1.3 26/02/08 )
+.SUBCKT STDOPAMP  INP INM VP VM OUT
++ PARAMS: GAIN=200K RIN=2MEG RINC=1E9 ROUT=75 SLEWRATE=500K FPOLE1=5 FPOLE2=1MEG
++         VDROPOH=1.9 VDROPOL=1.9 VOFFS=1M IBIAS=80N IOFFS=20N
+*
+.PARAM PI = 3.141592
+.PARAM IS = 1.0E-12
+.PARAM VT = 0.02585
+.PARAM IMAX = 100.0E-2
+.PARAM C1 = {IMAX/SLEWRATE}
+.PARAM R1 = {1/(2*PI*C1*FPOLE1)}
+.PARAM GM1 = {GAIN/R1}
+.PARAM R2 = 100
+.PARAM G2 = {1/R2}
+.PARAM GOUT = {1/ROUT}
+.PARAM C2 = {1/(2*PI*R2*FPOLE2)}
+.PARAM VDF = {VT*LOG(1 + IMAX/IS)}
+*
+IBIASM      INM 0  {IBIAS - IOFFS}
+RINM      INM  8  {2*RINC}
+RINP      INP  8  {2*RINC}
+IBIAS       10 0   {IBIAS}
+VOFFS       10 INP  {VOFFS}
+EVP VPI 0 VP 0 1
+EVM VMI 0 VM 0 1
+VC          VPI 11  {VDROPOH + VDF}
+VE          12 VMI  {VDROPOL + VDF}
+D1          VM VP  D_1
+RP          VP VM  15E3
+ROUT        OUT 8  {ROUT}
+GMO         8 OUT 9 8 {GOUT}
+C2          9 8  {C2}
+R2          9 8  {R2}
+GM2         8 9 7 8 {G2}
+RIN         INM 10  {RIN}
+EGND        8  0  POLY(2) (VP,0) (VM,0) 0 .5 .5
+D3         12 7  D_1
+D2          7 11  D_1
+C1          7 8  {C1}
+R1          7 8  {R1}
+GM1         8 7 VALUE = { LIMIT( GM1*V(10,INM), -IMAX, IMAX) }
+.MODEL D_1 D( IS={IS} )
+.ENDS
+
+.Param MNDel=0N
+.Param MNrf=0
+
+.SUBCKT DFF_PE  PREB CLRB CLK D Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+* CLRB has higher priority
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 D CLK S_ R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS	
+
+.SUBCKT DFF_NE  PREB CLRB CLK D Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+* CLRB has higher priority
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})		 
+Ainv3 CLK CLKB d_inv1
+*Axxxx data clk set reset out nout model_name
+Adff1 D CLKB S_ R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT DLTCH  PREB CLRB EN D Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+* CLRB has higher priority
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adltch D EN S_ R Q QB d_dlatch1
+.model d_dlatch1 d_dlatch (enable_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} enable_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT DLTCH_P  PREB CLRB EN D Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+* CLRB has higher priority
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adltch D EN S_ R Q QB d_dlatch1
+.model d_dlatch1 d_dlatch (enable_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} enable_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT DFFLOP  PREB CLRB CLK D Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+* CLRB has higher priority
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 D CLK S_ R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT DFFLOP_P  PREB CLRB CLK D Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+* CLRB has higher priority
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 D CLK S_ R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT RSFFLOP   S  R  Q  QB  DPWR  DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 R RB d_inv1
+Aand1 [S RB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DGND DGND S_ R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT RSFFLOP_P   S  R  Q  QB  DPWR  DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 R RB d_inv1
+Aand1 [S RB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DGND DGND S_ R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT RSFFLOP_P2   S  R  Q  QB  DPWR  DGND DL
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 R RB d_inv1
+Aand1 [S RB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DL DL S_ R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT RSFFLOP_P2_S   S  R  Q  QB  DPWR  DGND DL
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 S SB d_inv1
+Aand1 [R SB] R_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DL DL S R_ Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT R_S_FFLOP_P2_S   S_  R_  Q  QB  DPWR  DGND DL
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+*Ainv1 R_ R d_inv1
+*Anor1 [S_ R] S d_nor1
+Ainv1 S_ S d_inv1
+Anor1 [R_ S] R d_nor1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_nor1 d_nor (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DL DL S R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT RSFFLOP_P2_R   S  R  Q  QB  DPWR  DGND DL
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 R RB d_inv1
+Aand1 [S RB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DL DL S_ R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT R_S_FFLOP_P2_R   S_  R_  Q  QB  DPWR  DGND DL
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 R_ R d_inv1
+Anor1 [S_ R] S d_nor1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_nor1 d_nor (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DL DL S R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT R_S_FFLOP_P   S_  R_  Q  QB  DPWR  DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 R_ R d_inv1
+Anor1 [S_ R] S d_nor1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_nor1 d_nor (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DGND DGND S R Q QB d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT R_S_FF S_ R_ Q  Q_ DPWR DGND
++ PARAMS: VTHRESS=2.5 VTHRESR=2.5 VOUTH=5.0 VOUTL=0 RIN=1E12 DELAY=10N ROUT=10
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 R_ R d_inv1
+Anor1 [S_ R] S d_nor1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_nor1 d_nor (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DGND DGND S R Q Q_ d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS R_S_FF
+
+.SUBCKT RSFF S  R  Q  Q_ DPWR DGND
++ PARAMS:VTHRESS=2.5 VTHRESR=2.5 VOUTH=5.0 VOUTL=0 RIN=1E12 DELAY=10N ROUT=10
+*
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 R RB d_inv1
+Aand1 [S RB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx data clk set reset out nout model_name
+Adff1 DGND DGND S_ R Q Q_ d_dff1
+.model d_dff1 d_dff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    data_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS  RSFF
+
+.SUBCKT R_S_FF_A S_ R_ Q  Q_ DPWR DGND
++ PARAMS: VTHRESS=2.5 VTHRESR=2.5 VOUTH=5.0 VOUTL=0 RIN=1E12 DELAY=10N ROUT=10
+*
+XU1     Q DGND R_ DGND Q_ DGND   COMP2INpNANDSD
++ PARAMS: RIN={RIN} DELAY={1.1*DELAY} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES1={(VOUTH+VOUTL)/2} VTHRES2={VTHRESR}
+XU2     S_ DGND Q_ DGND Q DGND   COMP2INpNANDSD
++ PARAMS: RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES1={VTHRESS} VTHRES2={(VOUTH+VOUTL)/2}
+.ENDS R_S_FF
+
+.SUBCKT RSFF_A S  R  Q  Q_ DPWR DGND
++ PARAMS:VTHRESS=2.5 VTHRESR=2.5 VOUTH=5.0 VOUTL=0 RIN=1E12 DELAY=10N ROUT=10
+*
+XU1     Q DGND S DGND Q_ DGND   Comp2INpNOrSD
++ PARAMS: RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES1={(VOUTH+VOUTL)/2} VTHRES2={VTHRESS}
+XU2     R DGND Q_ DGND Q DGND   Comp2INpNOrSD
++ PARAMS: RIN={RIN} DELAY={1.1*DELAY} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES1={VTHRESR} VTHRES2={(VOUTH+VOUTL)/2}
+*XU2     RES DGND R DGND Q_ DGND Q DGND   Comp3INpNOrSD
+*+ PARAMS: RIN={RIN} DELAY={DELAY} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES1={VTHRESR} VTHRES2={(VOUTH+VOUTL)/2}
+*+ VTHRES3={(VOUTH+VOUTL)/2}
+*PULSE (<i1> <i2> <td> <tr> <tf> <pw> <per>)
+*VRES RES DGND PULSE(0 {VOUTH} 0 100P 100P {4*DELAY} 1000)
+.ENDS  RSFF
+
+.SUBCKT TFFLOP  PREB CLRB CLKB T Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+Ainv3 CLKB CLK d_inv1
+*Axxxx t clk set reset out nout model_name
+Adff1 T CLK S_ R Q QB d_tff1
+.model d_tff1 d_tff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    t_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT TFFLOP_P  PREB CLRB CLKB T Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+Ainv3 CLKB CLK d_inv1
+*Axxxx t clk set reset out nout model_name
+Adff1 T CLK S_ R Q QB d_tff1
+.model d_tff1 d_tff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    t_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+		 
+.SUBCKT THFFLOP_P  PREB CLRB CLKB DH Q QB DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+Ainv3 CLKB CLK d_inv1
+*Axxxx t clk set reset out nout model_name
+Adff1 DH CLK S_ R Q QB d_tff1
+.model d_tff1 d_tff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    t_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS  
+
+.SUBCKT JKFF  PREB CLRB CLKB J K Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+Ainv3 CLKB CLK d_inv1
+*Axxxx j k clk set reset out nout model_name
+Adff1 J K CLK S_ R Q QB d_jkff1
+.model d_jkff1 d_jkff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    jk_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS   
+
+.SUBCKT JKFF_NE  PREB CLRB CLKB J K Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+Ainv3 CLKB CLK d_inv1
+*Axxxx j k clk set reset out nout model_name
+Adff1 J K CLK S_ R Q QB d_jkff1
+.model d_jkff1 d_jkff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    jk_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS	  
+
+.SUBCKT JKFF_PE  PREB CLRB CLK J K Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+*Axxxx j k clk set reset out nout model_name
+Adff1 J K CLK S_ R Q QB d_jkff1
+.model d_jkff1 d_jkff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    jk_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+		 
+.SUBCKT JKFFLOP  PREB CLRB CLKB J K Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+Ainv3 CLKB CLK d_inv1
+*Axxxx j k clk set reset out nout model_name
+Adff1 J K CLK S_ R Q QB d_jkff1
+.model d_jkff1 d_jkff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    jk_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT JKFFLOP_P  PREB CLRB CLKB J K Q QB DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Tdc={Min(DLH,DHL)}
+.Param Trc={Max((DLH-Tdc),1N)}
+.Param Tfc={Max((DHL-Tdc),1N)}
+Ainv1 PREB S d_inv1
+Ainv2 CLRB R d_inv1
+Aand1 [S CLRB] S_ d_and1
+.model d_inv1 d_inverter (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+.model d_and1 d_and (rise_delay=1.0e-12 fall_delay=1.0e-12
++                         input_load={Cin})
+Ainv3 CLKB CLK d_inv1
+*Axxxx j k clk set reset out nout model_name
+Adff1 J K CLK S_ R Q QB d_jkff1
+.model d_jkff1 d_jkff (clk_delay={Tdc} set_delay={Tdc}
++                    reset_delay={Tdc} ic=0 
++                    rise_delay={Trc} fall_delay={Tfc} 
++                    jk_load={Cin} clk_load={Cin}
++                    set_load={Cin} reset_load={Cin})
+.ENDS
+
+.SUBCKT INV  IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Ainv1 IN OUT d_inv1
+.model d_inv1 d_inverter (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+
+.ENDS
+
+.SUBCKT INV_P  IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Ainv1 IN OUT d_inv1
+.model d_inv1 d_inverter (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT INV_A  IN OUT DPWR DGND
++ PARAMS:   RIN=1E12 VOUTH=5 VOUTL=0 VTHRES=2.5
+*
+XU1     IN DGND OUT DGND   CompInvS
++ PARAMS: RIN={RIN} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES={VTHRES}
+.ENDS
+
+.SUBCKT INV_AD  IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 RIN=1E12 VOUTH=5 VOUTL=0 VTHRES=2.5
+*
+XU1     IN DGND OUT DGND   CompInvD
++ PARAMS: RIN={RIN} ROUT=10 DELAYHL={DHL} DELAYLH={DLH} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES={VTHRES}
+.ENDS
+
+.SUBCKT AND2  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND2_P  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND2_A  IN1 IN2 OUT DPWR DGND 
++ PARAMS:   RIN=1E12 VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+*
+XU1     IN1 DGND IN2 DGND OUT DGND   Comp2INpAndS
++ PARAMS: RIN={RIN}  VOUTH={VOUTH} VOUTL={VOUTL} VTHRES1={VTHRES1} VTHRES2={VTHRES2}
+.ENDS
+
+.SUBCKT AND2_AD  IN1 IN2 OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0 RIN=1E12 VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+*
+XU1     IN1 DGND IN2 DGND OUT DGND   Comp2INpAndSD  
++ PARAMS: RIN={RIN}  ROUT=10 DELAY={(DLH + DHL)/2} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES1={VTHRES1} VTHRES2={VTHRES2}
+.ENDS
+
+.SUBCKT AND3  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND3_P  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND4  IN1 IN2 IN3 IN4 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3 IN4] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND4_P  IN1 IN2 IN3 IN4 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3 IN4] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND4_AD  IN1 IN2 IN3 IN4 OUT DPWR DGND 
++ PARAMS:    DLH = 0 DHL = 0 RIN=1E12 VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+*
+XU1     IN1 DGND IN2 DGND IN3 DGND IN4 DGND OUT DGND   Comp4InpAndF 
++ PARAMS: RIN={RIN} DELAYHL={DHL} DELAYLH={DLH} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES1={VTHRES1} VTHRES2={VTHRES2}
+.ENDS
+
+.SUBCKT AND5  IN1 IN2 IN3 IN4 IN5 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3 IN4 IN5] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND5_P  IN1 IN2 IN3 IN4 IN5 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3 IN4 IN5] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND6  IN1 IN2 IN3 IN4 IN5 IN6 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3 IN4 IN5 IN6] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AND6_P  IN1 IN2 IN3 IN4 IN5 IN6 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aand1 [IN1 IN2 IN3 IN4 IN5 IN6] OUT d_and1
+.model d_and1 d_and (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT XOR  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2] OUT d_xor1
+.model d_xor1 d_xor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+  
+.SUBCKT XOR_P  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2] OUT d_xor1
+.model d_xor1 d_xor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+			
+.SUBCKT NXOR  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2] OUT d_xnor1
+.model d_xnor1 d_xnor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+  
+.SUBCKT NXOR_P  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2] OUT d_xnor1
+.model d_xnor1 d_xnor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT OR2  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2] OUT d_or1
+.model d_or1 d_or ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT OR2_P  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2] OUT d_or1
+.model d_or1 d_or ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT OR3  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2 IN3] OUT d_or1
+.model d_or1 d_or ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT OR3_P  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2 IN3] OUT d_or1
+.model d_or1 d_or ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT OR4  IN1 IN2 IN3 IN4 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2 IN3 IN4] OUT d_or1
+.model d_or1 d_or ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT OR4_P  IN1 IN2 IN3 IN4 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Aor1 [IN1 IN2 IN3 IN4] OUT d_or1
+.model d_or1 d_or ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT NAND2  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND2_P  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND3  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND3_P  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND4  IN1 IN2 IN3 IN4 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3 IN4] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND4_P  IN1 IN2 IN3 IN4 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3 IN4] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS   
+
+.SUBCKT NAND5  IN1 IN2 IN3 IN4 IN5 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3 IN4 IN5] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND5_P  IN1 IN2 IN3 IN4 IN5 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3 IN4 IN5] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND6  IN1 IN2 IN3 IN4 IN5 IN6 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3 IN4 IN5 IN6] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND6_P  IN1 IN2 IN3 IN4 IN5 IN6 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3 IN4 IN5 IN6] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND9  IN1 IN2 IN3 IN4 IN5 IN6 IN7 IN8 IN9 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3 IN4 IN5 IN6 IN7 IN8 IN9] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NAND9_P  IN1 IN2 IN3 IN4 IN5 IN6 IN7 IN8 IN9 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anand1 [IN1 IN2 IN3 IN4 IN5 IN6 IN7 IN8 IN9] OUT d_nand1
+.model d_nand1 d_nand (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT NOR2  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anor1 [IN1 IN2] OUT d_nor1
+.model d_nor1 d_nor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT NOR2_P  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anor1 [IN1 IN2] OUT d_nor1
+.model d_nor1 d_nor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT NOR2_A  IN1 IN2 OUT DPWR DGND
+*
+XU1     IN1 DGND IN2 DGND OUT DGND   Comp2INpNORS
++ PARAMS: RIN=1E12 VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+.ENDS
+
+.SUBCKT NOR2_AD  IN1 IN2 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+XU1     IN1 DGND IN2 DGND OUT DGND   Comp2INpNORSD
++ PARAMS: RIN=1E12 ROUT=10 DELAY={(DLH + DHL)/2} VOUTH=5 VOUTL=0 VTHRES1=2.5 VTHRES2=2.5
+.ENDS
+
+.SUBCKT NOR3  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anor1 [IN1 IN2 IN3] OUT d_nor1
+.model d_nor1 d_nor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT NOR3_P  IN1 IN2 IN3 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anor1 [IN1 IN2 IN3] OUT d_nor1
+.model d_nor1 d_nor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT NOR4  IN1 IN2 IN3 IN4 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anor1 [IN1 IN2 IN3 IN4] OUT d_nor1
+.model d_nor1 d_nor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT NOR4_P  IN1 IN2 IN3 IN4 OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Anor1 [IN1 IN2 IN3 IN4] OUT d_nor1
+.model d_nor1 d_nor ( rise_delay={Trc} fall_delay={Tfc}
++                   input_load={Cin})
+.ENDS
+
+.SUBCKT BUF  IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Abuf1 IN OUT d_buf1
+.model d_buf1 d_buffer (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT BUF_P  IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+Abuf1 IN OUT d_buf1
+.model d_buf1 d_buffer (rise_delay={Trc} fall_delay={Tfc}
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT BUF_A  IN OUT DPWR DGND 
++ PARAMS:   RIN=1E12 VOUTH=5 VOUTL=0 VTHRES=2.5
+*
+XU1     IN DGND OUT DGND   CompGndRefS 
++ PARAMS: RIN={RIN} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES={VTHRES}
+.ENDS
+
+.SUBCKT BUF_AD  IN OUT DPWR DGND  
++ PARAMS:    DLH = 0 DHL = 0 RIN=1E12 VOUTH=5 VOUTL=0 VTHRES=2.5
+*
+XU1     IN DGND OUT DGND   CompGndRefS_THL 	  
++ PARAMS: RIN={RIN} ROUT=10 DELAYHL={DHL} DELAYLH={DLH} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES={VTHRES}
+*XU1     IN DGND OUT DGND   CompSD 	  
+*+ PARAMS: RIN={RIN} ROUT=10 DELAY={(DHL+DLH)/2} VOUTH={VOUTH} VOUTL={VOUTL} VTHRES={VTHRES}
+.ENDS 
+
+.SUBCKT BUF3  IN EN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max(DLH,DHL)}
+.Param Tfc={Max(DHL,DLH)}
+Abuf1 IN EN OUT d_tristate1
+.model d_tristate1 d_tristate (delay={Trc} 
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT BUF3_P  IN EN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max(DLH,DHL)}
+.Param Tfc={Max(DHL,DLH)}
+Abuf1 IN EN OUT d_tristate1
+.model d_tristate1 d_tristate (delay={Trc} 
++                         input_load={Cin})
+.ENDS
+
+.SUBCKT AD_BUF   IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 IN_LOW=0.495 IN_HIGH=0.505
+*
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+
+*Gin 0 IN_ Value = {V(IN,DGND)/(ABS(V(DPWR,DGND)) + 1m)}
+Gin 0 IN_ Value = {V(IN,DGND)}
+Rin IN_ 0 1
+*AC1 IN OUT adc_bridge1
+AC1 IN_ OUT adc_bridge1
+.model adc_bridge1 adc_bridge (in_low={IN_LOW} in_high={IN_HIGH}
++                              rise_delay={Trc} fall_delay={Tfc})
+.ENDS
+
+.SUBCKT AD_BUF_P   IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 IN_LOW=0.495 IN_HIGH=0.505
+*
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+
+*Gin 0 IN_ Value = {V(IN,DGND)/(ABS(V(DPWR,DGND)) + 1m)}
+Gin 0 IN_ Value = {V(IN,DGND)}
+Rin IN_ 0 1
+*AC1 IN OUT adc_bridge1
+AC1 IN_ OUT adc_bridge1
+.model adc_bridge1 adc_bridge (in_low={IN_LOW} in_high={IN_HIGH}
++                              rise_delay={Trc} fall_delay={Tfc})
+.ENDS
+
+.SUBCKT DA_BUF   IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=1N
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+.Param Gout={1/(Abs(ROUT)+1m)}
+*.Param COUT_={IF ( COUT > 1f, COUT, 0.1*Min(Trc,Tfc)/Max(ROUT,1m)) }
+.Param COUT_={IF ( COUT > 1f, COUT, 0 ) }
+
+Gout DGND OUT Value = {Gout*V(OUT_,0)}
+Rout OUT DGND {ROUT}
+Cout OUT DGND {COUT_}
+
+*Ac1 IN OUT dac_bridge1
+Ac1 IN OUT_ dac_bridge1
+.model dac_bridge1 dac_bridge 
++ out_high={OUT_HIGH}  ; Logic high voltage
++ out_low={OUT_LOW}  ; Logic high voltage
++ input_load={Cin}     ; Compensates for added rise and fall time
++ t_rise={Trc}         ; Output rise time
++ t_fall={Tfc}         ; Output fall time
++ g_pullup={1/ROUT}    ; 1/(logic high output resistance)
++ g_pulldown={1/ROUT}  ; 1/(logic low output resistance)
++ g_hiz=1e-9           ; 1/(high impedance output res)
++ knee_low = {OUT_LOW + 2/5*OUT_HIGH}       ; voltage at resistive/constant current knee logic low
++ knee_high ={OUT_LOW + 3/5*OUT_HIGH}   ; voltage at resistive/constant current knee logic high
++ v_smooth ={(OUT_HIGH - OUT_LOW)/10}    ; Knee smoothing band
+.ENDS
+
+.SUBCKT DA_BUF_P   IN OUT DPWR DGND
++ PARAMS:    DLH = 0 DHL = 0 OUT_LOW=0.0 OUT_HIGH=1.0 ROUT=1 COUT=1N
+*
+.Param Cin= 1.0e-12
+.Param Trc={Max((DLH),1N)}
+.Param Tfc={Max((DHL),1N)}
+.Param Gout={1/(Abs(ROUT)+1m)}
+*.Param COUT_={IF ( COUT > 1f, COUT, 0.1*Min(Trc,Tfc)/Max(ROUT,1m)) }
+.Param COUT_={IF ( COUT > 1f, COUT, 0 ) }
+
+Gout DGND OUT Value = {Gout*V(OUT_,0)}
+Rout OUT DGND {ROUT}
+Cout OUT DGND {COUT_}
+
+*Ac1 IN OUT dac_bridge1
+Ac1 IN OUT_ dac_bridge1
+.model dac_bridge1 dac_bridge 
++ out_high={OUT_HIGH}  ; Logic high voltage
++ out_low={OUT_LOW}  ; Logic high voltage
++ input_load={Cin}     ; Compensates for added rise and fall time
++ t_rise={Trc}         ; Output rise time
++ t_fall={Tfc}         ; Output fall time
++ g_pullup={1/ROUT}    ; 1/(logic high output resistance)
++ g_pulldown={1/ROUT}  ; 1/(logic low output resistance)
++ g_hiz=1e-9           ; 1/(high impedance output res)
++ knee_low = {OUT_LOW + 2/5*OUT_HIGH}       ; voltage at resistive/constant current knee logic low
++ knee_high ={OUT_LOW + 3/5*OUT_HIGH}   ; voltage at resistive/constant current knee logic high
++ v_smooth ={(OUT_HIGH - OUT_LOW)/10}    ; Knee smoothing band
+.ENDS
+
+
+** UNIV
+** This is the default logic family if none is specified
+.model UNIV_dac dac_bridge 
++ out_high={DOUT_HIGH}        ; Logic high voltage
++ input_load=1p    ; Compensates for added rise and fall time
++ t_rise=1n        ; Output rise time
++ t_fall=1n        ; Output fall time
++ g_pullup=0.02    ; 1/(logic high output resistance)
++ g_pulldown=0.02  ; 1/(logic low output resistance)
++ g_hiz=1e-9       ; 1/(high impedance output res)
++ knee_low = {DOUT_HIGH*2.0/5}    ; voltage at resistive/constant current knee logic low
++ knee_high ={DOUT_HIGH*2.75/5}   ; voltage at resistive/constant current knee logic high
++ v_smooth = 0.5    ; Knee smoothing band
++ in_family="UNIV"
+
+** Analog-Digital
+.model UNIV_adc adc_bridge 
+*+ in_low= {0.475*DOUT_HIGH}
+*+ in_high={0.525*DOUT_HIGH} 
++ in_low= {0.495*DOUT_HIGH}
++ in_high={0.505*DOUT_HIGH} 
++ rise_delay=1e-12 
++ fall_delay=1e-12
++ out_family = "UNIV"
++ out_low = 0
++ out_high = {DOUT_HIGH}
++ clamp_bias=0.5
++ clamp_res=10
+
+.SUBCKT LEB  IN OUT
++ OPTIONAL: PWR=$G_DPWR GND=$G_DGND
++ PARAMS:    LEB = 100N
+XU1         IN 5 PWR GND BUF_P
++ PARAMS: DLH={LEB} DHL={1N}
+XU2         IN 5 OUT PWR GND AND2_P
++ PARAMS: DLH=0N DHL=0N
+.ENDS
+
+.SUBCKT LEB_P  IN GND OUT PWR
++ PARAMS:    LEB = 100N
+XU1         IN 5 PWR GND BUF_P
++ PARAMS: DLH={LEB} DHL={1N}
+XU2         IN 5 OUT PWR GND AND2_P
++ PARAMS: DLH=0N DHL=0N
+.ENDS
+
+.SUBCKT ONESHOT  IN OUT
++ OPTIONAL: PWR=$G_DPWR GND=$G_DGND
++ PARAMS:    PW = 100N
+XU1         IN 5 PWR GND INV_P
++ PARAMS: DLH={1N} DHL={PW}
+XU2         IN 5 OUT PWR GND AND2_P
++ PARAMS: DLH=0N DHL=0N
+.ENDS
+
+.SUBCKT ONESHOT_P  IN GND OUT PWR
++ PARAMS:    PW = 100N
+XU1         IN 5 PWR GND INV_P
++ PARAMS: DLH={1N} DHL={PW}
+XU2         IN 5 OUT PWR GND AND2_P
++ PARAMS: DLH=0N DHL=0N
+.ENDS
+
+.SUBCKT ONESHOT_DEL  IN OUT
++ OPTIONAL: PWR=$G_DPWR GND=$G_DGND
++ PARAMS:    PW = 50N DEL=100N
+XU3         IN 1 PWR GND BUF_DP
++ PARAMS: DLH={DEL} DHL={DEL}
+XU1         1 2 PWR GND INV_DP
++ PARAMS: DLH={1N} DHL={PW}
+XU2         1 2 OUT PWR GND AND2_DP
++ PARAMS: DLH=0N DHL=0N 
+.ENDS
+
+.SUBCKT ONESHOT_DEL_P  IN GND OUT PWR
++ PARAMS:    PW = 50N DEL=100N
+XU3         IN 1 PWR GND BUF_DP
++ PARAMS: DLH={DEL} DHL={DEL}
+XU1         1 2 PWR GND INV_DP
++ PARAMS: DLH={1N} DHL={PW}
+XU2         1 2 OUT PWR GND AND2_DP
++ PARAMS: DLH=0N DHL=0N 
+.ENDS
+
+.SUBCKT ONESHOTE IN RES OUT DH
++ OPTIONAL: PWR=$G_DPWR GND=$G_DGND
++ PARAMS:    PW = 100n
+XU1         OUT RES CB PWR GND NOR2_P
++ PARAMS: DLH={1N} DHL={PW} 
+XU37        DH CB IN DH OUT 7 PWR GND DFFLOP_P
++ PARAMS: DLH=0N DHL=0N
+.ENDS
+
+.SUBCKT ONESHOTE_DEL IN RES OUT DH
++ OPTIONAL: PWR=$G_DPWR GND=$G_DGND
++ PARAMS:    PW = 100n DEL=100n
+XU3         IN 1 PWR GND BUF_P
++ PARAMS: DLH={DEL} DHL={1N}
+XU1         OUT RES CB PWR GND NOR2_P
++ PARAMS: DLH={1N} DHL={PW} 
+XU2         DH CB 1 DH OUT 7 PWR GND DFFLOP_P
++ PARAMS: DLH=0N DHL=0N
+.ENDS
+
+.SUBCKT ONESHOTE_P IN RES GND OUT PWR DH
++ PARAMS:    PW = 100n
+XU1         OUT RES CB PWR GND NOR2_P
++ PARAMS: DLH={1N} DHL={PW} 
+XU37        DH CB IN DH OUT 7 PWR GND DFFLOP_P
++ PARAMS: DLH=0N DHL=0N
+.ENDS
+
+.SUBCKT ONESHOTE_DEL_P IN RES GND OUT PWR DH
++ PARAMS:    PW = 100n DEL=100n
+XU3         IN 1 PWR GND BUF_P
++ PARAMS: DLH={DEL} DHL={1N}
+XU1         OUT RES CB PWR GND NOR2_P
++ PARAMS: DLH={1N} DHL={PW} 
+XU2         DH CB 1 DH OUT 7 PWR GND DFFLOP_P
++ PARAMS: DLH=0N DHL=0N
+.ENDS
+
+.SUBCKT DELAY IN OUT
++ OPTIONAL: PWR=$G_DPWR GND=$G_DGND
++ PARAMS:    DEL = 100n
+XU1         IN OUT PWR GND BUF_P
++ PARAMS: DLH={DEL} DHL={DEL}
+.ENDS
+
+.SUBCKT DELAY_P IN GND OUT PWR
++ PARAMS:    DEL = 100n
+XU1         IN OUT PWR GND BUF_P
++ PARAMS: DLH={DEL} DHL={DEL}
+.ENDS
+
+* OPERATIONAL AMPLIFIER MACROMODEL SUBCIRCUIT
+* CREATED 08/05/06
+* (REV 1.3 26/02/08 )
+.SUBCKT OPAMP  INp INm Vp Vm OUT
++ PARAMS: GAIN=200K RIN=2MEG RINC=1E9 ROUT=75 SLEWRATE=500K FPOLE1=5 FPOLE2=1MEG
++         VDROPOH=1.9 VDROPOL=1.9 VOFFS=1M IBIAS=80N IOFFS=20N
+*
+.PARAM PI = 3.141592
+.PARAM IS = 1.0E-12
+.PARAM N = 0.1
+.PARAM VT = 0.02585
+.PARAM IMAX = 100.0E-2
+.PARAM C1 = {IMAX/SLEWRATE}
+.PARAM R1 = {1/(2*PI*C1*FPOLE1)}
+.PARAM GM1 = {GAIN/R1}
+.PARAM R2 = 100
+.PARAM G2 = {1/R2}
+.PARAM GOUT = {1/ROUT}
+.PARAM C2 = {1/(2*PI*R2*FPOLE2)}
+.PARAM VDF = {N*VT*LOG(1 + IMAX/IS)}
+*
+IBIASM      INm 8  {IBIAS - IOFFS}
+RINm      INm  8  {2*RINC}
+RINp      INp  8  {2*RINC}
+IBIAS       10 8   {IBIAS}
+VOFFS       10 INp  {VOFFS}
+EVp VpI 0 Vp 0 1
+EVm VmI 0 Vm 0 1
+VC          VpI 11  {VDROPOH + VDF}
+VE          12 VmI  {VDROPOL + VDF}
+RP          Vp Vm  15E3
+ROUT        OUT 8  {ROUT}
+GMO         8 OUT 9 8 {GOUT}
+C2          9 8  {C2}
+R2          9 8  {R2}
+GM2         8 9 7 8 {G2}
+RIN         INm 10  {RIN}
+EGND        8  0  POLY(2) (Vp,0) (Vm,0) 0 .5 .5
+D3         12 7  D_1
+D2          7 11  D_1
+C1          7 8  {C1}
+R1          7 8  {R1}
+GM1         8 7 VALUE = { LIMIT( GM1*V(10,INm), -IMAX, IMAX) }
+.MODEL D_1 D( IS={IS} N = {N})
+.ENDS
+
+* OPERATIONAL AMPLIFIER MACROMODEL SUBCIRCUIT
+* CREATED 18/12/08
+* (REV 1.0 18/12/08 )
+.SUBCKT OPAMPGndRefS  INP INM GND OUT
++ PARAMS: GAIN=200K RIN=2MEG RINC=1E9 ROUT=75 SLEWRATE=500K FPOLE1=5 FPOLE2=1MEG
++         VOUTH=10 VOUTL=0 VOFFS=1M IBIAS=80N IOFFS=20N VOUTOFFS=0
+*
+.PARAM PI = 3.141592
+.PARAM COUT = {1/(2*PI*ROUT*FPOLE1)}
+*
+IBIASM      INM GND  {IBIAS - IOFFS}
+RINM      INm  GND  {2*RINC}
+RINP      INP  GND  {2*RINC}
+IBIAS       10 GND   {IBIAS}
+VOFFS       10 INP  {VOFFS}
+RIN         INM 10  {RIN}
+E1         OUT0 GND  VALUE = { LIMIT( GAIN*V(10,INM) + VOUTOFFS, VOUTH, VOUTL) }
+ROUT       OUT0  OUT   {ROUT}
+COUT        OUT GND  {COUT}
+.ENDS
+
+* OPERATIONAL AMPLIFIER MACROMODEL SUBCIRCUIT
+* CREATED 15/09/08
+* (REV 1.0 15/09/08 )
+.SUBCKT OPAMPGndRef  INp INm GND OUT
++ PARAMS: GAIN=200K RIN=2MEG RINC=1E9 ROUT=75 SLEWRATE=500K FPOLE1=5 FPOLE2=1MEG
++         VOUTH=10 VOUTL=0 VOFFS=1M IBIAS=80N IOFFS=20N
+*
+.PARAM Pi = 3.141592
+.PARAM IS = 1.0E-12
+.PARAM N = 0.1
+.PARAM VT = 0.02585
+.PARAM IMAX = 100.0E-2
+.PARAM C1 = {IMAX/SLEWRATE}
+.PARAM R1 = {1/(2*Pi*C1*FPOLE1)}
+.PARAM GM1 = {GAIN/R1}
+.PARAM R2 = 100
+.PARAM G2 = {1/R2}
+.PARAM GOUT = {1/ROUT}
+.PARAM C2 = {1/(2*Pi*R2*FPOLE2)}
+.PARAM VDF = {N*VT*LOG(1 + IMAX/IS)}
+*
+IBIASM      INm GND  {IBIAS - IOFFS}
+RINm      INm  GND  {2*RINC}
+RINp      INp  GND  {2*RINC}
+IBIAS       10 GND   {IBIAS}
+VOFFS       10 INp  {VOFFS}
+
+VC          11 GND {VOUTH - VDF}
+VE          GND 12  {VOUTL - VDF}
+ROUT        OUT GND  {ROUT}
+GMO         GND OUT  VALUE = {GOUT*V( 9,GND)}
+C2          9 GND  {C2}
+R2          9 GND  {R2}
+GM2         GND 9 VALUE = {G2*V( 7,GND)}
+RIN         INm 10  {RIN}
+D3         12 7  D_1
+D2          7 11  D_1
+C1          7 GND  {C1}
+R1          7 GND  {R1}
+GM1         GND 7 VALUE = { LIMIT( GM1*V(10,INm), -IMAX, IMAX) }
+.MODEL D_1 D( IS={IS} N = {N})
+.ENDS
+
+
+* COMPARATOR MACROMODEL SUBCIRCUIT
+* CREATED 15/09/08
+* (REV 1.0 15/09/08 )
+.SUBCKT COMPARATOR  INp INm Vp Vm OUT
++ PARAMS: GAIN=200K RIN=2MEG RINC=1E9 ROUT=75 SLEWRATE=500K DELAY=0
++         VDROPOH=1.9 VDROPOL=1.9 VOFFS=1M IBIAS=80N IOFFS=20N VTHRES=0 VHYST=0
+*
+.PARAM PI = 3.141592
+.PARAM IS = 1.0E-12
+.PARAM N = 0.1
+.PARAM VT = 0.02585
+.PARAM IMAX = 100.0E-2
+.PARAM G_SRMULT = 10
+.PARAM DEL = {IF ( DELAY < 1N, 1N, DELAY ) }
+.PARAM SR = { IF ( SLEWRATE < 1e-6, G_SRMULT*5/DEL, SLEWRATE ) }
+.PARAM C1 = {IMAX/SR}
+.PARAM G_PMULT = 100
+.PARAM FPOLE1 = G_PMULT*SR/(2*pi*5)/Gain
+.PARAM R1 = {1/(2*PI*C1*FPOLE1)}
+.PARAM GM1 = {GAIN/R1}
+.PARAM GOUT = {1/ROUT}
+.PARAM VDF = {N*VT*LOG(1 + IMAX/IS)}
+.PARAM VDH = {VDROPOH - IMAX*DEL/C1}
+.PARAM VDL = {VDROPOL + IMAX*DEL/C1}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+
+*
+IBIASM      INm 8  {IBIAS - IOFFS}
+RINm      INm  8  {2*RINC}
+RINp      INp  8  {2*RINC}
+IBIAS       10 8   {IBIAS}
+VOFFS       10 INp  {VOFFS}
+EVp VpI 0 Vp 0 1
+EVm VmI 0 Vm 0 1
+VC          VpI 11  {VDH + VDF}
+VE          12 VmI  {VDL + VDF}
+RP          Vp Vm  15E3
+ROUT        OUT 8  {ROUT}
+GMO         8 OUT VALUE = {GOUT*LIMIT( V(7,8), V(VmI,0)+VDL, V(VpI,0)-VDH)}
+RIN         INm 10  {RIN}
+EGND        8  0  POLY(2) (Vp,0) (Vm,0) 0 .5 .5
+D3         12 7  D_1
+D2          7 11  D_1
+C1          7 8  {C1}
+R1          7 8  {R1}
+
+Ethr thr 0 Value= { IF ( V(out,8) < V(8,0), {VthH}, {VthL}) }
+GM1         8 7 VALUE = { LIMIT( GM1*(V(10,INm)-V(thr,0)), -IMAX, IMAX) }
+.MODEL D_1 D( IS={IS} N = {N})
+.ENDS
+
+* COMPARATOR MACROMODEL SUBCIRCUIT
+* CREATED 15/09/08
+* (REV 1.1 24/09/16 )
+.SUBCKT COMPARGndRef  INp INm OUT GND
++ PARAMS: GAIN=200K RIN=1E12 RINC=1E12 ROUT=75 SLEWRATE=500K DELAY=0
++         VOUTH=5 VOUTL=0 VOFFS=1M IBIAS=80N IOFFS=20N VTHRES=0 VHYST=0
+*
+.PARAM PI = 3.141592
+.PARAM IS = 1.0E-12
+.PARAM N = 0.1
+.PARAM VT = 0.02585
+.PARAM IMAX = 100.0E-2
+*.PARAM G_SRMULT = 10
+.PARAM G_SRMULT = 12
+.PARAM ROUT_ = {IF ( ROUT < 1m, 1m, ROUT ) } 
+.PARAM DEL = {IF ( DELAY < 1N, 1N, DELAY ) } 
+.PARAM SR = { IF ( SLEWRATE < 1e-6, G_SRMULT*5/DEL, SLEWRATE ) }
+.PARAM C1 = {IMAX/SR}
+.PARAM G_PMULT = 100
+.PARAM FPOLE1= {G_PMULT*SR/(2*PI*5)/GAIN};
+.PARAM R1 = {1/(2*PI*C1*FPOLE1)}
+.PARAM GM1 = {GAIN/R1}
+.PARAM GOUT = {1/ROUT_}
+.PARAM VDF = {N*VT*LOG(1 + IMAX/IS)}
+.PARAM VOH = {VOUTH + IMAX*DEL/C1}
+.PARAM VOL = {VOUTL - IMAX*DEL/C1}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param VoutM={(VoutH+VoutL)/2}
+*
+IBIASM      INm GND  {IBIAS - IOFFS}
+RINm      INm  GND  {2*RINC}
+RINp      INp  GND  {2*RINC}
+IBIAS       10 GND   {IBIAS}
+VOFFS       10 INp  {VOFFS}
+VC          11 GND {VOH - VDF}
+VE          12 GND  {VOL + VDF}
+
+ROUT        OUT GND  {ROUT_}
+GMO         GND OUT VALUE = {GOUT*LIMIT( V(7,GND), VOUTL, VOUTH)}
+RIN         INm 10  {RIN}
+D3         12 7  D_1
+D2          7 11  D_1
+C1          7 GND  {C1}
+R1          7 GND  {R1}
+
+*Ethr        thr 0 Value= { IF ( V(out,GND) < {VoutM}, {VthH}, {VthL}) }
+Gthr        0  thr Value= { IF ( V(out,GND) < {VoutM}, {VthH}, {VthL}) }
+Rthr        thr 0 1
+
+GM1         GND 7 VALUE = { LIMIT( GM1*(V(10,INm)-V(thr,0)), -IMAX, IMAX) }
+.MODEL D_1 D( IS={IS} N = {N})
+.ENDS
+
+* SIMPLIFIED COMPARATOR MACROMODEL SUBCIRCUIT
+* CREATED 24/09/16
+* (REV 1.1 24/09/16 )
+.SUBCKT COMPARGndRefS_0  INp INm OUT GND
++ PARAMS: RIN=1E12 RINC=1E12 ROUT=10 DELAY=0
++         VOUTH=5 VOUTL=0 VTHRES=0 VHYST=0
+* VOFFS=1M IBIAS=80N IOFFS=20N 
+*
+.PARAM PI = 3.141592
+.PARAM IS = 1.0E-12
+.PARAM N = 0.1
+.PARAM VT = 0.02585
+.PARAM IMAX = 100.0E-2
+.PARAM G_SRMULT = 12
+.PARAM ROUT_ = {IF ( ROUT < 1, 1, ROUT ) } 
+.PARAM DEL = {IF ( DELAY < 1N, 1N, DELAY ) } 
+.PARAM SLEWRATE=0
+.PARAM SR = { IF ( SLEWRATE < 1e-6, G_SRMULT*5/DEL, SLEWRATE ) }
+.PARAM C1 = {IMAX/SR}
+.PARAM G_PMULT = 100
+.PARAM GAIN=200K
+.PARAM FPOLE1= {G_PMULT*SR/(2*PI*5)/GAIN};
+.PARAM R1 = {1/(2*PI*C1*FPOLE1)}
+.PARAM GM1 = {GAIN/R1}
+.PARAM GOUT = {1/ROUT_}
+.PARAM VDF = {N*VT*LOG(1 + IMAX/IS)}
+.PARAM VOH = {VOUTH + IMAX*DEL/C1}
+.PARAM VOL = {VOUTL - IMAX*DEL/C1}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param VoutM={(VoutH+VoutL)/2}
+*
+RINm      INm  GND  {2*RINC}
+RINp      INp  GND  {2*RINC}
+VC          11 GND {VOH - VDF}
+VE          12 GND  {VOL + VDF}
+
+ROUT        OUT GND  {ROUT_}
+GMO         GND OUT VALUE = {GOUT*LIMIT( V(7,GND), VOUTL, VOUTH)}
+RIN         INm INp  {RIN}
+D3         12 7  D_1
+D2          7 11  D_1
+C1          7 GND  {C1}
+R1          7 GND  {R1}
+
+*Ethr        thr 0 Value= { IF ( V(out,GND) < {VoutM}, {VthH}, {VthL}) }
+Gthr        0  thr Value= { IF ( V(out,GND) < {VoutM}, {VthH}, {VthL}) }
+Rthr        thr 0 1
+
+*GM1         GND 7 VALUE = { LIMIT( GM1*(V(INp,INm)-V(thr,0)), -IMAX, IMAX) }
+GM1         GND 7 VALUE = { IF ( (V(INp,INm) < V(thr,0)), -IMAX, IMAX) }
+
+.MODEL D_1 D( IS={IS} N = {N})
+.ENDS
+
+* SIMPLIFIED COMPARATOR MACROMODEL SUBCIRCUIT
+* CREATED 24/09/16
+* (REV 1.1 24/09/16 )
+.SUBCKT COMPARGndRefS  INp INm OUT GND
++ PARAMS: RIN=1E12 RINC=1E12 ROUT=10 DELAYLH=0 DELAYHL=0
++         VOUTH=5 VOUTL=0 VTHRES=0 VHYST=0
+* VOFFS=1M IBIAS=80N IOFFS=20N 
+*
+.PARAM PI = 3.141592
+.PARAM IS = 1.0E-12
+.PARAM N = 0.1
+.PARAM VT = 0.02585
+.PARAM IMAX = 100.0E-2
+.PARAM G_SRMULT = 12
+.PARAM ROUT_ = {IF ( ROUT < 1, 1, ROUT ) } 
+.PARAM DEL_LH = {IF ( DELAYLH < 1N, 1N, DELAYLH ) } 
+.PARAM DEL_HL = {IF ( DELAYHL < 1N, 1N, DELAYHL ) }
+.PARAM DELM = { (DEL_LH + DEL_HL)/2 }
+.PARAM SLEWRATE=0
+.PARAM SR = { IF ( SLEWRATE < 1e-6, G_SRMULT*5/DELM, SLEWRATE ) }
+.PARAM C1 = {IMAX/SR}
+.PARAM G_PMULT = 100
+.PARAM GAIN=200K
+.PARAM FPOLE1= {G_PMULT*SR/(2*PI*5)/GAIN};
+.PARAM R1 = {1/(2*PI*C1*FPOLE1)}
+.PARAM GM1 = {GAIN/R1}
+.PARAM GOUT = {1/ROUT_}
+.PARAM VDF = {N*VT*LOG(1 + IMAX/IS)}
+.PARAM VOH = {VOUTH + IMAX*DEL_HL/C1}
+.PARAM VOL = {VOUTL - IMAX*DEL_LH/C1}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param VoutM={(VoutH+VoutL)/2}
+*
+RINm      INm  GND  {2*RINC}
+RINp      INp  GND  {2*RINC}
+VC          11 GND {VOH - VDF}
+VE          12 GND  {VOL + VDF}
+
+ROUT        OUT GND  {ROUT_}
+GMO         GND OUT VALUE = {GOUT*LIMIT( V(7,GND), VOUTL, VOUTH)}
+RIN         INm INp  {RIN}
+D3         12 7  D_1
+D2          7 11  D_1
+C1          7 GND  {C1}
+R1          7 GND  {R1}
+
+*Ethr        thr 0 Value= { IF ( V(out,GND) < {VoutM}, {VthH}, {VthL}) }
+Gthr        0  thr Value= { IF ( V(out,GND) < {VoutM}, {VthH}, {VthL}) }
+Rthr        thr 0 1
+
+*GM1         GND 7 VALUE = { LIMIT( GM1*(V(INp,INm)-V(thr,0)), -IMAX, IMAX) }
+GM1         GND 7 VALUE = { IF ( (V(INp,INm) < V(thr,0)), -IMAX, IMAX) }
+
+.MODEL D_1 D( IS={IS} N = {N})
+.ENDS
+
+********************************************
+**        Oscillator SW                   **
+**  This file was created by TINA         **
+**    (c) 2008 DesignSoft, Inc.           **
+********************************************
+
+
+
+.SUBCKT VCOscillator INp INm Gnd OutRamp OutSqr
++ PARAMS: CENTFREQ=1E3 CONVGAIN=1E3 DUTYCYC=0.5 RISETIME=1E-9 FALLTIME=1E-9
++ VOUTH=5 VOUTL=0 INLLIM=-1E12 INULIM=1E12
+.PARAM VHYST = {(VOUTH-VOUTL)/2}
+.PARAM VOUTM = {(VOUTH+VOUTL)/2}
+.PARAM COsc = 1000P
+.PARAM FREQ = {CENTFREQ+CONVGAIN}
+.PARAM T = { 1/FREQ }
+*.PARAM DEL = 1N
+.PARAM DEL = {MinADel}
+*.PARAM ROsc = { (T-DEL)/COsc*(1-DUTYCYC) }
+.PARAM ROsc = { Max((T-DEL), Del)/COsc*(1-DUTYCYC) }
+.PARAM IOsc = { 2*VHYST/ROsc }
+*.PARAM ROscF = { (DUTYCYC*T-DEL)/(COsc) }
+.PARAM ROscF = { Max((DUTYCYC*T-DEL), Del)/(COsc) }
+.PARAM IOscF = { -2*VHYST/ROscF }
+.PARAM Mf { CONVGAIN/FREQ }
+*FREQ = CENTFREQ + CONVGAIN*V(INp,INm)
+*FREQ = CENTFREQ + CONVGAIN + CONVGAIN*(V(INp,INm) - 1)
+*FREQ0 = CENTFREQ + CONVGAIN
+*FREQ/FREQ0 = 1 + CONVGAIN*(V(INp,INm) - 1)/(CENTFREQ + CONVGAIN)
+*.PARAM VENTHRES=0.5
+.PARAM VENTHRES={2.5}
+.PARAM RAMPSHIFT=0.01
+
+VEN En Gnd PULSE(0 {2*VENTHRES} 1N 100P 100P 1e9 1e12)
+*GEn Gnd En Value = {IF (V(INp,INm) > INLLIM, {2*VENTHRES}, 0)}
+*REn Gnd En 1
+GCtrl Gnd Ctrl Value = {Limit(V(INp,INm), INLLIM, INULIM)}
+RCtrl Gnd Ctrl 1
+
+GIOsc       Gnd Ramp VALUE = {IF( (V(En,Gnd) > VENTHRES), IF (V(OutSqr,Gnd) < VOUTM, 
++ IOsc*(1+ Mf*(V(Ctrl,Gnd) - 1)), IOscF*(1+ Mf*(V(Ctrl,Gnd) - 1))), 0)}
+XOscComp     Ramp Gnd En Gnd OutSqr Gnd   COMP2INpAND
++ PARAMS: VTHRES1={VHYST+RAMPSHIFT} VTHRES2={VENTHRES} VOUTH={VOUTH} VOUTL={VOUTL} RIN=1E12
++ DELAY= {DEL} VHYST1={VHYST} VHYST2=0
+SWEn       Ramp Gnd En Gnd  S_VSWITCH_2
+COsc        Ramp Gnd {COsc} IC=0
+*.MODEL S_VSWITCH_2 VSWITCH (RON=1 ROFF=1G VON={VENTHRES-0.1*(VOUTH - VOUTL)} 
+*+ VOFF={VENTHRES+0.1*(VOUTH - VOUTL)} )
+.MODEL S_VSWITCH_2 VSWITCH (RON=1 ROFF=1G VON={VENTHRES-0.1*VENTHRES} 
++ VOFF={VENTHRES+0.1*VENTHRES} )
+GRamp Gnd OutRamp Value = {V(Ramp,Gnd) + (VOUTL-RAMPSHIFT)}
+RRamp Gnd OutRamp 1
+.ENDS
+
+.SUBCKT VCOscillatorSin INp INm Gnd OutSin OutRamp OutSqr
++ PARAMS: CENTFREQ=1E3 CONVGAIN=1E3 DUTYCYC=0.5 RISETIME=1E-9 FALLTIME=1E-9
++ VOUTH=5 VOUTL=0 INLLIM=-1E12 INULIM=1E12
+.PARAM VHYST = {(VOUTH-VOUTL)/2}
+.PARAM VOUTM = {(VOUTH+VOUTL)/2}
+.PARAM COsc = 1000P
+.PARAM FREQ = {CENTFREQ+CONVGAIN}
+.PARAM T = { 1/FREQ }
+*.PARAM DEL = 1N
+.PARAM DEL = {MinADel}
+*.PARAM ROsc = { (T-DEL)/COsc*(1-DUTYCYC) }
+.PARAM ROsc = { Max((T-DEL), Del)/COsc*(1-DUTYCYC) }
+.PARAM IOsc = { 2*VHYST/ROsc }
+*.PARAM ROscF = { (DUTYCYC*T-DEL)/(COsc) }
+.PARAM ROscF = { Max((DUTYCYC*T-DEL), Del)/(COsc) }
+.PARAM IOscF = { -2*VHYST/ROscF }
+.PARAM Mf { CONVGAIN/FREQ }
+*FREQ = CENTFREQ + CONVGAIN*V(INp,INm)
+*FREQ = CENTFREQ + CONVGAIN + CONVGAIN*(V(INp,INm) - 1)
+*FREQ0 = CENTFREQ + CONVGAIN
+*FREQ/FREQ0 = 1 + CONVGAIN*(V(INp,INm) - 1)/(CENTFREQ + CONVGAIN)
+.PARAM PI = 3.14159, SIN_C = {PI/(2*VHYST)}
+*.PARAM VENTHRES=0.5
+.PARAM VENTHRES={2.5}
+.PARAM RAMPSHIFT=0.01
+
+VEN En Gnd PULSE(0 {2*VENTHRES} 1N 100P 100P 1e9 1e12)
+*GEn Gnd En Value = {IF (V(INp,INm) > INLLIM, {2*VENTHRES}, 0)}
+*REn Gnd En 1
+GCtrl Gnd Ctrl Value = {Limit(V(INp,INm), INLLIM, INULIM)}
+RCtrl Gnd Ctrl 1
+
+GIOsc       Gnd Ramp VALUE = {IF( (V(En,Gnd) > VENTHRES), IF (V(OutSqr,Gnd) < VOUTM, 
++ IOsc*(1+ Mf*(V(Ctrl,Gnd) - 1)), IOscF*(1+ Mf*(V(Ctrl,Gnd) - 1))), 0)}
+XOscComp     Ramp Gnd En Gnd OutSqr Gnd   COMP2INpAND
++ PARAMS: VTHRES1={VHYST+RAMPSHIFT} VTHRES2={VENTHRES} VOUTH={VOUTH} VOUTL={VOUTL} RIN=1E12
++ DELAY= {DEL} VHYST1={VHYST} VHYST2=0
+SWEn       Ramp Gnd En Gnd  S_VSWITCH_2
+COsc        Ramp Gnd {COsc} IC=0
+*.MODEL S_VSWITCH_2 VSWITCH (RON=1 ROFF=1G VON={VENTHRES-0.1*(VOUTH - VOUTL)} 
+*+ VOFF={VENTHRES+0.1*(VOUTH - VOUTL)} )
+.MODEL S_VSWITCH_2 VSWITCH (RON=1 ROFF=1G VON={VENTHRES-0.1*VENTHRES} 
++ VOFF={VENTHRES+0.1*VENTHRES} )
+GRamp Gnd OutRamp Value = {V(Ramp,Gnd) + (VOUTL-RAMPSHIFT)}
+RRamp Gnd OutRamp 1
+GSine Gnd OutSin Value = {VHYST*Sin(SIN_C*(V(Ramp,Gnd) - (VHYST+RAMPSHIFT)))+VOUTM}
+RSine Gnd OutSin 1
+.ENDS
+
+.SUBCKT Oscillator En Gnd OutRamp OutSqr
++ PARAMS: FREQ=600K DUTYCYC=0.018 RISETIME=1E-9 FALLTIME=1E-9
++ VOUTH=5 VOUTL=0 VENTHRES=2.5
+.PARAM VHYST = {(VOUTH-VOUTL)/2}
+.PARAM COsc = 1000P
+.PARAM T = { 1/FREQ }
+*.PARAM DEL = 1N
+.PARAM DEL = {MinADel}
+*.PARAM ROsc = { 1/(FREQ*COsc)*(1-DUTYCYC) }
+*.PARAM ROsc = { (T-DEL)/COsc*(1-DUTYCYC) }
+.PARAM ROsc = { Max((T-DEL), Del)/COsc*(1-DUTYCYC) }
+.PARAM IOsc = { 2*VHYST/ROsc }
+*.PARAM SWRon = { -DUTYCYC/(FREQ*(COsc*log(1-2*VHYST/(2*VHYST+100m)))) }
+*.PARAM SWRon = { MAX(-(DUTYCYC*T-DEL)/(COsc*log(1-2*VHYST/(2*VHYST+100m))), 100m) }
+.PARAM SWRon = { MAX(-Max((DUTYCYC*T-DEL),DEL)/(COsc*log(1-2*VHYST/(2*VHYST+100m))), 100m) }
+*
+GIOsc       Gnd OutRamp VALUE = {IF( (V(En,Gnd)>VENTHRES) & (V(OutSqr,Gnd)<VENTHRES), IOsc, 0)}
+XOscComp     OutRamp Gnd En Gnd OutSqr Gnd   COMP2INpAND
++ PARAMS: VTHRES1={VHYST+100m} VTHRES2={VENTHRES} VOUTH={VOUTH} VOUTL={VOUTL} RIN=1E12
++ DELAY= {DEL} VHYST1={VHYST} VHYST2=0
+SWOsc       OutRamp Gnd OutSqr Gnd  S_VSWITCH_1
+SWEn       OutRamp Gnd En Gnd  S_VSWITCH_2
+COsc        OutRamp Gnd {COsc} IC=0
+.MODEL S_VSWITCH_1 VSWITCH (RON={SWRon} ROFF=1G VON={0.6*VOUTH + 0.4*VOUTL}
++ VOFF={0.4*VOUTH + 0.6*VOUTL} )
+.MODEL S_VSWITCH_2 VSWITCH (RON={1} ROFF=1G VON={VENTHRES-0.1*(VOUTH - VOUTL)}
++ VOFF={VENTHRES+0.1*(VOUTH - VOUTL)} )
+.ENDS
+
+* CONNECTIONS:   A
+*                             |    C
+*                             |    |
+.SUBCKT D_D       1    2
+D1 1 2  DD
+.MODEL DD D( IS=1P N=1.0)
+.ENDS D_D
+
+*.Param MinADel=1N
+.Param MinADel=100p
+.SUBCKT HYSTCOMP  INP INM OUT GND
++ PARAMS: VTHRES=0 VHYST=1 VOUTH=5 VOUTL=0 ROUT=1 TDEL=1N
+*
+.PARAM DELAY = {MAX(TDEL,MinADel)}
+.PARAM RDEL = {IF ( (DELAY > 1E-15) & (ROUT < 1), 1, ROUT ) }
+.PARAM VOUTM={(VOUTH+VOUTL)/2}
+.PARAM VTHH={VTHRES+VHYST}
+.PARAM VTHL={VTHRES-VHYST}
+.PARAM COUT={DELAY/(0.693*(RDEL+1U))}
+*
+ETHR THR GND VALUE= { IF ( V(OUT,GND) < {VOUTM}, {VTHH}, {VTHL}) }
+EOUT OUT GND VALUE= { IF ( V(INP,INM) > V(THR,GND), VOUTH + RDEL*I(EOUT) , VOUTL + RDEL*I(EOUT)  ) }
+COUT OUT GND {COUT}
+.ENDS
+
+.SUBCKT HYSTCOMP_THL inp inm out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N
+X1 inp inm out gnd HYSTCOMPE_THL Params: Vthres={Vthres} Vhyst={Vhyst} VoutH={VoutH} VoutL={VoutL}
++ Rout={Rout} Tdlh={Tdlh} Tdhl={Tdhl}
+.ENDS
+
+.SUBCKT HYSTCOMPG_THL inp inm out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N
+*
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Cout={Sqrt(Tdelhl*Tdellh)/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt(Tdelhl/(Tdellh+1p))/Rdel}
+.Param Gdhl={Tdellh/(Tdelhl+1p)*Gdlh}
+*
+Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Rthr gnd thr 1
+Gout gnd out Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(out,gnd))*Gdlh, (VoutL - V(out,gnd))*Gdhl ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMPE_THL inp inm out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N
+*
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Cout={Sqrt(Tdelhl*Tdellh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdelhl/(Tdellh+1p))}
+.Param Rdhl={Tdelhl/(Tdellh+1p)*Rdlh}
+*
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) , VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+*$
+.SUBCKT HYSTCOMP_THLRF inp inm out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+X1 inp inm out gnd HYSTCOMPE_THLRF Params: Vthres={Vthres} Vhyst={Vhyst} VoutH={VoutH} VoutL={VoutL}
++ Rout={Rout} Tdlh={Tdlh} Tdhl={Tdhl} Trise={Trise} Tfall={Tfall}
+.ENDS
+
+.SUBCKT HYSTCOMPG_THLRF inp inm out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+
+Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Rthr gnd thr 1
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)), (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Couti outi gnd {Cdel}
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM), (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMPE_THLRF inp inm out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))}
+.Param Rdhl={(Tdelhl+Tdmin)/(Tdellh+Tdmin)*Rdlh}
+
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Rr={Ro/Sqrt(Tfall/(Trise+Tdmin))}
+.Param Rf={Tfall/(Trise+Tdmin)*Rr}
+
+Ethr thr gnd Value= { IF ( V(outi,gnd) < {VoutM}, {VthH}, {VthL}) }
+Eouti outi gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)), VoutH + Rdlh*I(Eouti) , VoutL + Rdhl*I(Eouti)  ) }
+Couti outi gnd {Cdel}
+Eout out gnd Value= { IF ( (V(outi, gnd) > VoutM), VoutH + Rr*I(Eout) , VoutL + Rf*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMP_EN INP INM EN OUT GND
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdel=1N Venthres=0.5
+*
+.Param Delay = {MAX(Tdel,MinADel)}
+.Param Rdel = {IF ( (Delay > 1E-15) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Cout={Delay/(0.693*(Rdel+1u))}
+*
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) | (V(en,gnd) < Venthres) , VoutH + Rdel*I(Eout) , VoutL + Rdel*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMP_RES inp inm res out GND
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Vresthres=0.5
+*
+.Param Rdel = {IF ( ((Tdlh > 1E-15)|(Tdhl > 1E-15)) & (Rout < 1), 1, Rout ) } 
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Cout={Sqrt(Tdhl*Tdlh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdhl/(Tdlh+1p))}
+.Param Rdhl={Tdhl/(Tdlh+1p)*Rdlh}
+*
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Eout out gnd Value= { IF ( (V(res,gnd) < Vresthres), IF ( (V(inp,inm) > V(thr,gnd)), VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout) ),
++ IF ( (V(inp,inm) > V(thr,gnd)), VoutH + 1u*Rdlh*I(Eout) , VoutL + 1u*Rdhl*I(Eout)  ) ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMP_THL_EN inp inm en out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Venthres=0.5
+X1 inp inm en out gnd HYSTCOMPE_THL_EN Params: Vthres={Vthres} Vhyst={Vhyst} VoutH={VoutH} VoutL={VoutL}
++ Rout={Rout} Tdlh={Tdlh} Tdhl={Tdhl} Venthres={Venthres}
+.ENDS
+
+.SUBCKT HYSTCOMPG_THL_EN inp inm en out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Venthres=0.5
+*
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Cout={Sqrt(Tdelhl*Tdellh)/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt(Tdelhl/(Tdellh+1p))/Rdel}
+.Param Gdhl={Tdellh/(Tdelhl+1p)*Gdlh}
+*
+Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Rthr gnd thr 1
+Gout gnd out Value= { IF ( (V(inp,inm) > V(thr,gnd)) & (V(en,gnd) > Venthres) , 
++ (VoutH - V(out,gnd))*Gdlh, (VoutL - V(out,gnd))*Gdhl ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMPE_THL_EN inp inm en out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Venthres=0.5
+*
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Cout={Sqrt(Tdelhl*Tdellh)/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt(Tdelhl/(Tdellh+1p))}
+.Param Rdhl={Tdelhl/(Tdellh+1p)*Rdlh}
+*
+Ethr thr gnd Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Eout out gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) & (V(en,gnd) > Venthres) , VoutH + Rdlh*I(Eout) , VoutL + Rdhl*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+*$
+.SUBCKT HYSTCOMP_THLRF_EN inp inm en out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N  Venthres=0.5
+X1 inp inm en out gnd HYSTCOMPE_THLRF_EN Params: Vthres={Vthres} Vhyst={Vhyst} VoutH={VoutH} VoutL={VoutL}
++ Rout={Rout} Tdlh={Tdlh} Tdhl={Tdhl} Trise={Trise} Tfall={Tfall} Venthres={Venthres}
+.ENDS
+
+.SUBCKT HYSTCOMPG_THLRF_EN inp inm en out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N Venthres=0.5
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Gdlh={Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))/Rdel}
+.Param Gdhl={(Tdellh+Tdmin)/(Tdelhl+Tdmin)*Gdlh}
+
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Gr={Sqrt(Tfall/(Trise+Tdmin))/Ro}
+.Param Gf={(Trise+Tdmin)/Tfall*Gr}
+
+Gthr gnd thr Value= { IF ( V(out,gnd) < {VoutM}, {VthH}, {VthL}) }
+Rthr gnd thr 1
+Gouti gnd outi Value= { IF ( (V(inp,inm) > V(thr,gnd)) & (V(en,gnd) > Venthres) , 
++ (VoutH - V(outi,gnd))*Gdlh, (VoutL - V(outi,gnd))*Gdhl ) }
+Couti outi gnd {Cdel}
+Gout gnd out Value= { IF ( (V(outi, gnd) > VoutM) & (V(en,gnd) > Venthres) , (VoutH - V(out,gnd))*Gr, (VoutL - V(out,gnd))*Gf ) }
+Cout out gnd {Cout}
+.ENDS
+
+.SUBCKT HYSTCOMPE_THLRF_EN inp inm en out gnd
++ Params: Vthres=0 Vhyst=1 VoutH=5 VoutL=0 Rout=1 Tdlh=1N Tdhl=1N Trise=1N Tfall=1N Venthres=0.5
+* Trise ->   90%*(VoutH-VoutL), Tfall -> 10%*(VoutH-VoutL)
+.PARAM Tdellh = {MAX(Tdlh,MinADel)}
+.PARAM Tdelhl = {MAX(Tdhl,MinADel)}
+.Param Rdel = {IF ( ((Tdellh > 1E-15)|(Tdelhl > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param Ro = {IF ( ((Trise > 1E-15)|(Tfall > 1E-15)) & (Rout < 1), 1, Rout ) }
+.Param VoutM={(VoutH+VoutL)/2}
+.Param VthH={Vthres+Vhyst}
+.Param VthL={Vthres-Vhyst}
+.Param Tdmin= 1p
+.Param Cdel={Sqrt((Tdelhl+Tdmin)*(Tdellh+Tdmin))/(0.693*(Rdel+1u))}
+.Param Rdlh={Rdel/Sqrt((Tdelhl+Tdmin)/(Tdellh+Tdmin))}
+.Param Rdhl={(Tdelhl+Tdmin)/(Tdellh+Tdmin)*Rdlh}
+
+.Param Cout={Sqrt(Tfall*Trise)/(2.287*(Ro+1u))}
+.Param Rr={Ro/Sqrt(Tfall/(Trise+Tdmin))}
+.Param Rf={Tfall/(Trise+Tdmin)*Rr}
+
+Ethr thr gnd Value= { IF ( V(outi,gnd) < {VoutM}, {VthH}, {VthL}) }
+Eouti outi gnd Value= { IF ( (V(inp,inm) > V(thr,gnd)) & (V(en,gnd) > Venthres) , VoutH + Rdlh*I(Eouti) , VoutL + Rdhl*I(Eouti)  ) }
+Couti outi gnd {Cdel}
+Eout out gnd Value= { IF ( (V(outi, gnd) > VoutM) & (V(en,gnd) > Venthres) , VoutH + Rr*I(Eout) , VoutL + Rf*I(Eout)  ) }
+Cout out gnd {Cout}
+.ENDS
+
+.Subckt CAPR 1 2 Params: C=10u ESR=100M
+* C = Capacitance ESR = Equivalent Series Resistance
+RS 1 12 {ESR}
+C  12  2 {C}
+.Ends
+
+.Subckt CAPR_IC 1 2 Params: C=10u ESR=100M IC=0
+* C = Capacitance ESR = Equivalent Series Resistance IC = Initial Condition
+RS 1 12 {ESR}
+C  12  2 {C}   IC={IC}
+.Ends
+
+.Subckt CAPNR 1 2 Params: N=1 C=10u ESR=100M
+* C = Capacitance ESR = Equivalent Series Resistance
+RS 1 12 {ESR/N}
+C  12  2 {N*C}   IC={IC}
+.Ends
+
+.Subckt CAPNR_IC 1 2 Params: N=1 C=10u ESR=100M IC=0
+* C = Capacitance ESR = Equivalent Series Resistance IC = Initial Condition
+RS 1 12 {ESR/N}
+C  12  2 {N*C}   IC={IC}
+.Ends
+
+.subckt DIGIFPWR_NOOPNODE  AGND DPWR DGND
+*+	optional: DPWR=$G_DPWR DGND=$G_DGND
+*+	params:   VOLTAGE=5.0v REFERENCE=0v
++	params:   VOLTAGE={DOUT_HIGH} REFERENCE=0v
+*
+VDPWR  DPWR0 DGND0  {VOLTAGE}
+R10     DPWR0 DGND0  1MEG
+*VDGND  DGND0 AGND  {REFERENCE}
+EVDGND  DGND0 0 Value= { V(AGND) +  REFERENCE }
+R20     DGND0 0  1MEG
+*VNC  G_NC AGND  
+R1 DPWR0 DPWR 1m
+R2 DGND0 DGND 1m
+*R3 G_NC $G_NC 1m
+*AC1 DGND $G_DGNDD adc_bridge1
+.model adc_bridge1 adc_bridge (in_low={VOLTAGE*0.4 + REFERENCE} in_high={VOLTAGE*0.6 + REFERENCE}
++                              rise_delay=1.0e-12 fall_delay=1.0e-12)
+.ends
+
+.SUBCKT CLOCK CLK DGND
++ PARAMS: FREQ=1MEG DUTY=0.5 OS=0 ES=1 ST=0 RT=10n OutV=5 STSTATE=0
+*.Param TD= {ST+PER/2}
+.Param TD= {ST}
+.Param TR= {RT}
+.Param TF= {RT}
+.Param PER= {1/ABS(FREQ+1u)}
+.Param PW= {PER*DUTY}
+*.Param V1= {OutV*Limit(OS,0,1)}
+*.Param V2= {OutV*Limit(ES,0,1)}
+.Param V2= {OutV*OS}
+.Param V1= {OutV*ES}
+ *V1  INITIAL VALUE
+ *V2  PULSED VALUE
+ *TD  DELAY TIME
+ *TR  RISE TIME
+ *TF  FALL TIME
+ *PW  PULSE WIDTH
+ *PER PERIOD
+*VP  CLK DGND DC 0 AC 1 0
+*VP  CLKA CLKDC DC 0 AC 1 0
+VP  CLK CLKDC DC 0 AC 1 0
++ PULSE ( {V1} {V2} {TD} {TR} {TF} {PW} {PER} )
+*+ PULSE ( {5} {0} {TD} {TR} {TF} {PW} {PER} )
+VP2  CLKDC DGND DC {STSTATE} AC 1 0
++ PULSE ( {-V1*(1-STSTATE)} 0 0 {TR} {TF} 1e11 1e12 )
+*V1  DPWR DGND {OutV}
+*XBuf CLKA CLK DPWR DGND AD_BUF_P IN_LOW={0.475*OutV} IN_HIGH={0.525*OutV}
+.ENDS
+
+.SUBCKT Digital_Source OUT DGND PARAMS: OutV=0
+V1 OUTA DGND {OUTV}
+*XBuf OUTA OUT $G_DPWR DGND AD_BUF_P  IN_LOW={0.475*OutV} IN_HIGH={0.525*OutV}
+V2  DPWR DGND {DOUT_HIGH}
+XBuf OUTA OUT DPWR DGND AD_BUF_P  IN_LOW={0.475*1} IN_HIGH={0.525*1}
+.ENDS	 
+
+.SUBCKT IC_Digital_High_Source H DGND PARAMS: VH=0
+V1 HA DGND {VH}
+*XBuf HA H $G_DPWR DGND AD_BUF_P  IN_LOW={0.475*VH} IN_HIGH={0.525*VH}
+V1  DPWR DGND {DOUT_HIGH}
+XBuf HA H DPWR DGND AD_BUF_P  IN_LOW={0.475*1} IN_HIGH={0.525*1}
+.ENDS
+
+.SUBCKT SW_SPST  Sp Sm PARAMS: DCstate=0 Ron=0 Roff=1G
+.Param Ron_={Max(Ron,1m)}
+.Param Roff_={Max(Roff,1m)}
+V_SW1  Cp 0 {DCstate}
+S_SW1  Sp Sm Cp 0 SW1
+.model SW1 SW(Ron={Ron} Roff={Roff} Vt=0.5 Vh=0.1)
+*.model SW1 VSWITCH (Ron={Ron} Roff={Roff} VON=0.6V VOFF=0.4V )
+.ENDS
+
+.SUBCKT SW_SPDT  Sm Sp Sp2 PARAMS: DCstate=0 Ron=0 Roff=1G
+.Param Ron_={Max(Ron,1m)}
+.Param Roff_={Max(Roff,1m)}
+V_SW1  Cp 0 {DCstate}
+S_SW1  Sp2 Sm Cp 0 SW1
+S_SW2  Sp  Sm Cp 0 SW2
+.model SW1 SW(Ron={Roff_} Roff={Ron_} Vt=0.5 Vh=0.1)
+.model SW2 SW(Ron={Ron_} Roff={Roff_} Vt=0.5 Vh=0.1)
+*.model SW1 VSWITCH (Ron={Ron_} Roff={Roff_} VON=0.4V VOFF=0.6V )
+*.model SW2 VSWITCH (Ron={Ron_} Roff={Roff_} VON=0.6V VOFF=0.4V )
+.ENDS
+
+.SUBCKT TctrlSW Sp Sm Params: DCstate=0 Ron=0 Roff=1G Ton=0 Toff=100n Periodic=0 Period=200n
+.Param Trise={Max(Ton, Toff)/1000}
+.Param Tdel={Min(Ton, Toff)}
+.Param Twidth={Abs(Ton-Toff)}
+.Param Per={If(Periodic > 0.5, Period, 1e12)}
+.Param V1={If(Ton > Toff, 1, 0)}
+.Param Ron_={Max(Ron,1m)}
+.Param Roff_={Max(Roff,1m)}
+*VP1         3 0 DC {DCSTATE} AC 1 0
+*+ PULSE ( {V1} {1-V1} {TDEL} {TRISE} {TRISE} {TWIDTH} {PER} )
+VP1         Cp 30 DC 0 AC 1 0
++ PULSE ( {V1} {1-V1} {TDEL} {TRISE} {TRISE} {TWIDTH} {PER} )
+VP2         30 0 DC {DCSTATE} AC 1 0
++ PULSE ( {-V1*(1-DCSTATE)} 0 0 {TRISE} {TRISE} 1e11 1e12 )
+S_SW1  Sp Sm Cp 0 SW1
+.model SW1 SW(Ron={Ron_} Roff={Roff_} Vt=0.5 Vh=0.1)
+*.model SW1 VSWITCH (Ron={Ron_} Roff={Roff_} VON=0.6V VOFF=0.4V )
+.ENDS
+
+.SUBCKT PULSE P GND
+*+ Params: V1=0 V2=1 TD=0 TR=1N TF=1N PW=1U PER=2U
++ Params: V1=0 V2=1 TD=1u TR=1N TF=1N PW=10000 PER=100000 VDC=1
+ *V1	 Initial value
+ *V2	 Pulsed value
+ *TD	 Delay time
+ *TR	 Rise time
+ *TF	 Fall time
+ *PW	 Pulse width
+ *PER Period
+VP  P Pdc DC 0 AC 1 0
++ PULSE ( {V1-VDC} {V2-VDC} {TD} {TR} {TF} {PW} {PER} )
+VPDC Pdc GND {VDC}
+.ENDS
+*
+* Connections:   A
+*                |    C
+*                |    |
+.SUBCKT D_Z      1    2 Params: ZV=5.0 IZV=1.0M
+D1 1 2  D_ZM
+.MODEL D_ZM D( IS=1p N=0.1 BV={ZV} IBV={IZV} )
+.ENDS D_Z	
+
+.SUBCKT IC_7442 A B C D O0 O1 O2 O3 O4 O5 O6 O7 O8 O9
+XU_1    48 49 51 54 O9 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_2    47 49 51 54 O8 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_3    48 50 52 53 O7 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_4    47 50 52 53 O6 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_5    48 49 52 53 O5 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_6    47 49 52 53 O4 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_7    48 50 51 53 O3 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_8    47 50 51 53 O2 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_9    48 49 51 53 O1 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_10   47 49 51 53 O0 $G_DPWR $G_DGND NAND4 PARAMS: DLH=5N DHL=5N 
+XU_11   D 54 $G_DPWR $G_DGND BUF PARAMS: DLH=25N DHL=30N 
+XU_12   C 52 $G_DPWR $G_DGND BUF PARAMS: DLH=25N DHL=30N 
+XU_13   B 50 $G_DPWR $G_DGND BUF PARAMS: DLH=25N DHL=30N 
+XU_14   A 48 $G_DPWR $G_DGND BUF PARAMS: DLH=25N DHL=30N 
+XU_15   D 53 $G_DPWR $G_DGND INV PARAMS: DLH=20N DHL=20N 
+XU_16   C 51 $G_DPWR $G_DGND INV PARAMS: DLH=20N DHL=20N 
+XU_17   B 49 $G_DPWR $G_DGND INV PARAMS: DLH=20N DHL=20N 
+XU_18   A 47 $G_DPWR $G_DGND INV PARAMS: DLH=20N DHL=20N 
+.ENDS
+
+.SUBCKT IC_7475_00 1D 2D 1_2C 3D 4D 3_4C 1Q 1Q_Neg 2Q 2Q_Neg 3Q 3Q_Neg 4Q 4Q_Neg  
+X_DH   $G_DGND DH $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_1    DH DH 3_4C 4D 4Q 257 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=27n DHL=21n
+X_2    DH DH 3_4C 3D 3Q 258 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=27n DHL=21n
+X_3    DH DH 1_2C 2D 2Q 259 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=27n DHL=21n
+X_4    DH DH 1_2C 1D 1Q 260 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=27n DHL=21n
+X_5    DH DH 3_4C 126 4Q_Neg 261 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=25n DHL=15n
+X_6    DH DH 3_4C 125 3Q_Neg 262 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=25n DHL=15n
+X_7    DH DH 1_2C 124 2Q_Neg 263 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=25n DHL=15n
+X_8    DH DH 1_2C 123 1Q_Neg 264 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=25n DHL=15n
+X_9    4D 126 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_10   3D 125 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_11   2D 124 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_12   1D 123 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+.ENDS
+
+.SUBCKT IC_7475 1D 2D 1_2C 3D 4D 3_4C 1Q 1Q_Neg 2Q 2Q_Neg 3Q 3Q_Neg 4Q 4Q_Neg
+X_DH   $G_DGND DH $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_1    DH DH 3_4C 4D 4Q 4Q_Neg $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=27n DHL=21n
+X_2    DH DH 3_4C 3D 3Q 3Q_Neg $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=27n DHL=21n
+X_3    DH DH 1_2C 2D 2Q 2Q_Neg $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=27n DHL=21n
+X_4    DH DH 1_2C 1D 1Q 1Q_Neg $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=27n DHL=21n
+.ENDS
+
+.SUBCKT IC_74HC157 1A 1B 2A 2B 3A 3B 4A 4B G_Neg A_Neg_B 1Y 2Y 3Y 4Y
+X_1      137 138 4Y $G_DPWR $G_DGND OR2 PARAMS: DLH=19N DHL=19N 
+X_2    135 136 3Y $G_DPWR $G_DGND OR2 PARAMS: DLH=19N DHL=19N 
+X_3    133 134 2Y $G_DPWR $G_DGND OR2 PARAMS: DLH=19N DHL=19N 
+X_4    131 132 1Y $G_DPWR $G_DGND OR2 PARAMS: DLH=19N DHL=19N 
+X_5    4B 130 138 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_6    4A 129 137 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_7    3B 130 136 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_8    3A 129 135 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_9    2B 130 134 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_10   2A 129 133 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_11   1B 130 132 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_12   1A 129 131 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_13   127 A_Neg_B 130 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_14   127 128 129 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_15   A_Neg_B 128 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_16   G_Neg 127 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+.ENDS
+
+.SUBCKT IC_74163 CLR_Neg LOAD_Neg ENT ENP CLK A B C D RCO QA QB QC QD
+XU_1    $G_DGND 85 $G_DPWR $G_DGND INV PARAMS: DLH=31N DHL=31N 
+XU_2    62 QD $G_DPWR $G_DGND BUF PARAMS: DLH=31N DHL=31N 
+XU_3    61 QC $G_DPWR $G_DGND BUF PARAMS: DLH=31N DHL=31N 
+XU_4    60 QB $G_DPWR $G_DGND BUF PARAMS: DLH=31N DHL=31N 
+XU_5    59 QA $G_DPWR $G_DGND BUF PARAMS: DLH=31N DHL=31N 
+XU_6    85 85 CLK 84 62 89 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=3N DHL=3N IOMOD=1 InMode=1 OutMode=1
+XU_7    85 85 CLK 79 61 88 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=3N DHL=3N IOMOD=1 InMode=1 OutMode=1
+XU_8    85 85 CLK 74 60 87 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=3N DHL=3N IOMOD=1 InMode=1 OutMode=1
+XU_9    85 85 CLK 69 59 86 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=3N DHL=3N IOMOD=1 InMode=1 OutMode=1
+XU_10   82 83 84 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+XU_11   64 D 83 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_12   80 81 82 $G_DPWR $G_DGND XOR PARAMS: DLH=0 DHL=0 
+XU_13   63 59 60 61 81 $G_DPWR $G_DGND AND4 PARAMS: DLH=0 DHL=0 
+XU_14   65 62 80 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_15   77 78 79 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+XU_16   64 C 78 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_17   75 76 77 $G_DPWR $G_DGND XOR PARAMS: DLH=0 DHL=0 
+XU_18   63 59 60 76 $G_DPWR $G_DGND AND3 PARAMS: DLH=0 DHL=0 
+XU_19   65 61 75 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_20   72 73 74 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+XU_21   64 B 73 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_22   70 71 72 $G_DPWR $G_DGND XOR PARAMS: DLH=0 DHL=0 
+XU_23   63 59 71 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_24   65 60 70 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_25   67 68 69 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+XU_26   64 A 68 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_27   66 63 67 $G_DPWR $G_DGND XOR PARAMS: DLH=0 DHL=0 
+XU_28   65 59 66 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+XU_29   ENT 58 RCO $G_DPWR $G_DGND AND2 PARAMS: DLH=32N DHL=32N 
+XU_30   59 60 61 62 58 $G_DPWR $G_DGND AND4 PARAMS: DLH=0 DHL=0 
+XU_31   56 57 65 $G_DPWR $G_DGND NOR2 PARAMS: DLH=0 DHL=0 
+XU_32   LOAD_Neg 57 64 $G_DPWR $G_DGND NOR2 PARAMS: DLH=0 DHL=0 
+XU_33   55 57 63 $G_DPWR $G_DGND NOR2 PARAMS: DLH=0 DHL=0 
+XU_34   CLR_Neg 57 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+XU_35   LOAD_Neg 56 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+XU_36   ENP LOAD_Neg ENT 55 $G_DPWR $G_DGND NAND3 PARAMS: DLH=0 DHL=0 
+.ENDS
+
+.SUBCKT IC_74164 CLR_Neg CLK A B QA QB QC QD QE QF QG QH
+X_1      $G_DGND 213 $G_DPWR $G_DGND INV PARAMS: DLH=20N DHL=20N 
+X_2    211 QH $G_DPWR $G_DGND BUF PARAMS: DLH=20N DHL=20N 
+X_3    210 QG $G_DPWR $G_DGND BUF PARAMS: DLH=20N DHL=20N 
+X_4    209 QF $G_DPWR $G_DGND BUF PARAMS: DLH=20N DHL=20N 
+X_5    208 QE $G_DPWR $G_DGND BUF PARAMS: DLH=20N DHL=20N 
+X_6    207 QD $G_DPWR $G_DGND BUF PARAMS: DLH=20N DHL=20N 
+X_7    206 QC $G_DPWR $G_DGND BUF PARAMS: DLH=20N DHL=20N 
+X_8    205 QB $G_DPWR $G_DGND BUF PARAMS: DLH=20N DHL=20N 
+X_9    204 QA $G_DPWR $G_DGND BUF PARAMS: DLH=20N DHL=20N 
+X_10   213 CLR_Neg CLK 210 211 221 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=10N DHL=10N IOMOD=1 InMode=1 OutMode=1
+X_11   213 CLR_Neg CLK 209 210 220 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=10N DHL=10N IOMOD=1 InMode=1 OutMode=1
+X_12   213 CLR_Neg CLK 208 209 219 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=10N DHL=10N IOMOD=1 InMode=1 OutMode=1
+X_13   213 CLR_Neg CLK 207 208 218 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=10N DHL=10N IOMOD=1 InMode=1 OutMode=1
+X_14   213 CLR_Neg CLK 206 207 217 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=10N DHL=10N IOMOD=1 InMode=1 OutMode=1
+X_15   213 CLR_Neg CLK 205 206 216 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=10N DHL=10N IOMOD=1 InMode=1 OutMode=1
+X_16   213 CLR_Neg CLK 204 205 215 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=10N DHL=10N IOMOD=1 InMode=1 OutMode=1
+X_17   213 CLR_Neg CLK 212 204 214 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=10N DHL=10N IOMOD=1 InMode=1 OutMode=1
+X_18   A B 212 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+.ENDS
+
+.SUBCKT IC_74165 SH_LD_Neg CLKINH CLK SER A B C D E F G H QH Q_NegH
+X_1      179 Q_NegH $G_DPWR $G_DGND BUF PARAMS: DLH=0 DHL=0 
+X_2    178 QH $G_DPWR $G_DGND BUF PARAMS: DLH=0 DHL=0 
+X_3    188 196 170 177 178 179 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=1N DHL=1N IOMOD=1 InMode=1 OutMode=1
+X_4    187 195 170 176 177 203 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=1N DHL=1N IOMOD=1 InMode=1 OutMode=1
+X_5    186 194 170 175 176 202 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=1N DHL=1N IOMOD=1 InMode=1 OutMode=1
+X_6    185 193 170 174 175 201 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=1N DHL=1N IOMOD=1 InMode=1 OutMode=1
+X_7    184 192 170 173 174 200 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=1N DHL=1N IOMOD=1 InMode=1 OutMode=1
+X_8    183 191 170 172 173 199 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=1N DHL=1N IOMOD=1 InMode=1 OutMode=1
+X_9    182 190 170 171 172 198 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=1N DHL=1N IOMOD=1 InMode=1 OutMode=1
+X_10   181 189 170 168 171 197 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=1N DHL=1N IOMOD=1 InMode=1 OutMode=1
+X_11   167 188 196 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_12   167 187 195 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_13   167 186 194 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_14   167 185 193 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_15   167 184 192 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_16   167 183 191 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_17   167 182 190 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_18   167 181 189 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_19   167 H 188 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_20   167 G 187 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_21   167 F 186 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_22   167 E 185 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_23   167 D 184 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_24   167 C 183 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_25   167 B 182 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_26   167 A 181 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_27   180 169 170 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+X_28   SH_LD_Neg CLKINH 169 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_29   CLK SH_LD_Neg 180 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_30   SER 168 $G_DPWR $G_DGND BUF PARAMS: DLH=0 DHL=0 
+X_31   SH_LD_Neg 167 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+.ENDS
+
+.SUBCKT IC_74193 CLR UP DOWN LOAD_Neg A B C D CO_Neg BO_Neg QA QB QC QD
+X_1      $G_DGND 256 $G_DPWR $G_DGND INV PARAMS: DLH=5N DHL=5N 
+X_2    234 QD $G_DPWR $G_DGND BUF PARAMS: DLH=5N DHL=5N 
+X_3    232 QC $G_DPWR $G_DGND BUF PARAMS: DLH=5N DHL=5N 
+X_4    230 QB $G_DPWR $G_DGND BUF PARAMS: DLH=5N DHL=5N 
+X_5    228 QA $G_DPWR $G_DGND BUF PARAMS: DLH=5N DHL=5N 
+X_6    228 230 232 234 237 CO_Neg $G_DPWR $G_DGND NAND5 PARAMS: DLH=11N DHL=13N 
+X_7    236 229 231 233 235 BO_Neg $G_DPWR $G_DGND NAND5 PARAMS: DLH=11N DHL=13N 
+X_8    241 255 227 256 256 234 235 $G_DPWR $G_DGND JKFF
++ PARAMS: DLH=9N DHL=7N IOMOD=1 InMode=1 OutMode=1
+X_9    240 254 226 256 256 232 233 $G_DPWR $G_DGND JKFF
++ PARAMS: DLH=9N DHL=7N IOMOD=1 InMode=1 OutMode=1
+X_10   239 253 225 256 256 230 231 $G_DPWR $G_DGND JKFF
++ PARAMS: DLH=9N DHL=7N IOMOD=1 InMode=1 OutMode=1
+X_11   238 252 224 256 256 228 229 $G_DPWR $G_DGND JKFF
++ PARAMS: DLH=9N DHL=7N IOMOD=1 InMode=1 OutMode=1
+*X_12   246 247 227 $G_DPWR $G_DGND NOR2 PARAMS: DLH=0 DHL=0 
+*X_13   244 245 226 $G_DPWR $G_DGND NOR2 PARAMS: DLH=0 DHL=0 
+*X_14   242 243 225 $G_DPWR $G_DGND NOR2 PARAMS: DLH=0 DHL=0 
+*X_15   236 237 224 $G_DPWR $G_DGND NOR2 PARAMS: DLH=0 DHL=0 
+X_12   246 247 227 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+X_13   244 245 226 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+X_14   242 243 225 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+X_15   236 237 224 $G_DPWR $G_DGND OR2 PARAMS: DLH=0 DHL=0 
+X_16   LOAD_Neg 223 $G_DPWR $G_DGND INV PARAMS: DLH=15N DHL=13N 
+X_17   CLR 222 $G_DPWR $G_DGND INV PARAMS: DLH=2N DHL=2N 
+X_18   222 251 255 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_19   222 250 254 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_20   222 249 253 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_21   222 248 252 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_22   241 223 251 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_23   240 223 250 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_24   239 223 249 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_25   238 223 248 $G_DPWR $G_DGND NAND2 PARAMS: DLH=0 DHL=0 
+X_26   228 230 232 237 247 $G_DPWR $G_DGND AND4 PARAMS: DLH=0 DHL=0 
+X_27   236 229 231 233 246 $G_DPWR $G_DGND AND4 PARAMS: DLH=0 DHL=0 
+X_28   228 230 237 245 $G_DPWR $G_DGND AND3 PARAMS: DLH=0 DHL=0 
+X_29   236 229 231 244 $G_DPWR $G_DGND AND3 PARAMS: DLH=0 DHL=0 
+X_30   228 237 243 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_31   236 229 242 $G_DPWR $G_DGND AND2 PARAMS: DLH=0 DHL=0 
+X_32   D 223 222 241 $G_DPWR $G_DGND NAND3 PARAMS: DLH=0 DHL=0 
+X_33   C 223 222 240 $G_DPWR $G_DGND NAND3 PARAMS: DLH=0 DHL=0 
+X_34   B 223 222 239 $G_DPWR $G_DGND NAND3 PARAMS: DLH=0 DHL=0 
+X_35   A 223 222 238 $G_DPWR $G_DGND NAND3 PARAMS: DLH=0 DHL=0 
+X_36   UP 237 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_37   DOWN 236 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+.ENDS	  
+
+
+.SUBCKT IC_74244 1G_Neg 1A1 1A2 1A3 1A4 2G_Neg 2A1 2A2 2A3 2A4 1Y1 1Y2 1Y3 1Y4 
++ 2Y1 2Y2 2Y3 2Y4 
+X_1      164 166 2Y4 $G_DPWR $G_DGND BUF3 PARAMS: DLH=1N DHL=1N 
+X_2    163 166 2Y3 $G_DPWR $G_DGND BUF3 PARAMS: DLH=1N DHL=1N 
+X_3    162 166 2Y2 $G_DPWR $G_DGND BUF3 PARAMS: DLH=1N DHL=1N 
+X_4    161 166 2Y1 $G_DPWR $G_DGND BUF3 PARAMS: DLH=1N DHL=1N 
+X_5    160 165 1Y4 $G_DPWR $G_DGND BUF3 PARAMS: DLH=1N DHL=1N 
+X_6    159 165 1Y3 $G_DPWR $G_DGND BUF3 PARAMS: DLH=1N DHL=1N 
+X_7    158 165 1Y2 $G_DPWR $G_DGND BUF3 PARAMS: DLH=1N DHL=1N 
+X_8    157 165 1Y1 $G_DPWR $G_DGND BUF3 PARAMS: DLH=1N DHL=1N 
+X_9    2G_Neg 166 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_10   1G_Neg 165 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_11   2A4 164 $G_DPWR $G_DGND BUF PARAMS: DLH=1N DHL=1N 
+X_12   2A3 163 $G_DPWR $G_DGND BUF PARAMS: DLH=1N DHL=1N 
+X_13   2A2 162 $G_DPWR $G_DGND BUF PARAMS: DLH=1N DHL=1N 
+X_14   2A1 161 $G_DPWR $G_DGND BUF PARAMS: DLH=1N DHL=1N 
+X_15   1A4 160 $G_DPWR $G_DGND BUF PARAMS: DLH=1N DHL=1N 
+X_16   1A3 159 $G_DPWR $G_DGND BUF PARAMS: DLH=1N DHL=1N 
+X_17   1A2 158 $G_DPWR $G_DGND BUF PARAMS: DLH=1N DHL=1N 
+X_18   1A1 157 $G_DPWR $G_DGND BUF PARAMS: DLH=1N DHL=1N 
+.ENDS
+
+.SUBCKT IC_74273 CLR_Neg CLK 1D 2D 3D 4D 5D 6D 7D 8D 1Q 2Q 3Q 4Q 5Q 6Q 7Q 8Q
+X_1      $G_DGND 148 $G_DPWR $G_DGND INV PARAMS: DLH=27N DHL=27N 
+X_2    148 CLR_Neg CLK 8D 8Q 156 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=27N DHL=27N IOMOD=1 InMode=1 OutMode=1
+X_3    148 CLR_Neg CLK 7D 7Q 155 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=27N DHL=27N IOMOD=1 InMode=1 OutMode=1
+X_4    148 CLR_Neg CLK 6D 6Q 154 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=27N DHL=27N IOMOD=1 InMode=1 OutMode=1
+X_5    148 CLR_Neg CLK 5D 5Q 153 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=27N DHL=27N IOMOD=1 InMode=1 OutMode=1
+X_6    148 CLR_Neg CLK 4D 4Q 152 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=27N DHL=27N IOMOD=1 InMode=1 OutMode=1
+X_7    148 CLR_Neg CLK 3D 3Q 151 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=27N DHL=27N IOMOD=1 InMode=1 OutMode=1
+X_8    148 CLR_Neg CLK 2D 2Q 150 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=27N DHL=27N IOMOD=1 InMode=1 OutMode=1
+X_9    148 CLR_Neg CLK 1D 1Q 149 $G_DPWR $G_DGND DFF_PE
++ PARAMS: DLH=27N DHL=27N IOMOD=1 InMode=1 OutMode=1
+.ENDS
+
+.SUBCKT IC_74373 OC_Neg C 1D 2D 3D 4D 5D 6D 7D 8D 1Q 2Q 3Q 4Q 5Q 6Q 7Q 8Q
+X_DH   $G_DGND DH $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+X_1      146 147 8Q $G_DPWR $G_DGND BUF3 PARAMS: DLH=37N DHL=37N 
+X_2    145 147 7Q $G_DPWR $G_DGND BUF3 PARAMS: DLH=37N DHL=37N 
+X_3    144 147 6Q $G_DPWR $G_DGND BUF3 PARAMS: DLH=37N DHL=37N 
+X_4    143 147 5Q $G_DPWR $G_DGND BUF3 PARAMS: DLH=37N DHL=37N 
+X_5    142 147 4Q $G_DPWR $G_DGND BUF3 PARAMS: DLH=37N DHL=37N 
+X_6    141 147 3Q $G_DPWR $G_DGND BUF3 PARAMS: DLH=37N DHL=37N 
+X_7    140 147 2Q $G_DPWR $G_DGND BUF3 PARAMS: DLH=37N DHL=37N 
+X_8    139 147 1Q $G_DPWR $G_DGND BUF3 PARAMS: DLH=37N DHL=37N 
+X_9    DH DH C 8D 146 265 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=0 DHL=0 IOMOD=1 InMode=1 OutMode=1
+X_10   DH DH C 7D 145 266 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=0 DHL=0 IOMOD=1 InMode=1 OutMode=1
+X_11   DH DH C 6D 144 267 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=0 DHL=0 IOMOD=1 InMode=1 OutMode=1
+X_12   DH DH C 5D 143 268 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=0 DHL=0 IOMOD=1 InMode=1 OutMode=1
+X_13   DH DH C 4D 142 269 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=0 DHL=0 IOMOD=1 InMode=1 OutMode=1
+X_14   DH DH C 3D 141 270 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=0 DHL=0 IOMOD=1 InMode=1 OutMode=1
+X_15   DH DH C 2D 140 271 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=0 DHL=0 IOMOD=1 InMode=1 OutMode=1
+X_16   DH DH C 1D 139 272 $G_DPWR $G_DGND DLTCH
++ PARAMS: DLH=0 DHL=0 IOMOD=1 InMode=1 OutMode=1
+X_17   OC_Neg 147 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+.ENDS
+
+.SUBCKT IC_74688 G_Neg1 P0 P1 P2 P3 P4 P5 P6 P7 Q0 Q1 Q2 Q3 Q4 Q5 Q6 Q7 PeQ_Neg 
+XU_1    90 91 92 93 94 95 96 97 98 PeQ_Neg $G_DPWR $G_DGND NAND9 PARAMS: DLH=18N DHL=20N 
+XU_2    G_Neg1 98 $G_DPWR $G_DGND INV PARAMS: DLH=0 DHL=0 
+XU_3    Q0 P0 97 $G_DPWR $G_DGND NXOR PARAMS: DLH=10N DHL=4N 
+XU_4    Q1 P1 96 $G_DPWR $G_DGND NXOR PARAMS: DLH=10N DHL=4N 
+XU_5    Q2 P2 95 $G_DPWR $G_DGND NXOR PARAMS: DLH=10N DHL=4N 
+XU_6    Q3 P3 94 $G_DPWR $G_DGND NXOR PARAMS: DLH=10N DHL=4N 
+XU_7    Q4 P4 93 $G_DPWR $G_DGND NXOR PARAMS: DLH=10N DHL=4N 
+XU_8    Q5 P5 92 $G_DPWR $G_DGND NXOR PARAMS: DLH=10N DHL=4N 
+XU_9    Q6 P6 91 $G_DPWR $G_DGND NXOR PARAMS: DLH=10N DHL=4N 
+XU_10   Q7 P7 90 $G_DPWR $G_DGND NXOR PARAMS: DLH=10N DHL=4N 
+.ENDS
+

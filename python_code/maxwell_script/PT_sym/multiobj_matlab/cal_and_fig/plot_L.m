@@ -58,11 +58,11 @@ set(gca, 'YGrid', 'on');% 显示网格
 frame = getframe(fig); % 获取frame
 img = frame2im(frame); % 将frame变换成imwrite函数可以识别的格式
 
-path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\cal_quasi_area\fuzai\';
+path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\cal_quasi_area\step2 maxR14\';
 %imwrite(img,[path,'K_Var_',num2str(Var_mean),';Mean_',num2str(Mean_mean),'.png']); % 保存到工作目录下
-imwrite(img,[path,'tw=',num2str(paralist.send_tw*100),';over=',num2str(paralist.overlay*100),';N=',num2str(paralist.send_N),...
-    ';rd=',num2str(round(canshu4,2)),';recR=',num2str(paralist.rec_maxR*100),';maxR=',...
-    num2str(paralist.send_maxR*100), ';Qua=', num2str(round(zhunarea,2)*100),'%', ';Cop=', num2str(round(decay,2)), ';L=',num2str(L_array,'%.2f'),'uH','.png']); % 保存到工作目录下
+%  imwrite(img,[path,'tw=',num2str(paralist.send_tw*100),';over=',num2str(paralist.overlay*100),';N=',num2str(paralist.send_N),...
+%      ';rd=',num2str(round(canshu4,2)),';recR=',num2str(paralist.rec_maxR*100),';maxR=',...
+%      num2str(paralist.send_maxR*100), ';Qua=', num2str(round(zhunarea,2)*100),'%', ';Cop=', num2str(round(decay,2)), ';L=',num2str(L_array,'%.2f'),'uH','.png']); % 保存到工作目录下
 
 end
 

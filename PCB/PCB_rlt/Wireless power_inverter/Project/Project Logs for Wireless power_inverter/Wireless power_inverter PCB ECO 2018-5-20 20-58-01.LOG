@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=Q11 Old Footprint=IRL100HS121 New Footprint=mixmos
+Change Component Footprint: Designator=Q12 Old Footprint=IRL100HS121 New Footprint=mixmos
+Change Component Footprint: Designator=Q21 Old Footprint=IRL100HS121 New Footprint=mixmos
+Change Component Footprint: Designator=Q22 Old Footprint=IRL100HS121 New Footprint=mixmos
+Added Room: Name=Wireless power_inverter

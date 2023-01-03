@@ -26,7 +26,7 @@ while 1
         n = round(rd*maxR/tw);
         % 仿真计算
         % 计算独立线圈
-        [a, b, c, d] = single_unit_plot(tw, 0, n, maxR, 1);
+        [a, b, c, d] = single_unit_plot(tw, 1, n, maxR, 1);
         
         
         % 判断有效发射面积是否符合设定值
@@ -83,8 +83,13 @@ while 1
     disp('go on');
     
 end
-%%  第一步细节优化  得到结果：rd 0.47  lpp 19  overlay为10 xy双方向考虑下的最优结构参数
-%                   %得到结果：rd 0.31  lpp 13  overlay为4.6 xy双方向考虑下的最优结构参数
+%%  第一步细节优化  
+%得到结果：rd 0.47  lpp 19  overlay为10 xy双方向考虑下的最优结构参数
+%得到结果：rd 0.25  lpp 13  overlay为4.6  双单元 quasi0.63  单单元0.39     
+%得到结果：rd 0.25  lpp 14  overlay为4.3  双单元 quasi0.68  单单元0.46
+%得到结果  rd 0.3    lpp 15  overlay 5.3   双单元 quasi0.69  单单元0.44          
+%得到结果：rd 0.35   lpp 17   overlay  6.7   双单元quasi0.53   单单元0.49   
+%    lpp越大，quasi越大，但是双单元波动也会越来越大  直到不满足5%限制
 
 clear;
 tw = 1;
@@ -169,18 +174,18 @@ end
 %%  根据固定rd  直接遍历所有可能的导线匝数N  计算铜耗量、互感、耦合系数、准均匀百分比quasi
 clear;
 delta_N = 1;
-maxR = 19;
+maxR = 14;
 N_first = 2;
 
 N = N_first;
-rd = 0.47;
-overlay = 10;
+rd = 0.25;
+overlay = 4.3;
 result = [];
 while 1
     % 计算tw
     tw = round(maxR*rd/(N-1),2);
     % 仿真计算
-    [a, b, c, d] = single_unit_plot(tw, 10, N, maxR, 2);
+    [a, b, c, d] = single_unit_plot(tw, overlay, N, maxR, 2);
     
     % 计算绕组长度
     decay = 0;
@@ -189,9 +194,9 @@ while 1
         decay = decay+r;
     end
     result = [result; decay*2, a, b, tw, rd, N, c];
-    save('D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\history_record\step2.mat','result')
+    save('D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\history_record\step2 maxR14.mat','result')
     
-    if N<25
+    if N<19
         N = N + delta_N;
     else
         break;
@@ -202,10 +207,10 @@ end
 %% 加载第二步计算结果  并绘图
 clear;
 addpath('D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\history_record');
-result = importdata('step2_xy.mat');
+result = importdata('step2 maxR14.mat');
 
-% 读取绕组总长
-dec = result(:,1);
+% 读取绕组总长 并换算成米
+dec = result(:,1)/100;
 
 % 读取单元耦合系数
 k = result(:,7:end);
@@ -215,6 +220,12 @@ k = k(:,round(c/2));
 % 读取均匀区域
 quasi = result(:,3);
 
+% 计算阵列互感
+mc = result(:,2)*20;
+
+% 计算自感
+L_array = (mc./k).^2/110;
+
 % 结果汇总
 rrr = [result(:,1:6), k];
 
@@ -222,6 +233,11 @@ figure('color','w');
 plot(k(:,1), dec(:,1),'pr');
 xlabel(['耦合系数'],'fontsize',10);
 ylabel(['绕组总长'],'fontsize',10);
+
+figure('color','w');
+plot(sqrt(L_array(:,1)), mc(:,1),'pr');
+xlabel(['自感'],'fontsize',10);
+ylabel(['互感'],'fontsize',10);
 
 figure('color','w');
 plot3(k(:,1), dec(:,1), quasi(:,1),'pr');

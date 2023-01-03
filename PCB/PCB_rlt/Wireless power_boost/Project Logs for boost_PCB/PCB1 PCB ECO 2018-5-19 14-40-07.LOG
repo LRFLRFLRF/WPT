@@ -1,0 +1,6 @@
+Added Component: Designator=s£¿(Switch_8.2*5.2)
+Added Pin To Net: NetName=NetD4_2 Pin=s£¿-1
+Added Pin To Net: NetName=NetK1_1 Pin=s£¿-2
+Added Pin To Net: NetName=NetK1_1 Pin=s£¿-2
+Added Member To Class: ClassName=boost_sheet Member=Component s£¿ switch1
+Added Room: Name=boost_sheet

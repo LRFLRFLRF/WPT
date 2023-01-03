@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=NetP2_2 Pin=P3-8
+Added Pin To Net: NetName=NetP2_2 Pin=P3-7
+Added Pin To Net: NetName=NetP3_8 Pin=P3-8
+Added Pin To Net: NetName=NetP3_8 Pin=R4-1
+Added Pin To Net: NetName=NetP3_8 Pin=R5-2
+Added Net: Name=NetP3_8
+Added Room: Name=boost_sheet

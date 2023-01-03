@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=D1 Old Footprint=1N4148_Stand New Footprint=BYV26
+Change Component Footprint: Designator=D4 Old Footprint=1N4148_Stand New Footprint=BYV26
+Change Component Footprint: Designator=D6 Old Footprint=1N4148_Stand New Footprint=BYV26
+Change Component Footprint: Designator=D9 Old Footprint=1N4148_Stand New Footprint=BYV26
+Added Room: Name=inverter_2EDF7275K

@@ -1,0 +1,3 @@
+Change Component Footprint: Designator=C3 Old Footprint=Cap New Footprint=cb2
+Change Component Footprint: Designator=C4 Old Footprint=Cap New Footprint=CB2
+Added Room: Name=boost_sheet

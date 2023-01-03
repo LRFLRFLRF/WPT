@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=POWER Pin=F1-1
+Removed Member From Class: ClassName=inverter_2EDF7275K Member=F1
+Added Pin To Net: NetName=POWER Pin=P2-1
+Added Member To Class: ClassName=inverter_2EDF7275K Member=Component Q1 BSC13DN30NSFD
+Added Room: Name=inverter_2EDF7275K

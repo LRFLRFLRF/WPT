@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/python_code/maxwell_script" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/python_code/Quasi_Uniform" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/python_code/mopso-master/mopso-master" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_code/maxwell_script/PT_sym/python_ansys" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/Omnidirection/COIL.aedtresults" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/Omnidirection/coil1.aedtresults" />
       <excludeFolder url="file://$MODULE_DIR$/ansys/Omnidirection/coil_array.aedtresults" />

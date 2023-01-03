@@ -1,0 +1,29 @@
+Removed Pin From Net: NetName=NetC11_2 Pin=R12-1
+Removed Pin From Net: NetName=NetD11_1 Pin=R12-2
+Removed Pin From Net: NetName=NetC21_2 Pin=R22-1
+Removed Pin From Net: NetName=NetD21_1 Pin=R22-2
+Removed Member From Class: ClassName=Wireless power_inverter Member=R12
+Removed Member From Class: ClassName=Wireless power_inverter Member=R22
+Change Component Footprint: Designator=C3 Old Footprint=CB2 New Footprint=0805C
+Change Component Footprint: Designator=C1 Old Footprint=CB2 New Footprint=1210
+Added Component: Designator=C13(0805C)
+Added Component: Designator=C23(0805C)
+Added Component: Designator=D1(DIODE-0.7)
+Added Component: Designator=D13(DIODE-0.7)
+Added Component: Designator=D23(DIODE-0.7)
+Added Pin To Net: NetName=AGND Pin=C13-1
+Added Pin To Net: NetName=+12 Pin=C13-2
+Added Pin To Net: NetName=AGND Pin=C23-1
+Added Pin To Net: NetName=+12 Pin=C23-2
+Added Pin To Net: NetName=AGND Pin=D1-1
+Added Pin To Net: NetName=+12 Pin=D1-2
+Added Pin To Net: NetName=NetC11_2 Pin=D13-1
+Added Pin To Net: NetName=NetD11_1 Pin=D13-2
+Added Pin To Net: NetName=NetC21_2 Pin=D23-1
+Added Pin To Net: NetName=NetD21_1 Pin=D23-2
+Added Member To Class: ClassName=Wireless power_inverter Member=Component C13 Cap
+Added Member To Class: ClassName=Wireless power_inverter Member=Component C23 Cap
+Added Member To Class: ClassName=Wireless power_inverter Member=Component D1 1N4742
+Added Member To Class: ClassName=Wireless power_inverter Member=Component D13 1N4740
+Added Member To Class: ClassName=Wireless power_inverter Member=Component D23 1N4740
+Added Room: Name=Wireless power_inverter

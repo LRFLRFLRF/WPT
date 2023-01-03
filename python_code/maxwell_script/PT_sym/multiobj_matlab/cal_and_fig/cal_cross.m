@@ -4,8 +4,8 @@ function [Self_inductance_ratio, Cross_MI_ratio] = cal_cross(canshu1, canshu2, c
 addpath('D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab');
 addpath('D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_fig\xkcd_rgb_v1.5\XKCD_RGB');
 %%设定线圈参数及仿真参数
-para.send_maxR = 15; %最大半径15cm
-para.send_tw = canshu1;%0.5; %绕组匝间距
+para.send_maxR = 14; %最大半径15cm
+para.send_tw = 0.378;%0.5; %绕组匝间距
 para.aux_tw = 0;  %辅助线圈匝间距
 para.overlay = canshu2;%10;   %阵列单元重叠度
 para.send_N = canshu3;    % 发射线圈匝数

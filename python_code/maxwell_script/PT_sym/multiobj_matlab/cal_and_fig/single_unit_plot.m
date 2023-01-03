@@ -123,7 +123,8 @@ for i = 1:paralist.send_N
     decay = decay+r;
 end
 rd = (paralist.send_N-1)*paralist.send_tw/paralist.send_maxR;
-plot_M(sweeplist, paralist, res1,Var,Mean, rd, zhunarea, decay);
+%%绘制单匝Rx的互感计算值
+%plot_M(sweeplist, paralist, res1,Var,Mean, rd, zhunarea, decay);
 
 %% 计算阵列自感
 L_array = cal_unit_L(paralist, sweeplist);
@@ -133,12 +134,36 @@ L_array = cal_unit_L(paralist, sweeplist);
 % res1=res1.*10;
 % k = res1(:,:)./sqrt(17.66*L_array);
 
-% 假设接收线圈3层8匝  自感110uH  互感约为单匝的20倍
-res1=res1.*20;
-k = res1(:,:)./sqrt(110*L_array);
+% 假设接收线圈3层8匝  真实自感72uH  互感约为单匝计算值的14.6倍
+res=res1.*14.6;
+if canshu5 ==1  %%真实的单元和2x1自感
+    L_array = 59.522;
+elseif canshu5 ==2
+    L_array = 105.41;
+end 
+k = res(:,:)./sqrt(72*L_array);
 
 %k = 0;
 %% 绘图  耦合系数
 plot_L(paralist,sweeplist, k,Var,Mean, rd, zhunarea,decay, L_array)
+
+
+%% 绘图  绘制整个Rx的计算互感
+plot_M(sweeplist, paralist, res,Var,Mean, rd, zhunarea, decay);
+
+%% 下面是用于导出数据的代码 用于origin绘图 平时不用！！！
+% %单Tx互感计算结果导出
+% x = sweeplist.start_p:sweeplist.lens:sweeplist.end_p;
+% x = x.*100;
+% RESULT = [x', res'];
+% % 保存结果到mat 
+% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\single_Tx_MQ.mat','RESULT');
+
+% %双Tx的2x1阵列互感计算结果导出
+x = sweeplist.start_p:sweeplist.lens:sweeplist.end_p;
+x = x.*100;
+RESULT = [x', res'];
+% % 保存结果到mat 
+% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\double_Tx_MQ.mat','RESULT');
 
 end

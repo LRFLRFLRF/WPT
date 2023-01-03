@@ -1,0 +1,7 @@
+Added Component: Designator=K1(HHC66A-1Z-12VDCµçÎ»Æ÷)
+Added Pin To Net: NetName=NetD4_2 Pin=K1-1
+Added Pin To Net: NetName=+12 Pin=K1-3
+Added Pin To Net: NetName=NetD4_2 Pin=K1-A
+Added Pin To Net: NetName=NetD4_1 Pin=K1-B
+Added Member To Class: ClassName=boost_sheet Member=Component K1 HHC66A-1Z-12VDC
+Added Room: Name=boost_sheet

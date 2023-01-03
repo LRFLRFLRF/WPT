@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=+3V3 Pin=P3-1
+Added Component: Designator=S2(Switch_8.2*5.2)
+Added Pin To Net: NetName=+3V3 Pin=S2-1
+Added Pin To Net: NetName=NetP3_1 Pin=P3-1
+Added Pin To Net: NetName=NetP3_1 Pin=S2-2
+Added Net: Name=NetP3_1
+Added Member To Class: ClassName=inverter_2EDF7275K Member=Component S2 switch1
+Added Room: Name=inverter_2EDF7275K

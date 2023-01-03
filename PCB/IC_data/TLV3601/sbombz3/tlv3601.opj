@@ -1,0 +1,70 @@
+(ExpressProject "TLV3601"
+  (ProjectVersion "19981106")
+  (SoftwareVersion "17.4-2019 S018 (3945310)  [5/16/2021]-[11/05/21]")
+  (ProjectType "Analog or A/D Mixed Mode")
+  (Folder "Design Resources"
+    (Folder "Library"
+      (File ".\library\tlv3601.olb"
+        (Type "Schematic Library")))
+    ("Allegro Netlist Directory" "allegro")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "61215")
+    (NoModify)
+    (File ".\tlv3601.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
+  (Folder "Layout")
+  (Folder "Outputs"
+    (File ".\tlv3601-pspicefiles\schematic1\schematic1.net"
+      (Type "Report")))
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles"
+      (ActiveProfile ".\tlv3601-pspicefiles\schematic1\test1.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\tlv3601-pspicefiles\schematic1\test1.sim"
+        (DisplayName "SCHEMATIC1-test1")
+        (Type "PSpice Profile")))
+    (Folder "Model Libraries"
+      (Sort User)
+      (File ".\tlv3601.lib"
+        (Type "PSpiceLibrary")
+        (DisplayName ".\tlv3601.lib")))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User)))
+  (DefaultLibraryBrowseDirectory "library\PSpice")
+  (Folder "Logs")
+  (PartMRUSelector
+    (TLV3601
+      (FullPartName "TLV3601.Normal")
+      (LibraryName "C:\MODELING\TLV3601_TI\TLV3601.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\tlv3601.dsn")
+      (Path "Design Resources" ".\tlv3601.dsn" "SCHEMATIC1")
+      (Path "Design Resources" "Library")
+      (Path "Design Resources" "Library" ".\library\tlv3601.olb")
+      (Path "Outputs")
+      (Select "Design Resources" ".\tlv3601.dsn"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 1020"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 1634 24 1061")
+        (Scroll "-70 66")
+        (Zoom "150")
+        (Occurrence "/"))
+      (Path "C:\MODELING\TLV3601_TI\TLV3601.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1")))
+  (MPSSessionName "a0488729"))

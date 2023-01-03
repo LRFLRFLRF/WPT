@@ -1,0 +1,75 @@
+* D:\works\WPT\PCB\SIMetrix\Infineon-Gate_driver_2EDF7275K_EiceDRIVER_TINA_PSPICE_SIM-SimulationModels-v01_00-EN\2EDF7275K - Dual Channel Isolated Gate Driver - TINA - PSPICE - SIM\Simetrix\48V to 12V Brick with FB primary side 2EDF7275K.sxsch
+*#SIMETRIX
+.GRAPH L1#P axisType="grid" axisName="Is" persistence=-1 curveLabel="Is" xLog="auto" yLog="lin"  nowarn=true disabled=false 
+.GRAPH "V(S_Q4)-V(S_Q1)" axisType="owngrid" persistence=-1 curveLabel="Vdiffp" analysis="tran|ac|dc" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH V12_P axisType="grid" axisName="INA" persistence=-1 curveLabel="INA2" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe12  
+V1 Q1_D 0 48
+V2 R7_N 0 3.3
+R1 U2_VDDB R1_N 3
+X$V3 V3_P 0 PUL_SOURCE pinnames: P N params: _V1=0 _V2=3.3 _FREQ=100k _DELAY=5u _DRATIOx100=45.01 _T_RISE=1n _T_FALL=1n _DAMP_COEF=0 _PWIDTH=4.5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=5u
+R2 Vgs_Q2 U2_OUTA 4
+V4 V4_P 0 25
+R3 D3_P V5_P 2
+V5 V5_P 0 12
+L1 L1_P L1_N 600n   
+R4 Vgs_Q1 D1_P 2
+X$V6 V6_P 0 PUL_SOURCE pinnames: P N params: _V1=0 _V2=3.3 _FREQ=100k _DELAY=0 _DRATIOx100=45.01 _T_RISE=1n _T_FALL=1n _DAMP_COEF=0 _PWIDTH=4.5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=0
+D10 D10_P R18_N D1n5408
+.GRAPH TX2#10 axisType="grid" axisName="Ip" persistence=-1 curveLabel="Ip" xLog="auto" yLog="lin"  nowarn=true disabled=false 
+R5 Vgs_Q1 D1_N 4
+D11 Vgs_Q4 D11_N d1n4006
+R6 D6_N U2_OUTA 2
+R7 C5_P R7_N 1
+D1 D1_P D1_N d1n4006
+R8 C6_P R8_N 1
+D2 Vgs_Q3 D2_N d1n4006
+D3 D3_P R1_N D1n5408
+D6 Vgs_Q2 D6_N d1n4006
+D7 0 TX2_20 ZHCS2000
+D8 0 TX2_31 ZHCS2000
+R13 L1_N 0 2
+R14 Vgs_Q3 U1_OUTA 4
+R15 U1_OUTA D2_N 2
+R16 R16_P D11_N 2
+R17 D10_P V16_P 2
+R18 U1_VDDB R18_N 3
+R19 Vgs_Q4 R16_P 4
+X$U1 U1_OUTA 0 D10_P V12_P 0 C6_P U1_Tj U1_Tamb U1_Tc V14_P R8_N U1_DISABLE U1_NC U1_VDDB R16_P S_Q4 2EDF7275K params: THERMAL_MODEL=1
+X$V12 V12_P 0 PUL_SOURCE pinnames: P N params: _V1=0 _V2=3.3 _FREQ=100k _DELAY=0 _DRATIOx100=45.01 _T_RISE=1n _T_FALL=1n _DAMP_COEF=0 _PWIDTH=4.5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=0
+X$U2 U2_OUTA 0 D3_P V3_P 0 C5_P U2_Tj U2_Tamb U2_Tc V6_P R7_N U2_DISABLE U2_NC U2_VDDB D1_N S_Q1 2EDF7275K params: THERMAL_MODEL=1
+V13 U1_Tamb 0 25
+X$Q1 Q1_D Vgs_Q1 S_Q1 BSC057N08NS3_L0  pinnames: D G S 
+X$V14 V14_P 0 PUL_SOURCE pinnames: P N params: _V1=0 _V2=3.3 _FREQ=100k _DELAY=5u _DRATIOx100=45.01 _T_RISE=1n _T_FALL=1n _DAMP_COEF=0 _PWIDTH=4.5u _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=5u
+X$Q2 S_Q1 Vgs_Q2 0 BSC057N08NS3_L0 pinnames: D G S
+V15 R8_N 0 3.3
+X$Q3 S_Q4 Vgs_Q3 0 BSC057N08NS3_L0 pinnames: D G S
+V16 V16_P 0 12
+X$Q4 Q1_D Vgs_Q4 S_Q4 BSC057N08NS3_L0 pinnames: D G S
+C1 U2_VDDB S_Q1 1u IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C2 L1_N 0 1m   
+C3 D3_P 0 1u IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C4 U1_VDDB S_Q4 1u IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C5 C5_P 0 100n IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C6 C6_P 0 100n IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+C7 D10_P 0 1u IC=0  BRANCH={IF(ANALYSIS=2,1,0)} ICMODE=0
+X$TX2 S_Q4 S_Q1 TX2_20 L1_P L1_P TX2_31 Ideal_TxTX2 pinnames: 10 11 20 21 30 31 
+.subckt Ideal_TxTX2 10 11 20 21 30 31 
+L1 10 11 200u 
+L2 20 21 18u 
+L3 30 31 18u 
+K12 L1 L2 1 
+K13 L1 L3 1 
+K23 L2 L3 1 
+.ends 
+
+.GRAPH V14_P axisType="grid" axisName="INB" persistence=-1 curveLabel="INB2" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe1  
+.GRAPH V3_P axisType="grid" axisName="INA1" persistence=-1 curveLabel="INA1" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe2  
+.GRAPH "V(L1_P)-V(TX2_20)" axisType="grid" axisName=" Vdiffs" persistence=-1 curveLabel="Vdiffs" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH "V(Vgs_Q2)-V(0)" axisType="grid" axisName="Vgs,Q2" persistence=-1 curveLabel="Vgs,Q2" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH L1_N axisType="grid" axisName="Vout" persistence=-1 curveLabel="Vout" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe5  
+.GRAPH "V(Vgs_Q3)-V(0)" axisType="grid" axisName="Vgs,Q3" persistence=-1 curveLabel="Vgs,Q3" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH "V(Vgs_Q1)-V(S_Q1)" axisType="grid" axisName="Vgs,Q1" persistence=-1 curveLabel="Vgs,Q1" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.GRAPH V6_P axisType="grid" axisName="INB1" persistence=-1 curveLabel="INB1" xLog="auto" yLog="auto"  nowarn=true disabled=false PROBEREF=Probe8  
+.GRAPH "V(Vgs_Q4)-V(S_Q4)" axisType="grid" axisName="Vgs,Q4" persistence=-1 curveLabel="Vgs,Q4" xLog="auto" yLog="auto"  nowarn=true disabled=false 
+.tran 400u
+

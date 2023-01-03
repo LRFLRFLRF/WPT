@@ -1,0 +1,9 @@
+Added Component: Designator=D13(1N4148_Stand)
+Added Component: Designator=D23(1N4148_Stand)
+Added Pin To Net: NetName=+12 Pin=D13-1
+Added Pin To Net: NetName=NetC11_1 Pin=D13-2
+Added Pin To Net: NetName=+12 Pin=D23-1
+Added Pin To Net: NetName=NetC21_1 Pin=D23-2
+Added Member To Class: ClassName=Wireless power1 Member=Component D13 BYV26
+Added Member To Class: ClassName=Wireless power1 Member=Component D23 BYV26
+Added Room: Name=Wireless power1
