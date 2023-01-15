@@ -82,12 +82,12 @@ zajianju = parto{findres, 2}
 
 
 %% »­¸ÃµãµÄÍ¼Ïñ
-tw = 0.378;
-rd = 0.25;
-lpp = 14;
+tw = 2;
+rd = 0.5;
+lpp = 15;
 n = round(rd*lpp/tw);
-n=11;
-single_unit_plot(tw, 4.5, n, lpp, 2);
+n=5;
+single_unit_plot(tw, 4.5, n, lpp, 1);
 
 
 

@@ -1,0 +1,13 @@
+* source TLV3601
+.EXTERNAL INPUT IN+
+.EXTERNAL INPUT IN-
+.EXTERNAL INPUT V+
+.EXTERNAL INPUT OUT
+.EXTERNAL INPUT V-
+X_U1         IN+ IN- V+ V- OUT TLV3601
+V_V+1         V- 0 -2.5
+V_VINN         IN- 0 0
+V_V+         V+ 0 2.5
+V_V1         IN+ 0  
++SIN 0 100m 500k 0 0 0
+R_R3         V- OUT  1k TC=0,0 

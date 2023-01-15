@@ -203,3 +203,11 @@ save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\Array_CD_MQ.mat'
 figure();
 plot(RES(:,1), RES(:, 2));
 
+
+%% 计算耦合系数
+Lp = 59.522E-6;
+Ls = 72.263E-6;
+La = 105.41E-6;
+
+Txk = 6.3E-6/sqrt(Lp*Ls)
+Tak = 5.5E-6/sqrt(La*Ls)

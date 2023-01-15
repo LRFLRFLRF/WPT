@@ -19,15 +19,15 @@ class Maxwell:
         flag = 0
         name_list = oProject.GetTopDesignList()
         for i in name_list:
-            if i == 'test':
+            if i == 'test1':
                 flag = 1
 
         if flag == 1:
-            oProject.DeleteDesign("test")
+            oProject.DeleteDesign("test1")
             oProject.Save()
 
-        oProject.InsertDesign("Maxwell 3D", "test", "Magnetostatic", "")
-        self.oDesign = oProject.SetActiveDesign("test")
+        oProject.InsertDesign("Maxwell 3D", "test1", "Magnetostatic", "")
+        self.oDesign = oProject.SetActiveDesign("test1")
         self.oEditor = self.oDesign.SetActiveEditor("3D Modeler")
 
         self.BoundaryoModule = self.oDesign.GetModule("BoundarySetup")

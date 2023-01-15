@@ -11,7 +11,7 @@ mesh(x,y,z1)
 hold on
 mesh(x,y,z2)
 
-%%导出数据到origin！！！
+%% 导出数据到origin！！！
 save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_zheng.mat','z2');
 save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_fu.mat','z1');
 

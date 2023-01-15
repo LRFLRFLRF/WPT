@@ -124,7 +124,7 @@ for i = 1:paralist.send_N
 end
 rd = (paralist.send_N-1)*paralist.send_tw/paralist.send_maxR;
 %%绘制单匝Rx的互感计算值
-%plot_M(sweeplist, paralist, res1,Var,Mean, rd, zhunarea, decay);
+plot_M(sweeplist, paralist, res1,Var,Mean, rd, zhunarea, decay);
 
 %% 计算阵列自感
 L_array = cal_unit_L(paralist, sweeplist);

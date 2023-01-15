@@ -60,17 +60,28 @@ path = 'D:\works\WPT\python_code\maxwell_script\PT_sym\multiobj_matlab\cal_and_f
 %      ';rd=',num2str(round(canshu4,2)),';recR=',num2str(paralist.rec_maxR*100),';maxR=',...
 %      num2str(paralist.send_maxR*100), ';Qua=', num2str(round(zhunarea,2)*100),'%', ';Cop=', num2str(round(decay,2)),'.png']); % 保存到工作目录下
 
+%% 保存互感到origin！！！
+% %线圈tw变换对互感影响图
+% z1 = [x', res1'];
+% save('C:\Users\LRF\OneDrive\works\WPT\PAPER\origin\matlab_record\MQ_tw\MQ_tw_2.mat','z1');
+
+
+% %线圈互感计算模型与ansys的验证
+% z1 = [x', res1'];
+% save('C:\Users\LRF\OneDrive\works\WPT\PAPER\origin\matlab_record\calmodel_ansys_verification_2unit.mat','z1');
+
+
 % % 保存2x1阵列互感结果到mat 用于origin绘图
 % double_unit_M = [x', res1'];
-% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\double_unit_M.mat','double_unit_M')
+% save('C:\Users\LRF\OneDrive\works\WPT\PAPER\origin\matlab_record\double_unit_M.mat','double_unit_M')
 
 % % 保存左侧单元互感结果到mat 用于origin绘图
 % left_unit_M = [x', res1'];
-% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\left_unit_M.mat','left_unit_M')
+% save('C:\Users\LRF\OneDrive\works\WPT\PAPER\origin\matlab_record\left_unit_M.mat','left_unit_M')
 % 
 % % 保存右侧单元互感结果到mat 用于origin绘图
 % x = x - paralist.overlay*100 + paralist.send_maxR*2*100;
 % right_unit_M = [x', res1'];
-% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\right_unit_M.mat','right_unit_M')
+% save('C:\Users\LRF\OneDrive\works\WPT\PAPER\origin\matlab_record\right_unit_M.mat','right_unit_M')
 end
 
