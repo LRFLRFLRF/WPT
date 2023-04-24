@@ -14,10 +14,11 @@ para.aux_maxR = 0;%
 para.rec_maxR = 5;%     %接收线圈最大半径
 para.array_num_y = canshu5;   % 阵列单元数
 
-sweep.start_p = -10;    % 扫描起始点
-%sweep.end_p = para.array_num_y*(2*para.send_maxR-para.overlay)+10;  % 扫描中止点
+sweep.start_p = 0;    % 扫描起始点
 sweep.end_p = para.array_num_y*2*para.send_maxR - (para.array_num_y-1)*para.overlay+10;  % 扫描中止点
-sweep.steps = 45*para.array_num_y;   % 扫描点数 
+sweep.end_p = 28*2-4.5;  %%手动指定扫描结束点！！！一般用上面那行
+
+sweep.steps = 10*para.array_num_y;   % 扫描点数 %%以前是45
 sweep.start_z = 5; %2   %z方向扫描起始点    
 sweep.end_z = 5;  %8  %z方向扫描中止点
 sweep.steps_z = 0;  %3   %z方向扫描点数
@@ -143,14 +144,15 @@ elseif canshu5 ==2
 end 
 k = res(:,:)./sqrt(72*L_array);
 
-%k = 0;
+%% 下面的绘图是用Rx匝数进行了矫正   上面的Plot是单匝Rx
 %% 绘图  耦合系数
-plot_L(paralist,sweeplist, k,Var,Mean, rd, zhunarea,decay, L_array)
-
-
+%plot_L(paralist,sweeplist, k,Var,Mean, rd, zhunarea,decay, L_array)
 %% 绘图  绘制整个Rx的计算互感
-plot_M(sweeplist, paralist, res,Var,Mean, rd, zhunarea, decay);
+%plot_M(sweeplist, paralist, res,Var,Mean, rd, zhunarea, decay);
 
+
+
+%% 绘图导出
 %% 下面是用于导出数据的代码 用于origin绘图 平时不用！！！
 % %单Tx互感计算结果导出
 % x = sweeplist.start_p:sweeplist.lens:sweeplist.end_p;
@@ -160,10 +162,29 @@ plot_M(sweeplist, paralist, res,Var,Mean, rd, zhunarea, decay);
 % save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\single_Tx_MQ.mat','RESULT');
 
 % %双Tx的2x1阵列互感计算结果导出
-x = sweeplist.start_p:sweeplist.lens:sweeplist.end_p;
-x = x.*100;
-RESULT = [x', res'];
+% x = sweeplist.start_p:sweeplist.lens:sweeplist.end_p;
+% x = x.*100;
+% RESULT = [x', res'];
 % % 保存结果到mat 
 % save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\double_Tx_MQ.mat','RESULT');
 
+% 
+% %导出不同重叠宽度lo下的互感计算结果
+% x = sweeplist.start_p:sweeplist.lens:sweeplist.end_p;
+% x = x.*100;
+% RESULT = [x', res1'];
+% % 保存结果到mat 
+% save('C:\Users\LRF\OneDrive\works\WPT\PAPER\origin\matlab_record\diff_lo_M\lo_-2.mat','RESULT');
+
+% %导出Rx位置检测方法的耦合系数实验结果
+% x = sweeplist.start_p:sweeplist.lens:sweeplist.end_p;
+% x = x.*100;
+% RESULT = [x', k'];
+% disp('')
+
+% %导出瓦片互感实验结果
+% x = sweeplist.start_p:sweeplist.lens:sweeplist.end_p;
+% x = x.*100;
+% RESULT = [x', res'];
+% disp('')
 end

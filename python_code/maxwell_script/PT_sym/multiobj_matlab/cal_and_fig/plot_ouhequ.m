@@ -12,8 +12,8 @@ hold on
 mesh(x,y,z2)
 
 %% 导出数据到origin！！！
-save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_zheng.mat','z2');
-save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_fu.mat','z1');
+% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_zheng.mat','z2');
+% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_fu.mat','z1');
 
 %% 计算kc
 kc = sqrt(1-0.25*(2-Q1^(-2))^2)
@@ -33,5 +33,5 @@ hold on
 mesh(x,y,z2)
 
 %%导出数据到origin！！！
-save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_zheng_kandQ.mat','z2');
-save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_fu_kandQ.mat','z1');
+% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_zheng_kandQ.mat','z2');
+% save('C:\Users\LRF\OneDrive\文档\WPT\PAPER\origin\matlab_record\f_fu_kandQ.mat','z1');

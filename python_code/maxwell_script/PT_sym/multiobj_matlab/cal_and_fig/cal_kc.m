@@ -61,16 +61,16 @@ xlabel(['L2变化范围'],'fontsize',10);
 clear;
 syms kc RL w1 L1 L2 M
 
-L1andM = [59.52*1E-6, 6.4*1E-6];    % 给定的L1自感值 和 互感值  %6.4的时候是独立tx
+%L1andM = [59.52*1E-6, 6.4*1E-6];    % 给定的L1自感值 和 互感值  %6.4的时候是独立tx
 L1andM = [105.41*1E-6, 5.8*1E-6];    % 给定的L1自感值 和 互感值  %双单元自感105.41
 %L1andM = [2*59.52*1E-6, 6.4*1E-6];    % 给定的L1自感值 和 互感值  %两个独立Tx
 %L1andM = [105.41*1E-6 + 59.52*1E-6, 6.1*1E-6];    % 给定的L1自感值 和 互感值  %一个2x1阵列加一个Tx
-L1andM = [2*105.41*1E-6, 5.8*1E-6];    % 给定的L1自感值 和 互感值  %两个2x1阵列
+%L1andM = [2*105.41*1E-6, 5.8*1E-6];    % 给定的L1自感值 和 互感值  %两个2x1阵列
 fc = 4E+5;
 x_range = 50*1E-6: 1E-6: 90*1E-6;
 
 %计算临界RL
-k_m = sqrt(2)*M/sqrt(L1*L2);    % 这里计算双负载时就需要多乘一个sqrt(2)  ！！！！！！！！！！！！！！！！
+k_m = sqrt(2)*M/sqrt(L1*L2);    %sqrt(2)* 这里计算双负载时就需要多乘一个sqrt(2)  ！！！！！！！！！！！！！！！！
 Q1_m = (2-sqrt(4*(1-k_m^2)))^(-0.5);   % 极限条件是kc等于k  实际耦合系数恰好在边界kc处
 RL_m = fc*2*pi*L2/Q1_m;
 RL_m = vpa(subs(RL_m, [L1, M],L1andM),4);
@@ -81,7 +81,7 @@ end
 rlzhi = double(vpa(subs(RL_m, L2,72.263E-6),4))
 
 %计算临界耦合系数
-RL = 10; %给定RL值
+RL = 5; %给定RL值
 Q1 = fc*2*pi*L2/RL;
 kc_m = sqrt(1-0.25*(2-Q1^(-2))^2);
 kc_m = vpa(subs(kc_m, [],[]),4);
@@ -92,7 +92,7 @@ end
 kczhi = double(vpa(subs(kc_m, L2,72.263E-6),4))
 
 % 计算实际耦合系数
-k_m = sqrt(2)*M/sqrt(L1*L2);    % 这里计算双负载时就需要多乘一个sqrt(2)  ！！！！！！！！！！！！！！！！
+k_m = sqrt(2)*M/sqrt(L1*L2);    %这里计算双负载时就需要多乘一个sqrt(2)  ！！！！！！！！！！！！！！！！
 k_m = vpa(subs(k_m, [L1, M],L1andM),4);
 klist = [];
 for i = x_range
@@ -102,6 +102,6 @@ kzhi = double(vpa(subs(k_m, L2,72.263E-6),4))
 
 z1 = [x_range', RLlist, kclist, klist];
 
-save('C:\Users\LRF\OneDrive\works\WPT\PAPER\origin\matlab_record\kcRL_doubleArray_doubleRx.mat','z1');
+%save('C:\Users\LRF\OneDrive\works\WPT\PAPER\origin\matlab_record\ChapterV\diffType\2x2x1.mat','z1');
 disp('ok')
 
